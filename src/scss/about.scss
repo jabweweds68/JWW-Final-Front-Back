@@ -1,0 +1,203 @@
+.about-hero-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 4rem;
+    margin-top: 3rem;
+    flex-direction: row-reverse;
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        justify-content: center;
+        
+    }
+    .right-image-about{
+        height: 65vh;
+        width: 45vw;
+        overflow: hidden;
+        border-radius: 10px;
+          @media (max-width: 768px) {
+      height: fit-content;
+      width: 95vw;
+      height: 100%;
+      margin-top: 5rem;
+        
+    }
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+.left-content-about{
+    width: 45vw;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+         @media (max-width: 768px) {
+      height: fit-content;
+      width: 95%;
+      margin-top: 20vh;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+        
+    }
+    h1{
+        font-size: 8rem;
+        color: #552716;
+        display: flex;
+        font-weight: lighter;
+       gap: 2rem;
+        text-transform: capitalize;
+        @media (max-width: 768px) {
+            font-size: 22rem;
+            
+           }
+    }
+    .lower-ab-section{
+    p{
+        font-size: 1.8rem;
+        width: 80%;
+        color: #552716;
+        font-family: "Roboto", sans-serif;
+        text-transform: capitalize;
+        @media (max-width: 768px) {
+            font-size: 5rem;
+            padding-bottom: 3rem;
+            width: 100%;
+            
+           }
+    }
+}
+    .Pink-p-ab{
+        color: #96D2EE;
+    }
+      .blue-b-ab{
+        color: #F27B75;
+    }
+}
+.section-info-ab-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    flex-direction: row-reverse;
+    @media (max-width: 800px) {
+        flex-direction: column;
+        
+    }
+ 
+  .box-ab-Left{
+    width: 50vw;
+    height: 100vh;
+      @media (max-width: 800px) {
+         width: 100vw;
+        
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+  }
+  .box-ab-right{
+    width: 50vw;
+    background-color: #934919;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 3rem;
+          @media (max-width: 800px) {
+         width: 100vw;
+        
+    }
+        h1{
+            font-size: 5.5rem;
+            color: #FFF7DD;
+            text-transform: capitalize;
+            display: flex;
+            display: flex;
+            align-items: center;
+            font-weight: lighter;
+                @media (max-width: 800px) {
+        font-size: 12rem;
+        position: relative;
+        z-index: 20;
+
+        
+    }
+            span{
+                scale: 0.7;
+                          @media (max-width: 800px) {
+       scale: 0.5;
+
+        
+    }
+            }
+        }
+  }
+}
+.btm-content{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  
+    p{
+        font-size: 1.8rem;
+        color: #FFF7DD;
+        font-family: "Roboto", sans-serif;
+        text-transform: capitalize;
+        @media (max-width: 800px) {
+            font-size: 5rem;
+            
+           }
+    }
+    .cta{
+        background-color: #FFF7DD;
+        border: 1px solid #FFF7DD;
+    }
+}
+.circle-rotate{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+ 
+    border-radius: 50%;
+    background-size: cover;
+    mix-blend-mode: difference;
+    background-position: center;
+    @media (max-width: 800px) {
+         top: 65%;
+    left: 50%;
+        
+    }
+   
+  svg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.lower-ab-section{
+    @media (max-width: 768px) {
+        
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+      }
+    
+}

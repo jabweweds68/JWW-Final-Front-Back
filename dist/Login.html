@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - JWW</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #fcc;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .login-field {
+            margin-bottom: 20px;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .login-field input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-field input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .password-input-container {
+            position: relative;
+        }
+
+        .password-input {
+            padding-right: 50px !important;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: #667eea;
+            background: #f0f0f0;
+        }
+
+        .password-toggle:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6c3;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .login-form h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animation for form entrance */
+        .login-container {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/routeProtection-DSIqgifz.js"></script>
+</head>
+
+<body>
+    <div class="login-container">
+        <form class="login-form" id="loginForm">
+            <h2>JWW</h2>
+
+            <div id="errorMessage" class="login-error" style="display: none;"></div>
+            <div id="successMessage" class="success-message" style="display: none;"></div>
+
+            <div class="login-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autofocus />
+            </div>
+
+            <div class="login-field">
+                <label for="password">Password</label>
+                <div class="password-input-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password"
+                        class="password-input" autocomplete="current-password" required />
+                    <button type="button" class="password-toggle" id="passwordToggle"
+                        aria-label="Toggle password visibility">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                Login
+            </button>
+        </form>
+    </div>
+    <script >
+        const CONFIG = {
+    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+};
+    </script>
+    <script>
+        const BACKEND_URL = CONFIG.BACKEND_URL;
+        // DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // State
+        let isLoading = false;
+        let showPassword = false;
+
+        // This function will be called by routeProtection.js if page is accessible
+        function initializePageContent() {
+            // console.log('Login page initialized');
+            // No additional initialization needed for login page
+        }
+
+        // Show/hide error messages
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function showSuccessMessage(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            showPassword = !showPassword;
+
+            if (showPassword) {
+                passwordInput.type = 'text';
+                eyeIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Set loading state
+        function setLoadingState(loading) {
+            isLoading = loading;
+
+            const inputs = [emailInput, passwordInput, passwordToggle];
+            inputs.forEach(input => {
+                input.disabled = loading;
+            });
+
+            if (loading) {
+                loginBtn.innerHTML = '<span class="loading-spinner"></span>Logging in...';
+                loginBtn.disabled = true;
+            } else {
+                loginBtn.innerHTML = 'Login';
+                loginBtn.disabled = false;
+            }
+        }
+
+        // Handle form submission
+        async function handleSubmit(e) {
+            e.preventDefault();
+            console.log('Submitting login form...');
+
+            if (isLoading) return;
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // Basic validation
+            if (!email || !password) {
+                showErrorMessage('Both email and password are required.');
+                return;
+            }
+
+            try {
+                // Set loading state
+                setLoadingState(true);
+                hideMessages();
+
+                // Make API request to your backend
+                const response = await fetch(`${BACKEND_URL}/AdminLogin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                console.log("REsponse",data)
+
+                if (response.ok && data.success) {
+                    // Login successful - store token and redirect to dashboard
+                    // console.log('Login successful:', data);
+
+                    // Store admin token and info
+                    localStorage.setItem('adminToken', data.data.token);
+                    localStorage.setItem('adminInfo', JSON.stringify(data.data.admin));
+
+                    // Show success message
+                    showSuccessMessage('Login successful! Redirecting to dashboard...');
+
+                    // Use direct window.location instead of routeProtection method
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+
+                } else {
+                    // Login failed - show error message
+                    showErrorMessage(data.message || 'Login failed. Please try again.');
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showErrorMessage('Network error. Please check your connection and try again.');
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        // Event listeners
+        loginForm.addEventListener('submit', handleSubmit);
+        passwordToggle.addEventListener('click', togglePasswordVisibility);
+
+        // Handle Enter key in form fields
+        emailInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isLoading) {
+                passwordInput.focus();
+            }
+        });
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isLoading) {
+                handleSubmit(e);
+            }
+        });
+
+        // Clear error messages when user starts typing
+        emailInput.addEventListener('input', hideMessages);
+        passwordInput.addEventListener('input', hideMessages);
+
+        // Focus email input when page loads (only after route protection check)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure route protection has run
+            setTimeout(() => {
+                if (document.body.style.visibility === 'visible') {
+                    emailInput.focus();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

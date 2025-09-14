@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mallanna&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
+      rel="stylesheet"
+    />
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/marquee-27CAOdvs.js"></script>
+  <script type="module" crossorigin src="/assets/cart-BgjZlkcG.js"></script>
+  <script type="module" crossorigin src="/assets/cart-manager-BtI-k1Ka.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/marquee-CQOPyjMw.css">
+</head>
+<body>
+  
+  <!-- My Cart -->
+<div class="cart-section-side" id="cart">
+    <div class="close-btn-cart" id="close-cart">Close</div>
+    <div class="heading-empty" id="empty-cart-message">
+      <h1>Empty Cart Shop Now</h1>
+    </div>
+     <div class="cart-products-card" id="cart-products-container">
+     <div class="products-wrapper">
+       <!-- Cart items will be dynamically added here -->
+     </div>
+      
+      <div class="shop-more">
+        SHOP MORE
+        <img src="data:image/svg+xml,%3csvg%20width='29'%20height='27'%20viewBox='0%200%2029%2027'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.05556%2017.4706H22.5556C23.4417%2017.4706%2024.1667%2018.1853%2024.1667%2019.0588C24.1667%2019.9324%2023.4417%2020.6471%2022.5556%2020.6471H6.44444C5.55833%2020.6471%204.83333%2019.9324%204.83333%2019.0588V3.17647H1.61111C0.725%203.17647%200%202.46176%200%201.58824C0%200.714706%200.725%200%201.61111%200H6.44444C7.33056%200%208.05556%200.714706%208.05556%201.58824V4.76471H29L22.5556%2015.8824H8.05556V17.4706ZM7.25%2022.2353C8.58722%2022.2353%209.66667%2023.2994%209.66667%2024.6176C9.66667%2025.9359%208.58722%2027%207.25%2027C5.91278%2027%204.83333%2025.9359%204.83333%2024.6176C4.83333%2023.2994%205.91278%2022.2353%207.25%2022.2353ZM21.75%2022.2353C23.0872%2022.2353%2024.1667%2023.2994%2024.1667%2024.6176C24.1667%2025.9359%2023.0872%2027%2021.75%2027C20.4128%2027%2019.3333%2025.9359%2019.3333%2024.6176C19.3333%2023.2994%2020.4128%2022.2353%2021.75%2022.2353Z'%20fill='%23552716'/%3e%3c/svg%3e" alt="">
+      </div>
+    </div>
+    
+    <div class="sub-totals-product" id="cart-totals">
+       <div class="products-total-p">
+        <span>Products : </span>
+        <span id="products-total">0</span>
+       </div>
+       <div class="delivery-charges">
+        <span>Delivery Charges</span>
+        <span>250</span>
+       </div>
+       <div class="subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal">250</span>
+       </div>
+       <div class="cta-check">
+       <div class="cta checkout">CHECK OUT</div>
+       <div class="del" id="clear-cart"><img src="data:image/svg+xml,%3csvg%20width='61'%20height='61'%20viewBox='0%200%2061%2061'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='61'%20height='61'%20rx='30.5'%20fill='%23D7362E'/%3e%3cpath%20d='M23.3125%2043C22.5219%2043%2021.8453%2042.7282%2021.2827%2042.1847C20.7202%2041.6412%2020.4385%2040.987%2020.4375%2040.2222V22.1667H19V19.3889H26.1875V18H34.8125V19.3889H42V22.1667H40.5625V40.2222C40.5625%2040.9861%2040.2812%2041.6403%2039.7187%2042.1847C39.1561%2042.7292%2038.4791%2043.0009%2037.6875%2043H23.3125ZM26.1875%2037.4444H29.0625V24.9444H26.1875V37.4444ZM31.9375%2037.4444H34.8125V24.9444H31.9375V37.4444Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+       </div>
+    </div>
+</div>
+
+  <div class="cart-btn-float" id="open-cart">
+     
+    <img src="data:image/svg+xml,%3csvg%20width='61'%20height='61'%20viewBox='0%200%2061%2061'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20y='0.000244141'%20width='61'%20height='61'%20rx='30.5'%20fill='%23552716'/%3e%3cpath%20d='M38%2038.0002C36.6125%2038.0002%2035.5%2039.1127%2035.5%2040.5002C35.5%2041.1633%2035.7634%2041.7992%2036.2322%2042.268C36.7011%2042.7369%2037.337%2043.0002%2038%2043.0002C38.663%2043.0002%2039.2989%2042.7369%2039.7678%2042.268C40.2366%2041.7992%2040.5%2041.1633%2040.5%2040.5002C40.5%2039.8372%2040.2366%2039.2013%2039.7678%2038.7325C39.2989%2038.2636%2038.663%2038.0002%2038%2038.0002ZM18%2018.0002V20.5002H20.5L25%2029.9877L23.3%2033.0502C23.1125%2033.4002%2023%2033.8127%2023%2034.2502C23%2034.9133%2023.2634%2035.5492%2023.7322%2036.018C24.2011%2036.4869%2024.837%2036.7502%2025.5%2036.7502H40.5V34.2502H26.025C25.9421%2034.2502%2025.8626%2034.2173%2025.804%2034.1587C25.7454%2034.1001%2025.7125%2034.0206%2025.7125%2033.9377C25.7125%2033.8752%2025.725%2033.8252%2025.75%2033.7877L26.875%2031.7502H36.1875C37.125%2031.7502%2037.95%2031.2252%2038.375%2030.4627L42.85%2022.3752C42.9375%2022.1752%2043%2021.9627%2043%2021.7502C43%2021.4187%2042.8683%2021.1008%2042.6339%2020.8664C42.3995%2020.6319%2042.0815%2020.5002%2041.75%2020.5002H23.2625L22.0875%2018.0002M25.5%2038.0002C24.1125%2038.0002%2023%2039.1127%2023%2040.5002C23%2041.1633%2023.2634%2041.7992%2023.7322%2042.268C24.2011%2042.7369%2024.837%2043.0002%2025.5%2043.0002C26.163%2043.0002%2026.7989%2042.7369%2027.2678%2042.268C27.7366%2041.7992%2028%2041.1633%2028%2040.5002C28%2039.8372%2027.7366%2039.2013%2027.2678%2038.7325C26.7989%2038.2636%2026.163%2038.0002%2025.5%2038.0002Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt="">
+  </div>
+    <div class="slide-bar">
+  <div class="menu-2">
+     <a href="./index.html">HOME</a>
+     <a href="./About.html">About</a>
+      <a href="./contact.html">CONTACT</a>
+  </div>
+  <div class="close-btn">CLOSE</div>
+  <div class="upper-picture-menu">
+<div class="grid-box-container">
+    <div class="box">
+        <div class="elents"><img src="/assets/el-1-C2W2WkV8.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></div>
+            <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+      <div class="name-box">DARK DESIRE</div>
+      <div class="choco-menu"><img src="/assets/darkdesire-4tRJQSzw.png" alt=""></div>
+    </div>
+    <div class="box">
+      <div class="elents"><img src="/assets/el-1-C2W2WkV8.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></div>
+            <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+       <div class="name-box">STRAWBAE</div>
+      <div class="choco-menu"><img src="/assets/strawbae-cGyI8otB.png" alt=""></div>
+    </div>
+    <div class="box">
+       <div class="elents"><img src="/assets/el-3-Co6LkWZG.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-1-DXlVenYi.png" alt=""></div>
+            <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+       <div class="name-box">VANILLALUST</div>
+      <div class="choco-menu"><img src="/assets/vanillalust-qL1LWr7F.png" alt=""></div>
+    </div>
+    <div class="box">
+        <div class="elents"><img src="/assets/el-3-Co6LkWZG.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-1-DXlVenYi.png" alt=""></div>
+            <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+       <div class="name-box">BUNDLE</div>
+      <div class="choco-menu"><img src="/assets/darkdesire-4tRJQSzw.png" alt=""></div>
+    </div>
+  </div>
+  </div>
+</div>
+     <nav >
+        <div class="since">since 2022</div>
+        <div class="line-bar"></div>
+<div class="logo">
+    <img src="/assets/spl-removebg-preview%201-CrT4m2en.png" alt="">
+</div>
+ <div class="line-bar"></div>
+<div class="menu">MENU</div>
+    </nav>
+
+
+<div class="hero-contact">
+    <div class="left-sided-contact-heading">
+        <h1>ANY QUERY?
+          <br>
+<span class="blue-b">LET"S </span>
+ <span class="pink-p">CONNECT</span>
+</h1>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis voluptatibus aliquam aperiam? Molestias ipsa dolor ipsam quibusdam deserunt ipsum possimus, at in laborum praesentium tenetur animi? Ab omnis minus eaque.</p>
+    </div>
+  <div class="right-side-social-account">
+  <div class="bar-social">
+    <ul>
+      <li><h1>General inquiries</h1></li>
+      <li><a href="mailto:customercare@jabweweds.com">customercare@jabweweds.com</a></li>
+      <li><a href="tel:+923074250312">+92 307 4250312</a></li>
+    </ul>
+  </div>
+
+  <div class="bar-social">
+    <ul>
+      <li><h1>Social media</h1></li>
+      <li><a href="https://www.facebook.com/share/1BHEh4A6wU/" target="_blank">Facebook</a></li>
+      <li><a href="https://x.com/JabWeWeds?t=Icz5FqbLT_86aVEqnzplqQ&s=09" target="_blank">X</a></li>
+      <li><a href="https://www.instagram.com/jabweweds/" target="_blank">Instagram</a></li>
+    </ul>
+  </div>
+
+  <div class="bar-social">
+    <ul>
+      <li><h1>For collaboration</h1></li>
+      <li><a href="tel:+923074250312">+92 307 4250312</a></li>
+    </ul>
+  </div>
+
+  <div class="bar-social">
+    <ul>
+      <li><h1>Direct chat</h1></li>
+      <li><a href="https://wa.me/923074250312" target="_blank">WhatsApp</a></li>
+      <li><a href="mailto:customercare@jabweweds.com">Mail</a></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+  <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> Melts panties — literally</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> 2nd round? Still rock</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide">Her soul left her body</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+   <div class="faqs-section-container">
+    <div class="faq-headings">
+      🍫 Frequently Asked Questions (FAQs)
+
+    </div>
+    <div class="faq-toggle-container">
+     
+    
+    <div class="faq">
+  <div class="bar-f">
+    <h1>When should we take JWW Chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Right before things get hot. 🔥
+Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferably on a light stomach, no heavy food or alcohol. Whether it’s a planned night of passion or a spontaneous session, this is your pre-game ritual for unforgettable sex.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Is this safe for regular use?</h1>
+     <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes. We use only 100% natural and herbal ingredients, without any artificial stimulants, hormones, or chemicals. Safe for both men and women — no side effects, no crash.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>How long before it starts working?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Usually within 30 to 45 minutes after taking it on a light stomach. Effects can last for several hours — and some say the afterglow lasts even longer. 😉</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Will it work for both partners?</h1>
+        <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes — we’ve created Hubby & Wifey tabs, tailored specifically to the male and female body. The ingredients are chosen to enhance blood flow, arousal, lubrication, stamina, satisfaction and many things for both.</p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>What makes it better than vaigra or supplements?</h1>
+   <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>1. Faster & Stronger Than Viagra**  
+✅ Onset in 30-60mins
+
+2. Zero Side Effects
+❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)  
+❌ No dependency(adaptogens protect receptors) </p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Does it taste like herbs or medicine?</h1>
+      <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Not at all. We use premium chocolate — dark, white, and strawberry . You’ll never taste the herbs… just pleasure. 🍫 </p>
+  </div>
+</div>
+
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Who should not take JWW chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>JWW chocolates is not intended for use by singles (who are not legally married) and children under the age of 18. If you are pregnant, nursing, taking any medication, or have any medical condition, consult your doctor before use.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+   <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+ <footer>
+    <div class="section-main-footer">
+      <div class="side-left-logo">
+        <div class="logo-footer">
+          <img src="/assets/footer-logo-D9TIPGS-.png" alt="">
+        </div>
+        <div class="para-footer">
+          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫 Herbal, Fast & Intense: Made for unstoppable cravings
+          💦
+        </div>
+        <div class="cta-footer">
+          <div class="cta">Get dirty now</div>
+        </div>
+      </div>
+    <div class="menu-links-footer">
+  <ul>
+    <li>
+      <h1>LINKS</h1>
+    </li>
+    <li><a href="./index.html">HOME</a></li>
+    <li><a href="./About.html">ABOUT</a></li>
+    <li><a href="./contact.html">CONTACT</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <h1>SOCIAL MEDIA</h1>
+    </li>
+    <li><a href="https://www.instagram.com/jabweweds/" target="_blank">INSTAGRAM</a></li>
+    <li><a href="https://www.facebook.com/share/1BHEh4A6wU/" target="_blank">FACEBOOK</a></li>
+    <li><a href="https://x.com/JabWeWeds?t=Icz5FqbLT_86aVEqnzplqQ&s=09" target="_blank">X</a></li>
+    <li><a href="https://wa.me/923074250312" target="_blank">WHATSAPP</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="privacy-policy">
+      <p>all right reserved jabweweds</p>
+    </div>
+    <div class="splide">
+      <div class="splide__track splide__track-1  ">
+        <ul class="splide__list ">
+          <li class="splide__slide slide-footer">Better than lube</li>
+
+          <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+          <li class="splide__slide  slide-footer">Pre-cum in seconds</li>
+
+          <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+          <li class="splide__slide  slide-footer">4+hrs of pounding</li>
+
+          <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  const productPageLinks = document.querySelectorAll("#product-page");
+
+  productPageLinks.forEach(element => {
+    element.style.cursor = "pointer"; // make it clickable
+    element.addEventListener("click", () => {
+      window.location.href = "./product-page.html";
+    });
+  });
+</script>
+</html>

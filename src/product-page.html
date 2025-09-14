@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mallanna&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- My Cart -->
+  <div class="cart-section-side" id="cart">
+    <div class="close-btn-cart" id="close-cart">Close</div>
+    <div class="heading-empty" id="empty-cart-message">
+      <h1>Empty Cart Shop Now</h1>
+    </div>
+    <div class="cart-products-card" id="cart-products-container">
+      <div class="products-wrapper">
+        <!-- Cart items will be dynamically added here -->
+      </div>
+
+      <div class="shop-more">
+        SHOP MORE
+        <img src="./assets/images/shop more.svg" alt="">
+      </div>
+    </div>
+
+    <div class="sub-totals-product" id="cart-totals">
+      <div class="products-total-p">
+        <span>Products : </span>
+        <span id="products-total">0</span>
+      </div>
+      <div class="delivery-charges">
+        <span>Delivery Charges</span>
+        <span>250</span>
+      </div>
+      <div class="subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal">250</span>
+      </div>
+      <div class="cta-check">
+        <div class="cta checkout">CHECK OUT</div>
+        <div class="del" id="clear-cart"><img src="./assets/images/del.svg" alt=""></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-bar">
+    <div class="menu-2">
+      <a href="./index.html">HOME</a>
+      <a href="./About.html">About</a>
+      <a href="./contact.html">CONTACT</a>
+    </div>
+    <div class="close-btn">CLOSE</div>
+    <div class="upper-picture-menu">
+      <div class="grid-box-container">
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">DARK DESIRE</div>
+          <div class="choco-menu"><img src="./assets/images/Dark Desire Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">STRAWBAE</div>
+          <div class="choco-menu"><img src="./assets/images/Strawbae Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">VANILLALUST</div>
+          <div class="choco-menu"><img src="./assets/images/Vanillust Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">BUNDLE</div>
+          <div class="choco-menu bundle-c"><img src="./assets/images/bundle.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="since">since 2022</div>
+    <div class="line-bar"></div>
+    <div class="logo">
+      <img src="./assets/images/spl-removebg-preview 1.png" alt="">
+    </div>
+    <div class="line-bar"></div>
+    <div class="menu">MENU</div>
+  </nav>
+
+  <div class="product-page-hero">
+    <div class="left-side-product-picture">
+      <div class="upper-picture-p" id="slider-product-ch">
+        <!-- Product images will be dynamically loaded -->
+      </div>
+      <div class="btns-next-prev-setion">
+        <div class="btns-next-p-1"><img src="./assets/images/left.png" alt=""></div>
+        <div class="btns-next-p-1"><img src="./assets/images/right.png" alt=""></div>
+      </div>
+      <div class="middle-picture-p">
+        <div class="img-p-1">
+          <img src="./assets/images/ABout-pic.png" alt="">
+        </div>
+        <div class="img-p-1">
+          <img src="./assets/images/ABout-pic.png" alt="">
+        </div>
+      </div>
+      <div class="upper-picture-p last-p">
+        <img src="./assets/images/ABout-pic.png" alt="">
+      </div>
+    </div>
+    <div class="right-side-content-product">
+      <div class="heading-product-p">
+        <h1 id="product-name">Loading...</h1>
+      </div>
+      <div class="product-para" id="product-description">Loading product description...</div>
+
+      <h2 class="heading-product-c">Categories</h2>
+      <div class="slider-btn-section" id="category-buttons">
+        <!-- Category buttons will be dynamically loaded -->
+      </div>
+
+      <h2 class="heading-product-c">Sizes</h2>
+      <div class="sizes-btn" id="size-buttons">
+        <!-- Size buttons will be dynamically loaded -->
+      </div>
+
+      <div class="boxes-price-select" id="box-selection">
+        <!-- Box selection will be dynamically loaded -->
+      </div>
+
+      <div class="price-line">
+        <div class="total" id="total-price">PKR: 0</div>
+        <div class="total-name" id="total-description">Select options</div>
+      </div>
+
+      <div class="btn-p-cart">
+        <div class="cta" id="add-to-cart">ADD TO CART</div>
+        <div class="cart-btn" id="open-cart"><img src="./assets/images/cart.svg" alt=""></div>
+      </div>
+      <div class="faqs-product">
+        <div class="faq-product-1">
+          <div class="heading-faqs-product">
+            <h1>What special ingredients are in your chocolates?</h1>
+            <div class="icon-flip"><img src="./assets/images/x-vector.svg" alt=""></div>
+          </div>
+          <p id="para-faq-p">We use natural ingredients known to help with romance and vitality. Our chocolates contain
+            things like Black Maca Root and Ashwagandha to improve energy and desire. We also use L-Citrulline Malate to
+            help with blood flow and Mucuna Pruriens to improve mood and motivation.</p>
+
+        </div>
+        <div class="faq-product-1">
+          <div class="heading-faqs-product">
+            <h1> Are these ingredients safe</h1>
+            <div class="icon-flip"><img src="./assets/images/x-vector.svg" alt=""></div>
+          </div>
+          <p id="para-faq-p">Yes, we use a blend of natural ingredients that have been used for a long time. These
+            ingredients are known to support health and well-being. However, if you have any health concerns, it’s
+            always best to talk to a doctor before trying a new product.</p>
+
+
+        </div>
+        <div class="faq-product-1">
+          <div class="heading-faqs-product">
+            <h1>Are there any stimulants in your chocolates</h1>
+            <div class="icon-flip"><img src="./assets/images/x-vector.svg" alt=""></div>
+          </div>
+          <p id="para-faq-p">We use natural, plant-based ingredients like Horny Goat Weed and Damiana Extract that are
+            known to help with blood flow and libido. These are not strong stimulants like caffeine, but they are
+            designed to support your body's natural desires.</p>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> No side effects. Just side sluts.</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">Taste her addiction</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Stay hard after the nut</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  <div class="heading-review-main">NATURE'S NAUGHTIEST<br>RECIPE</div>
+  <div class="ingredients-section">
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="./assets/images/ingredients.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="./assets/images/Hubby-Chocolate-Mockup.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">HUSBAND EFFECTS </h1>
+          <span class="warning">⚠️ Explicit Warnings</span>
+          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your personal
+            addict.
+            For husband ingredients benefits</p>
+          <ul>
+            <li>🍆 Rock-Hard Erections.</li>
+            <li>🦍 Unstoppable Stamina.</li>
+            <li>💦 Delayed Orgasm, Prolonged Timing.</li>
+            <li>😈 Stronger thrust power & rhythm.</li>
+            <li>🧠 Mentally sharp. Physically animal.</li>
+            <li>🧠 Confidence boost — no second-guessing in bed.</li>
+
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="./assets/images/ingredients.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="./assets/images/Wife-Chocolate-Mockup.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">FOR WIFEY </h1>
+          <span class="warning">⚠️ Warning For Her</span>
+          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, uncontrollable wetness, nonstop orgasms.</p>
+          <ul>
+            <li>🌊 Extreme wetness.</li>
+            <li>⚡ Instant clit sensations.</li>
+            <li>🔁 3-5x deeper orgasms.</li>
+            <li>🔥 Faster arousal.</li>
+            <li>🍑 Tighter, hungrier, and louder.</li>
+            <li>😩 Increases craving</li>
+            <li>🧠 Switches off stress.
+            </li>
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> No side effects. Just side sluts.</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">Taste her addiction</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Stay hard after the nut</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  <div class="halal-section">
+    <div class="box-content">
+      <div class="icon"><img src="https://chocolatex.in/cdn/shop/files/Group_129_138x.png?v=1728386781" alt=""></div>
+      <h2>Indulge in Gameplay</h2>
+      <p>Enjoy a quick, hot, naughty card game to break the ice.</p>
+    </div>
+    <div class="box-content">
+      <div class="icon"><img src="https://chocolatex.in/cdn/shop/files/disguise_1_138x.png?v=1728386795" alt=""></div>
+      <h2>Discreet Delivery </h2>
+      <p>Psst, even your delivery guy won’t know. </p>
+    </div>
+    <div class="box-content">
+      <div class="icon"><img src="https://chocolatex.in/cdn/shop/files/Group_81_138x.png?v=1728386798" alt=""> </div>
+      <h2>100% Natural</h2>
+      <p>We’re darn serious about what we put into our chocolates, no nasties.</p>
+
+    </div>
+  </div>
+  <div class="image-for-delivery">
+    <img class="des-d" src="./assets/images/discreet_1_2000x.webp" alt="">
+    <img class="mob-d" src="./assets/images/Group_27373_100x.jpg" alt="">
+  </div>
+  <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> One bite = 3 orgasms</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">She can’t stop shaking</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Pre-cum in seconds</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  <div class="heading-review-main">Not Just Reviews… <br> These Are Afterglows.</div>
+  <div class="review-section-container">
+    <div class="width-container" id="cardTrack">
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Fatima R</div>
+        <div class="client-name">CLIENT</div>
+        <p>We've been married for over 15 years, and lately, things have just felt a bit… routine. I saw an ad for this
+          and thought, why not? We had a quiet evening at home and shared a box of the Dark Desire. It felt like we were
+          back on our first dates, talking and connecting in a way we haven't in years. Thank you for helping us find
+          our spark again.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Ahmed S.</div>
+        <div class="client-name">CLIENT</div>
+        <p>To be honest, I'm not a big chocolate guy, but my wife insisted we try this. I'm glad she did. We had the
+          Dark Desire. It slowed us down, made us focus on each other, and led to a truly romantic night. Highly
+          recommend it to any couple looking to add a little something extra to their intimate routine</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Aisha J.</div>
+        <div class="client-name">CLIENT</div>
+        <p>I was skeptical at first, but after a friend recommended it, I ordered a box for my husband and me. The
+          StrawBae is divine! We made it a point to share them after the kids were in bed. It's become our new little
+          ritual, our 'us time.' This has been a game-changer for us.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name"> Zahra H</div>
+        <div class="client-name">CLIENT</div>
+        <p>My husband travels a lot for work, and it's always hard to get back into sync when he's home. I bought a box
+          of the VanilLust chocolates to have waiting for him when he got back. It felt special and thoughtful, and it
+          definitely set the mood for a beautiful evening. We’re already planning to make this a regular thing!</p>
+      </div>
+    </div>
+    <div class="pagination-btn">
+      <div class="right"><img src="./assets/images/left.png" alt=""></div>
+      <div class="left"><img src="./assets/images/right.png" alt=""></div>
+    </div>
+  </div>
+  <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> No side effects. Just side sluts.</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">Taste her addiction</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Stay hard after the nut</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  <div class="faqs-section-container">
+    <div class="faq-headings">
+      🍫 Frequently Asked Questions (FAQs)
+
+    </div>
+    <div class="faq-toggle-container">
+
+
+      <div class="faq">
+        <div class="bar-f">
+          <h1>When should we take JWW Chocolates?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>Right before things get hot. 🔥
+            Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferably on a light stomach, no heavy
+            food or alcohol. Whether it’s a planned night of passion or a spontaneous session, this is your pre-game
+            ritual for unforgettable sex.</p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="bar-f">
+          <h1>Is this safe for regular use?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>Yes. We use only 100% natural and herbal ingredients, without any artificial stimulants, hormones, or
+            chemicals. Safe for both men and women — no side effects, no crash.</p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="bar-f">
+          <h1>How long before it starts working?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>Usually within 30 to 45 minutes after taking it on a light stomach. Effects can last for several hours —
+            and some say the afterglow lasts even longer. 😉</p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="bar-f">
+          <h1>Will it work for both partners?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>Yes — we’ve created Hubby & Wifey tabs, tailored specifically to the male and female body. The ingredients
+            are chosen to enhance blood flow, arousal, lubrication, stamina, satisfaction and many things for both.</p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="bar-f">
+          <h1>What makes it better than vaigra or supplements?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>1. Faster & Stronger Than Viagra**
+            ✅ Onset in 30-60mins
+
+            2. Zero Side Effects
+            ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)
+            ❌ No dependency(adaptogens protect receptors) </p>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="bar-f">
+          <h1>Does it taste like herbs or medicine?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>Not at all. We use premium chocolate — dark, white, and strawberry . You’ll never taste the herbs… just
+            pleasure. 🍫 </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="bar-f">
+          <h1>Who should not take JWW chocolates?</h1>
+          <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+        </div>
+        <div class="faq-content">
+          <p>JWW chocolates is not intended for use by singles (who are not legally married) and children under the age
+            of 18. If you are pregnant, nursing, taking any medication, or have any medical condition, consult your
+            doctor before use.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  <footer>
+    <div class="section-main-footer">
+      <div class="side-left-logo">
+        <div class="logo-footer">
+          <img src="./assets/images/footer-logo.png" alt="">
+        </div>
+        <div class="para-footer">
+          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫 Herbal, Fast & Intense: Made for unstoppable cravings
+          💦
+        </div>
+        <div class="cta-footer">
+          <div class="cta">Get dirty now</div>
+        </div>
+      </div>
+      <div class="menu-links-footer">
+        <ul>
+          <li>
+            <h1>LINKS</h1>
+          </li>
+          <li><a href="./index.html">HOME</a></li>
+          <li><a href="./About.html">ABOUT</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+
+        <ul>
+          <li>
+            <h1>SOCIAL MEDIA</h1>
+          </li>
+          <li><a href="https://www.instagram.com/jabweweds/" target="_blank">INSTAGRAM</a></li>
+          <li><a href="https://www.facebook.com/share/1BHEh4A6wU/" target="_blank">FACEBOOK</a></li>
+          <li><a href="https://x.com/JabWeWeds?t=Icz5FqbLT_86aVEqnzplqQ&s=09" target="_blank">X</a></li>
+          <li><a href="https://wa.me/923074250312" target="_blank">WHATSAPP</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="privacy-policy">
+      <p>all right reserved jabweweds</p>
+    </div>
+    <div class="splide">
+      <div class="splide__track splide__track-1  ">
+        <ul class="splide__list ">
+          <li class="splide__slide slide-footer">Better than lube</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+          <li class="splide__slide  slide-footer">Pre-cum in seconds</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+          <li class="splide__slide  slide-footer">4+hrs of pounding</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CONFIG = {
+      BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+    };
+  </script>
+  <script>
+    // ====================
+    // FIXED PRODUCT PAGE SCRIPT (Replace your existing product page script)
+    // ====================
+
+    // API Configuration
+    const API_BASE_URL = CONFIG.BACKEND_URL;
+
+    // Global state
+    let productsData = [];
+    let currentProduct = {
+      id: null,
+      flavor: null,
+      size: null,
+      sizePrice: 0,
+      boxCount: 1,
+      totalPrice: 0
+    };
+
+    // Get URL parameters function
+    function getURLParameters() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        productId: urlParams.get('productId'),
+        productSlug: urlParams.get('product'),
+        productName: urlParams.get('name')
+      };
+    }
+
+    // UPDATED: Fetch products with URL parameter handling
+    async function fetchProducts() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
+        const data = await response.json();
+
+        if (data.success) {
+          productsData = data.products;
+
+          // Check URL parameters BEFORE initializing default product
+          const urlParams = getURLParameters();
+          console.log('URL Parameters:', urlParams); // Debug log
+
+          initializeProductPage();
+
+          // Handle URL parameters for specific product selection
+          if (urlParams.productId || urlParams.productSlug || urlParams.productName) {
+            selectProductFromURL(urlParams);
+          } else {
+            // Only select default if no URL parameters
+            selectDefaultProduct();
+          }
+
+          // Dispatch custom event for other scripts to listen to
+          setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('productDataLoaded', {
+              detail: { products: productsData }
+            }));
+          }, 100);
+        } else {
+          throw new Error(data.message || 'Failed to fetch products');
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        document.getElementById('product-name').textContent = 'Error loading products';
+        document.getElementById('product-description').textContent = error.message;
+      }
+    }
+
+    // UPDATED: Function to select product based on URL parameters
+    function selectProductFromURL(urlParams) {
+      let selectedProduct = null;
+
+      console.log('Searching for product with params:', urlParams); // Debug log
+      console.log('Available products:', productsData.map(p => ({ id: p._id, title: p.title }))); // Debug log
+
+      // Try to find by product ID first (most accurate)
+      if (urlParams.productId) {
+        selectedProduct = productsData.find(p => p._id === urlParams.productId);
+        console.log('Found by ID:', selectedProduct); // Debug log
+      }
+
+      // If not found by ID, try by slug
+      if (!selectedProduct && urlParams.productSlug) {
+        selectedProduct = productsData.find(p => {
+          const slug = p.title.toLowerCase().replace(/\s+/g, '-');
+          return slug === urlParams.productSlug;
+        });
+        console.log('Found by slug:', selectedProduct); // Debug log
+      }
+
+      // If still not found, try by name (case-insensitive)
+      if (!selectedProduct && urlParams.productName) {
+        selectedProduct = productsData.find(p =>
+          p.title.toLowerCase().includes(urlParams.productName.toLowerCase().replace(/\s+/g, ' '))
+        );
+        console.log('Found by name:', selectedProduct); // Debug log
+      }
+
+      if (selectedProduct) {
+        // Update active state in category buttons after a short delay
+        setTimeout(() => {
+          updateActiveCategory(selectedProduct._id);
+          selectProduct(selectedProduct);
+        }, 300);
+      } else {
+        console.warn('Product not found for URL params:', urlParams);
+        // Fallback to default product
+        selectDefaultProduct();
+      }
+    }
+
+    // Function to update active category button
+    function updateActiveCategory(productId) {
+      const categoryButtons = document.querySelectorAll('.btn-s');
+      categoryButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.productId === productId) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // Initialize the product page with API data
+    function initializeProductPage() {
+      if (productsData.length === 0) return;
+      createCategoryButtons();
+      setupEventListeners();
+    }
+
+    // Create category buttons from API data
+    function createCategoryButtons() {
+      const categoryContainer = document.getElementById('category-buttons');
+
+      categoryContainer.innerHTML = productsData.map((product, index) => {
+        const categoryClass = getCategoryClass(product.category);
+
+        return `
+      <div class="btn-s" data-product-id="${product._id}" data-index="${index}">
+        <div class="choco-img">
+          <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+        </div>
+        <div class="bg-btn ${categoryClass}"></div>
+        <div class="text-btn">${product.title.toUpperCase()}</div>
+      </div>
+    `;
+      }).join('');
+    }
+
+    // Get CSS class for category background
+    function getCategoryClass(category) {
+      switch (category.toLowerCase()) {
+        case 'strawberry flavour':
+          return 'strwa-bg';
+        case 'dark desire':
+          return 'choco-bg';
+        case 'vanilla lust':
+          return 'vanilla-bg';
+        default:
+          return 'choco-bg';
+      }
+    }
+
+    // Get image URL with fallback
+    function getImageUrl(image) {
+      if (!image) return './assets/images/ABout-pic.png';
+      const imageUrl = typeof image === 'string' ? image : image.url;
+      return imageUrl ? `${API_BASE_URL}${imageUrl}` : './assets/images/ABout-pic.png';
+    }
+
+    // Select default product (first one) - only if no URL params
+    function selectDefaultProduct() {
+      if (productsData.length > 0) {
+        // Set first product as active
+        const firstButton = document.querySelector('.btn-s[data-index="0"]');
+        if (firstButton) {
+          firstButton.classList.add('active');
+        }
+        selectProduct(productsData[0]);
+      }
+    }
+
+    // Select a specific product
+    function selectProduct(product) {
+      currentProduct.id = product._id;
+      currentProduct.flavor = product.title.toLowerCase();
+
+      // Update product name and description
+      document.getElementById('product-name').textContent = product.title;
+      document.getElementById('product-description').textContent = product.description;
+
+      // Update product images
+      updateProductImages(product.images);
+
+      // Create size buttons from product data
+      createSizeButtons(product.sizeVariants);
+
+      // Update menu products (with null check)
+      updateMenuProducts();
+
+      // Setup bottom image click functionality
+      setTimeout(() => {
+        setupBottomImageClicks();
+      }, 200);
+
+      // Reset the flag so product-cmp.js can reinitialize
+      window.productSliderInitialized = false;
+
+      // Dispatch event after DOM updates
+      setTimeout(() => {
+        document.dispatchEvent(new CustomEvent('productDataLoaded', {
+          detail: {
+            products: productsData,
+            currentProduct: product
+          }
+        }));
+      }, 300);
+    }
+
+    // Update product images in the slider - EXCLUDING COVER IMAGE
+    function updateProductImages(images) {
+      const slider = document.getElementById('slider-product-ch');
+
+      if (images && images.length > 1) {
+        // Skip the first image (index 0) which is the cover image
+        const sliderImages = images.slice(1);
+
+        slider.innerHTML = sliderImages.map((image, index) =>
+          `<img src="${getImageUrl(image)}" alt="Product image" class="product-slider-img" style="opacity: ${index === 0 ? 1 : 0};">`
+        ).join('');
+      } else if (images && images.length === 1) {
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="No additional images" class="product-slider-img" style="opacity: 1;">';
+      } else {
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
+      }
+
+      // Update the bottom three images
+      updateBottomImages(images);
+
+      // Initialize slider after images are loaded
+      initializeProductSlider();
+    }
+
+    function updateBottomImages(images) {
+      const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1 img');
+      const lastImage = document.querySelector('.upper-picture-p.last-p img');
+
+      if (middleImages.length >= 2) {
+        if (images && images.length > 2) {
+          middleImages[0].src = getImageUrl(images[2]);
+          middleImages[0].alt = "Product image 3";
+        }
+        if (images && images.length > 3) {
+          middleImages[1].src = getImageUrl(images[3]);
+          middleImages[1].alt = "Product image 4";
+        }
+      }
+
+      if (lastImage && images && images.length > 4) {
+        lastImage.src = getImageUrl(images[4]);
+        lastImage.alt = "Product image 5";
+      } else if (lastImage && images && images.length > 1) {
+        lastImage.src = getImageUrl(images[1]);
+        lastImage.alt = "Product image";
+      }
+    }
+
+    function initializeProductSlider() {
+      if (window.sliderChInterval) {
+        clearInterval(window.sliderChInterval);
+      }
+
+      if (window.productSliderInitialized) {
+        console.log('Product slider already initialized');
+        return;
+      }
+
+      const sliderChImages = document.querySelectorAll("#slider-product-ch img");
+      const sliderChPrevBtn = document.querySelectorAll(".btns-next-p-1")[0];
+      const sliderChNextBtn = document.querySelectorAll(".btns-next-p-1")[1];
+
+      if (sliderChImages.length === 0) return;
+
+      let sliderChCurrent = 0;
+
+      function showImageCSS(index) {
+        sliderChImages.forEach((img, i) => {
+          img.style.opacity = i === index ? '1' : '0';
+          img.style.transition = 'opacity 0.8s ease';
+        });
+      }
+
+      function startAutoCSS() {
+        if (sliderChImages.length <= 1) return;
+        window.sliderChInterval = setInterval(() => {
+          sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
+          showImageCSS(sliderChCurrent);
+        }, 3000);
+      }
+
+      showImageCSS(0);
+
+      if (sliderChNextBtn && !sliderChNextBtn.hasEventListener) {
+        sliderChNextBtn.addEventListener("click", () => {
+          clearInterval(window.sliderChInterval);
+          sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
+          showImageCSS(sliderChCurrent);
+          startAutoCSS();
+        });
+        sliderChNextBtn.hasEventListener = true;
+      }
+
+      if (sliderChPrevBtn && !sliderChPrevBtn.hasEventListener) {
+        sliderChPrevBtn.addEventListener("click", () => {
+          clearInterval(window.sliderChInterval);
+          sliderChCurrent = (sliderChCurrent - 1 + sliderChImages.length) % sliderChImages.length;
+          showImageCSS(sliderChCurrent);
+          startAutoCSS();
+        });
+        sliderChPrevBtn.hasEventListener = true;
+      }
+
+      startAutoCSS();
+      window.productSliderInitialized = true;
+    }
+
+    // Create size buttons from API data
+    function createSizeButtons(sizeVariants) {
+      const sizeContainer = document.getElementById('size-buttons');
+
+      if (sizeVariants && sizeVariants.length > 0) {
+        sizeContainer.innerHTML = sizeVariants.map((variant, index) => {
+          const isActive = index === 0 ? 'active' : '';
+          return `
+        <div class="cta ${isActive}" data-size="${variant.size.toLowerCase()}" data-price="${variant.price}">
+          ${variant.size}
+        </div>
+      `;
+        }).join('');
+
+        currentProduct.size = sizeVariants[0].size.toLowerCase();
+        currentProduct.sizePrice = sizeVariants[0].price;
+        createBoxSelection();
+      } else {
+        sizeContainer.innerHTML = '<p>No sizes available</p>';
+      }
+    }
+
+    // Create box selection based on current size price
+    function createBoxSelection() {
+      const boxContainer = document.getElementById('box-selection');
+
+      boxContainer.innerHTML = [1, 2, 3].map((count, index) => {
+        const isActive = index === 0 ? 'active' : '';
+        const price = currentProduct.sizePrice * count;
+
+        return `
+      <div class="p-box-1 ${isActive}" data-box="${count}">
+        <div class="heading-1-box">${count} BOX</div>
+        <div class="lower-price-tg">
+          <p>${count} Chocolate${count > 1 ? 's' : ''}</p>
+          <p class="box-price">PKR: ${price}</p>
+        </div>
+      </div>
+    `;
+      }).join('');
+
+      currentProduct.boxCount = 1;
+      updatePricing();
+    }
+
+    // Update menu products
+    function updateMenuProducts() {
+      const menuContainer = document.getElementById('menu-products');
+      if (!menuContainer) {
+        console.warn('menu-products element not found');
+        return;
+      }
+
+      menuContainer.innerHTML = `
+    <div class="grid-box-container">
+      ${productsData.map(product => `
+        <div class="box" data-product-id="${product._id}">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">${product.title.toUpperCase()}</div>
+          <div class="choco-menu">
+            <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+      menuContainer.style.display = 'block';
+      const staticMenu = document.getElementById('static-menu');
+      if (staticMenu) {
+        staticMenu.style.display = 'none';
+      }
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-s')) {
+          const button = e.target.closest('.btn-s');
+          const productId = button.dataset.productId;
+
+          document.querySelectorAll('.btn-s').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          const product = productsData.find(p => p._id === productId);
+          if (product) {
+            selectProduct(product);
+          }
+        }
+
+        if (e.target.classList.contains('cta') && e.target.closest('#size-buttons')) {
+          document.querySelectorAll('#size-buttons .cta').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+
+          currentProduct.size = e.target.dataset.size;
+          currentProduct.sizePrice = parseInt(e.target.dataset.price);
+          createBoxSelection();
+        }
+
+        if (e.target.closest('.p-box-1')) {
+          const button = e.target.closest('.p-box-1');
+          document.querySelectorAll('.p-box-1').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          currentProduct.boxCount = parseInt(button.dataset.box);
+          updatePricing();
+        }
+      });
+
+      document.getElementById('add-to-cart').addEventListener('click', addToCart);
+      document.getElementById('open-cart').addEventListener('click', () => cartManager.openCart());
+      document.getElementById('close-cart').addEventListener('click', () => cartManager.closeCart());
+
+      const clearCartBtn = document.getElementById('clear-cart');
+      if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', () => cartManager.clearCart());
+      }
+    }
+
+    // Update pricing display
+    function updatePricing() {
+      currentProduct.totalPrice = currentProduct.sizePrice * currentProduct.boxCount;
+      document.getElementById('total-price').textContent = `PKR: ${currentProduct.totalPrice}`;
+      document.getElementById('total-description').textContent = `${currentProduct.boxCount} Chocolate${currentProduct.boxCount > 1 ? 's' : ''}`;
+    }
+
+    // Add to cart function
+    function addToCart() {
+      if (!currentProduct.id) {
+        alert('Please select a product');
+        return;
+      }
+
+      const product = productsData.find(p => p._id === currentProduct.id);
+      if (!product) {
+        console.error('Product not found in productsData');
+        return;
+      }
+
+      const productData = {
+        productId: currentProduct.id,
+        name: product.title,
+        image: getImageUrl(product.images[0]),
+        flavor: currentProduct.flavor,
+        size: currentProduct.size,
+        sizePrice: currentProduct.sizePrice,
+        boxCount: currentProduct.boxCount,
+        totalPrice: currentProduct.totalPrice
+      };
+
+      cartManager.addToCart(productData);
+    }
+
+    // Setup bottom image click functionality
+    function setupBottomImageClicks() {
+      const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1');
+      const lastImage = document.querySelector('.upper-picture-p.last-p');
+      const mainSlider = document.getElementById('slider-product-ch');
+
+      middleImages.forEach((imageContainer, index) => {
+        imageContainer.style.cursor = 'pointer';
+        imageContainer.addEventListener('click', () => {
+          const currentProductData = productsData.find(p => p._id === currentProduct.id);
+          if (currentProductData && currentProductData.images[index + 1]) {
+            const sliderImages = mainSlider.querySelectorAll('img');
+            if (sliderImages[index + 1]) {
+              sliderImages.forEach(img => img.style.opacity = '0');
+              sliderImages[index + 1].style.opacity = '1';
+            }
+          }
+        });
+      });
+
+      if (lastImage) {
+        lastImage.style.cursor = 'pointer';
+        lastImage.addEventListener('click', () => {
+          const currentProductData = productsData.find(p => p._id === currentProduct.id);
+          if (currentProductData && currentProductData.images[3]) {
+            const sliderImages = mainSlider.querySelectorAll('img');
+            if (sliderImages[3]) {
+              sliderImages.forEach(img => img.style.opacity = '0');
+              sliderImages[3].style.opacity = '1';
+            }
+          }
+        });
+      }
+    }
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Product page DOM loaded');
+      setTimeout(() => {
+        fetchProducts();
+      }, 200);
+    });
+
+    // Cleanup function
+    function cleanupAnimations() {
+      if (window.productSliderInterval) {
+        clearInterval(window.productSliderInterval);
+        window.productSliderInterval = null;
+      }
+      if (window.productSliderTL) {
+        window.productSliderTL.kill();
+        window.productSliderTL = null;
+      }
+      if (typeof gsap !== 'undefined') {
+        gsap.killTweensOf("*");
+      }
+    }
+
+    window.addEventListener('beforeunload', cleanupAnimations);
+  </script>
+
+</body>
+<!-- Load scripts in correct order - CART MANAGER MUST BE LOADED FIRST -->
+<script type="module" src="./js/cart-manager.js"></script>
+<script src="./js/product-page.js" type="module"></script>
+<script>
+
+  const faqs = document.querySelectorAll(".faq-product-1");
+
+  faqs.forEach(faq => {
+    const heading = faq.querySelector(".heading-faqs-product");
+
+    heading.addEventListener("click", () => {
+      const isActive = faq.classList.contains("active");
+
+      // Close all first
+      faqs.forEach(f => f.classList.remove("active"));
+
+      // Re-open if clicked was inactive
+      if (!isActive) {
+        faq.classList.add("active");
+      }
+    });
+  });
+
+</script>
+
+</html>

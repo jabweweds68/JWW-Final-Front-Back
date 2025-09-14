@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mallanna&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
+      rel="stylesheet"
+    />
+</head>
+
+<body>
+  
+  <!-- My Cart -->
+<div class="cart-section-side" id="cart">
+    <div class="close-btn-cart" id="close-cart">Close</div>
+    <div class="heading-empty" id="empty-cart-message">
+      <h1>Empty Cart Shop Now</h1>
+    </div>
+     <div class="cart-products-card" id="cart-products-container">
+     <div class="products-wrapper">
+       <!-- Cart items will be dynamically added here -->
+     </div>
+      
+      <div class="shop-more">
+        SHOP MORE
+        <img src="./assets/images/shop more.svg" alt="">
+      </div>
+    </div>
+    
+    <div class="sub-totals-product" id="cart-totals">
+       <div class="products-total-p">
+        <span>Products : </span>
+        <span id="products-total">0</span>
+       </div>
+       <div class="delivery-charges">
+        <span>Delivery Charges</span>
+        <span>250</span>
+       </div>
+       <div class="subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal">250</span>
+       </div>
+       <div class="cta-check">
+       <div class="cta checkout">CHECK OUT</div>
+       <div class="del" id="clear-cart"><img src="./assets/images/del.svg" alt=""></div>
+       </div>
+    </div>
+</div>
+
+  <div class="cart-btn-float" id="open-cart">
+     
+    <img src="./assets/images/cart.svg" alt="">
+  </div>
+  
+   <div class="slide-bar">
+    <div class="menu-2">
+      <a href="./index.html">HOME</a>
+      <a href="./About.html">About</a>
+      <a href="./contact.html">CONTACT</a>
+    </div>
+    <div class="close-btn">CLOSE</div>
+    <div class="upper-picture-menu">
+      <div class="grid-box-container">
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">DARK DESIRE</div>
+          <div class="choco-menu"><img src="./assets/images/Dark Desire Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">STRAWBAE</div>
+          <div class="choco-menu"><img src="./assets/images/Strawbae Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">VANILLALUST</div>
+          <div class="choco-menu"><img src="./assets/images/Vanillust Regular.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">BUNDLE</div>
+          <div class="choco-menu bundle-c"><img src="./assets/images/bundle.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+     <nav >
+        <div class="since">since 2022</div>
+        <div class="line-bar"></div>
+<div class="logo">
+    <img src="./assets/images/spl-removebg-preview 1.png" alt="">
+</div>
+ <div class="line-bar"></div>
+<div class="menu">MENU</div>
+    </nav>
+
+
+<div class="about-hero-section">
+    <div class="right-image-about">
+        <img src="./assets/images/Other Mockup.png" alt="">
+    </div>
+    <div class="left-content-about">
+        <h1> <span class="Pink-p-ab">ABOUT</span> <span class="blue-b-ab">US</span><div class="hand-emoji"><img src="./assets/images/marq-2.png" alt=""></div></h1>
+        <div class="lower-ab-section">
+        <p>Mood chocolate for couples often contains a blend of ingredients designed to enhance mood, i</p>
+        <div class="cta" id="product-page">   Get dirty Now </div>
+        </div>
+    </div>
+</div>
+
+
+  <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> Melts panties — literally</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide"> 2nd round? Still rock</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Her soul left her body</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+
+<div class="section-info-ab-box">
+    <div class="circle-rotate">
+        <img src="./assets/images/curve text.svg" alt="" srcset="">
+    </div>
+    <div class="box-ab-right">
+
+        <h1>WHO WE ARE ?? <span><img src="./assets/images/el-2.png" alt=""></span></h1>
+        <div class="btm-content">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam excepturi incidunt, voluptatum harum asperiores minus neque explicabo, possimus ea consectetur nihil culpa ipsa suscipit quod? Modi commodi laboriosam quasi laborum.</p>
+        <div class="cta" id="product-page">  Get dirty Now </div>
+        </div>
+    </div>
+    <div class="box-ab-Left"><img src="./assets/images/ab-pic.png" alt=""></div>
+</div>
+ <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="about">
+      <div class="left-side-pic-ab">
+        <img src="./assets/images/Hand-Image-Mockup.jpg" alt="">
+      </div>
+<div class="right-side-content-ab">
+  <h1>If It’s Not Loud Tonight, You Didn’t Eat Us Right.</h1>
+  <p>This isn’t just chocolate… it’s your new favorite sex toy 🍫🔞 Pop it, lick it, & get filthy for real. 💦</p>
+  <ul>
+    <li>😵‍💫🍫 Melts Panties, Not Just Stress </li>
+      <li>😴 No more “I’m tired” excuses </li>
+        <li>🛏️ Designed for Real-Life Lust </li>
+        <li>🍆🦍 Makes Him Thicker, Harder, Meaner </li>
+          <li>💦👅 Turns Her into a Slippery Problem </li>
+           
+  </ul>
+  <div class="cta" id="product-page"> Shop now and get dirty 💦  </div>
+</div>
+
+    </div>
+      <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+ <div class="heading-review-main">NATURE'S NAUGHTIEST<br>RECIPE</div>
+
+ <div class="ingredients-section">
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="./assets/images/ingredients.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="./assets/images/Hubby-Chocolate-Mockup.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">HUSBAND EFFECTS </h1>
+          <span class="warning">⚠️ Explicit Warnings</span>
+          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your personal
+            addict.
+            For husband ingredients benefits</p>
+          <ul>
+            <li>🍆 Rock-Hard Erections.</li>
+            <li>🦍 Unstoppable Stamina.</li>
+            <li>💦 Delayed Orgasm, Prolonged Timing.</li>
+            <li>😈 Stronger thrust power & rhythm.</li>
+            <li>🧠 Mentally sharp. Physically animal.</li>
+            <li>🧠 Confidence boost — no second-guessing in bed.</li>
+
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="./assets/images/ingredients.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="./assets/images/Wife-Chocolate-Mockup.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">FOR WIFEY </h1>
+          <span class="warning">⚠️ Warning For Her</span>
+          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, uncontrollable wetness, nonstop orgasms.</p>
+          <ul>
+            <li>🌊 Extreme wetness.</li>
+            <li>⚡ Instant clit sensations.</li>
+            <li>🔁 3-5x deeper orgasms.</li>
+            <li>🔥 Faster arousal.</li>
+            <li>🍑 Tighter, hungrier, and louder.</li>
+            <li>😩 Increases craving</li>
+            <li>🧠 Switches off stress.
+            </li>
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+     
+    <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide">Mind blown, clit numb</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">No pills. Just madness.</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Target: G-Spot locked</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+   <div class="heading-review-main">Not Just Reviews… <br> These Are Afterglows.</div>
+  <div class="review-section-container">
+    <div class="width-container" id="cardTrack">
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Fatima R</div>
+        <div class="client-name">CLIENT</div>
+        <p>We've been married for over 15 years, and lately, things have just felt a bit… routine. I saw an ad for this and thought, why not? We had a quiet evening at home and shared a box of the Dark Desire. It felt like we were back on our first dates, talking and connecting in a way we haven't in years. Thank you for helping us find our spark again.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Ahmed S.</div>
+        <div class="client-name">CLIENT</div>
+        <p>To be honest, I'm not a big chocolate guy, but my wife insisted we try this. I'm glad she did. We had the Dark Desire. It slowed us down, made us focus on each other, and led to a truly romantic night. Highly recommend it to any couple looking to add a little something extra to their intimate routine</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name">Aisha J.</div>
+        <div class="client-name">CLIENT</div>
+        <p>I was skeptical at first, but after a friend recommended it, I ordered a box for my husband and me. The StrawBae is divine! We made it a point to share them after the kids were in bed. It's become our new little ritual, our 'us time.' This has been a game-changer for us.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="./assets/images/Frame 42.svg" alt=""></div>
+        <div class="heading-name"> Zahra H</div>
+        <div class="client-name">CLIENT</div>
+        <p>My husband travels a lot for work, and it's always hard to get back into sync when he's home. I bought a box of the VanilLust chocolates to have waiting for him when he got back. It felt special and thoughtful, and it definitely set the mood for a beautiful evening. We’re already planning to make this a regular thing!</p>
+      </div>
+    </div>
+    <div class="pagination-btn">
+      <div class="right"><img src="./assets/images/left.png" alt=""></div>
+      <div class="left"><img src="./assets/images/right.png" alt=""></div>
+    </div>
+  </div>
+    <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> No side effects. Just side sluts.</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide">Taste her addiction</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide">Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+   <div class="faqs-section-container">
+    <div class="faq-headings">
+      🍫 Frequently Asked Questions (FAQs)
+
+    </div>
+    <div class="faq-toggle-container">
+     
+    
+    <div class="faq">
+  <div class="bar-f">
+    <h1>When should we take JWW Chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Right before things get hot. 🔥
+Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferably on a light stomach, no heavy food or alcohol. Whether it’s a planned night of passion or a spontaneous session, this is your pre-game ritual for unforgettable sex.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Is this safe for regular use?</h1>
+     <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes. We use only 100% natural and herbal ingredients, without any artificial stimulants, hormones, or chemicals. Safe for both men and women — no side effects, no crash.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>How long before it starts working?</h1>
+    <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Usually within 30 to 45 minutes after taking it on a light stomach. Effects can last for several hours — and some say the afterglow lasts even longer. 😉</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Will it work for both partners?</h1>
+        <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes — we’ve created Hubby & Wifey tabs, tailored specifically to the male and female body. The ingredients are chosen to enhance blood flow, arousal, lubrication, stamina, satisfaction and many things for both.</p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>What makes it better than vaigra or supplements?</h1>
+   <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>1. Faster & Stronger Than Viagra**  
+✅ Onset in 30-60mins
+
+2. Zero Side Effects
+❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)  
+❌ No dependency(adaptogens protect receptors) </p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Does it taste like herbs or medicine?</h1>
+      <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Not at all. We use premium chocolate — dark, white, and strawberry . You’ll never taste the herbs… just pleasure. 🍫 </p>
+  </div>
+</div>
+
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Who should not take JWW chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>JWW chocolates is not intended for use by singles (who are not legally married) and children under the age of 18. If you are pregnant, nursing, taking any medication, or have any medical condition, consult your doctor before use.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+   <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  
+ <footer>
+    <div class="section-main-footer">
+      <div class="side-left-logo">
+        <div class="logo-footer">
+          <img src="./assets/images/footer-logo.png" alt="">
+        </div>
+        <div class="para-footer">
+          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫 Herbal, Fast & Intense: Made for unstoppable cravings
+          💦
+        </div>
+        <div class="cta-footer">
+          <div class="cta">Get dirty now</div>
+        </div>
+      </div>
+    <div class="menu-links-footer">
+  <ul>
+    <li>
+      <h1>LINKS</h1>
+    </li>
+    <li><a href="./index.html">HOME</a></li>
+    <li><a href="./About.html">ABOUT</a></li>
+    <li><a href="./contact.html">CONTACT</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <h1>SOCIAL MEDIA</h1>
+    </li>
+    <li><a href="https://www.instagram.com/jabweweds/" target="_blank">INSTAGRAM</a></li>
+    <li><a href="https://www.facebook.com/share/1BHEh4A6wU/" target="_blank">FACEBOOK</a></li>
+    <li><a href="https://x.com/JabWeWeds?t=Icz5FqbLT_86aVEqnzplqQ&s=09" target="_blank">X</a></li>
+    <li><a href="https://wa.me/923074250312" target="_blank">WHATSAPP</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="privacy-policy">
+      <p>all right reserved jabweweds</p>
+    </div>
+    <div class="splide">
+      <div class="splide__track splide__track-1  ">
+        <ul class="splide__list ">
+          <li class="splide__slide slide-footer">Better than lube</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
+          <li class="splide__slide  slide-footer">Pre-cum in seconds</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
+          <li class="splide__slide  slide-footer">4+hrs of pounding</li>
+
+          <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  const productPageLinks = document.querySelectorAll("#product-page");
+
+  productPageLinks.forEach(element => {
+    element.style.cursor = "pointer"; // make it clickable
+    element.addEventListener("click", () => {
+      window.location.href = "./product-page.html";
+    });
+  });
+</script>
+<script src="./js/About.js" type="module"></script>
+<script type="module" src="./js/cart-manager.js"></script>
+</html>

@@ -1,0 +1,39 @@
+@use "./about.scss";
+@use "./contact.scss";
+@use "./index.scss";
+@use "./products.scss";
+@use "./product-page.scss";
+@use "./checkout.scss";
+@font-face {
+    font-family: "font-anton";
+    src: url(../assets/fonts/Anton-Regular.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html{
+    font-size: 0.8333333333vw;
+}
+body{
+    font-family: "font-anton";
+ overflow-x: hidden;
+ background-color: #FFF7DD;
+}
+
+.hand-middle{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    z-index: 30;
+    svg{
+        width: 100%;
+        scale: 1.2;
+        height: 100vh;
+        object-fit: cover;
+    }
+}

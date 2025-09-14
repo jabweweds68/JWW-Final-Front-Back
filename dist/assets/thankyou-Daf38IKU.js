@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import{g as o}from"./marquee-27CAOdvs.js";document.querySelectorAll(".float-el-img").forEach((e,t)=>{o.to(e,{y:-900,repeat:-1,stagger:1,delay:t*1,ease:"power1.inOut",duration:10})});

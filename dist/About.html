@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mallanna&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
+      rel="stylesheet"
+    />
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/marquee-27CAOdvs.js"></script>
+  <script type="module" crossorigin src="/assets/cart-BgjZlkcG.js"></script>
+  <script type="module" crossorigin src="/assets/ing-secction-Fmeh4I4A.js"></script>
+  <script type="module" crossorigin src="/assets/card-Cj0kM8nu.js"></script>
+  <script type="module" crossorigin src="/assets/cart-manager-BtI-k1Ka.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/marquee-CQOPyjMw.css">
+</head>
+
+<body>
+  
+  <!-- My Cart -->
+<div class="cart-section-side" id="cart">
+    <div class="close-btn-cart" id="close-cart">Close</div>
+    <div class="heading-empty" id="empty-cart-message">
+      <h1>Empty Cart Shop Now</h1>
+    </div>
+     <div class="cart-products-card" id="cart-products-container">
+     <div class="products-wrapper">
+       <!-- Cart items will be dynamically added here -->
+     </div>
+      
+      <div class="shop-more">
+        SHOP MORE
+        <img src="data:image/svg+xml,%3csvg%20width='29'%20height='27'%20viewBox='0%200%2029%2027'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.05556%2017.4706H22.5556C23.4417%2017.4706%2024.1667%2018.1853%2024.1667%2019.0588C24.1667%2019.9324%2023.4417%2020.6471%2022.5556%2020.6471H6.44444C5.55833%2020.6471%204.83333%2019.9324%204.83333%2019.0588V3.17647H1.61111C0.725%203.17647%200%202.46176%200%201.58824C0%200.714706%200.725%200%201.61111%200H6.44444C7.33056%200%208.05556%200.714706%208.05556%201.58824V4.76471H29L22.5556%2015.8824H8.05556V17.4706ZM7.25%2022.2353C8.58722%2022.2353%209.66667%2023.2994%209.66667%2024.6176C9.66667%2025.9359%208.58722%2027%207.25%2027C5.91278%2027%204.83333%2025.9359%204.83333%2024.6176C4.83333%2023.2994%205.91278%2022.2353%207.25%2022.2353ZM21.75%2022.2353C23.0872%2022.2353%2024.1667%2023.2994%2024.1667%2024.6176C24.1667%2025.9359%2023.0872%2027%2021.75%2027C20.4128%2027%2019.3333%2025.9359%2019.3333%2024.6176C19.3333%2023.2994%2020.4128%2022.2353%2021.75%2022.2353Z'%20fill='%23552716'/%3e%3c/svg%3e" alt="">
+      </div>
+    </div>
+    
+    <div class="sub-totals-product" id="cart-totals">
+       <div class="products-total-p">
+        <span>Products : </span>
+        <span id="products-total">0</span>
+       </div>
+       <div class="delivery-charges">
+        <span>Delivery Charges</span>
+        <span>250</span>
+       </div>
+       <div class="subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal">250</span>
+       </div>
+       <div class="cta-check">
+       <div class="cta checkout">CHECK OUT</div>
+       <div class="del" id="clear-cart"><img src="data:image/svg+xml,%3csvg%20width='61'%20height='61'%20viewBox='0%200%2061%2061'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='61'%20height='61'%20rx='30.5'%20fill='%23D7362E'/%3e%3cpath%20d='M23.3125%2043C22.5219%2043%2021.8453%2042.7282%2021.2827%2042.1847C20.7202%2041.6412%2020.4385%2040.987%2020.4375%2040.2222V22.1667H19V19.3889H26.1875V18H34.8125V19.3889H42V22.1667H40.5625V40.2222C40.5625%2040.9861%2040.2812%2041.6403%2039.7187%2042.1847C39.1561%2042.7292%2038.4791%2043.0009%2037.6875%2043H23.3125ZM26.1875%2037.4444H29.0625V24.9444H26.1875V37.4444ZM31.9375%2037.4444H34.8125V24.9444H31.9375V37.4444Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+       </div>
+    </div>
+</div>
+
+  <div class="cart-btn-float" id="open-cart">
+     
+    <img src="data:image/svg+xml,%3csvg%20width='61'%20height='61'%20viewBox='0%200%2061%2061'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20y='0.000244141'%20width='61'%20height='61'%20rx='30.5'%20fill='%23552716'/%3e%3cpath%20d='M38%2038.0002C36.6125%2038.0002%2035.5%2039.1127%2035.5%2040.5002C35.5%2041.1633%2035.7634%2041.7992%2036.2322%2042.268C36.7011%2042.7369%2037.337%2043.0002%2038%2043.0002C38.663%2043.0002%2039.2989%2042.7369%2039.7678%2042.268C40.2366%2041.7992%2040.5%2041.1633%2040.5%2040.5002C40.5%2039.8372%2040.2366%2039.2013%2039.7678%2038.7325C39.2989%2038.2636%2038.663%2038.0002%2038%2038.0002ZM18%2018.0002V20.5002H20.5L25%2029.9877L23.3%2033.0502C23.1125%2033.4002%2023%2033.8127%2023%2034.2502C23%2034.9133%2023.2634%2035.5492%2023.7322%2036.018C24.2011%2036.4869%2024.837%2036.7502%2025.5%2036.7502H40.5V34.2502H26.025C25.9421%2034.2502%2025.8626%2034.2173%2025.804%2034.1587C25.7454%2034.1001%2025.7125%2034.0206%2025.7125%2033.9377C25.7125%2033.8752%2025.725%2033.8252%2025.75%2033.7877L26.875%2031.7502H36.1875C37.125%2031.7502%2037.95%2031.2252%2038.375%2030.4627L42.85%2022.3752C42.9375%2022.1752%2043%2021.9627%2043%2021.7502C43%2021.4187%2042.8683%2021.1008%2042.6339%2020.8664C42.3995%2020.6319%2042.0815%2020.5002%2041.75%2020.5002H23.2625L22.0875%2018.0002M25.5%2038.0002C24.1125%2038.0002%2023%2039.1127%2023%2040.5002C23%2041.1633%2023.2634%2041.7992%2023.7322%2042.268C24.2011%2042.7369%2024.837%2043.0002%2025.5%2043.0002C26.163%2043.0002%2026.7989%2042.7369%2027.2678%2042.268C27.7366%2041.7992%2028%2041.1633%2028%2040.5002C28%2039.8372%2027.7366%2039.2013%2027.2678%2038.7325C26.7989%2038.2636%2026.163%2038.0002%2025.5%2038.0002Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt="">
+  </div>
+  
+   <div class="slide-bar">
+    <div class="menu-2">
+      <a href="./index.html">HOME</a>
+      <a href="./About.html">About</a>
+      <a href="./contact.html">CONTACT</a>
+    </div>
+    <div class="close-btn">CLOSE</div>
+    <div class="upper-picture-menu">
+      <div class="grid-box-container">
+        <div class="box" id="product-page">
+          <div class="elents"><img src="/assets/el-1-C2W2WkV8.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></div>
+          <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+          <div class="name-box">DARK DESIRE</div>
+          <div class="choco-menu"><img src="/assets/Dark%20Desire%20Regular-LD_7C2hF.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="/assets/el-1-C2W2WkV8.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></div>
+          <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+          <div class="name-box">STRAWBAE</div>
+          <div class="choco-menu"><img src="/assets/Strawbae%20Regular-D740xh1Z.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="/assets/el-3-Co6LkWZG.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-1-DXlVenYi.png" alt=""></div>
+          <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+          <div class="name-box">VANILLALUST</div>
+          <div class="choco-menu"><img src="/assets/Vanillust%20Regular-C7nNxEQ7.png" alt=""></div>
+        </div>
+        <div class="box" id="product-page">
+          <div class="elents"><img src="/assets/el-3-Co6LkWZG.png" alt=""></div>
+          <div class="elents"><img src="/assets/marq-1-DXlVenYi.png" alt=""></div>
+          <div class="elents"><img src="/assets/el-2-B8qRFtHf.png" alt=""></div>
+          <div class="name-box">BUNDLE</div>
+          <div class="choco-menu bundle-c"><img src="/assets/bundle-BYpVu-L5.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+     <nav >
+        <div class="since">since 2022</div>
+        <div class="line-bar"></div>
+<div class="logo">
+    <img src="/assets/spl-removebg-preview%201-CrT4m2en.png" alt="">
+</div>
+ <div class="line-bar"></div>
+<div class="menu">MENU</div>
+    </nav>
+
+
+<div class="about-hero-section">
+    <div class="right-image-about">
+        <img src="/assets/Other%20Mockup-B_5xxBin.png" alt="">
+    </div>
+    <div class="left-content-about">
+        <h1> <span class="Pink-p-ab">ABOUT</span> <span class="blue-b-ab">US</span><div class="hand-emoji"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></div></h1>
+        <div class="lower-ab-section">
+        <p>Mood chocolate for couples often contains a blend of ingredients designed to enhance mood, i</p>
+        <div class="cta" id="product-page">   Get dirty Now </div>
+        </div>
+    </div>
+</div>
+
+
+  <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> Melts panties — literally</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> 2nd round? Still rock</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide">Her soul left her body</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+
+<div class="section-info-ab-box">
+    <div class="circle-rotate">
+        <img src="/assets/curve%20text-BtNYCiju.svg" alt="" srcset="">
+    </div>
+    <div class="box-ab-right">
+
+        <h1>WHO WE ARE ?? <span><img src="/assets/el-2-B8qRFtHf.png" alt=""></span></h1>
+        <div class="btm-content">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam excepturi incidunt, voluptatum harum asperiores minus neque explicabo, possimus ea consectetur nihil culpa ipsa suscipit quod? Modi commodi laboriosam quasi laborum.</p>
+        <div class="cta" id="product-page">  Get dirty Now </div>
+        </div>
+    </div>
+    <div class="box-ab-Left"><img src="/assets/ab-pic-CM9FeIjq.png" alt=""></div>
+</div>
+ <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="about">
+      <div class="left-side-pic-ab">
+        <img src="/assets/Hand-Image-Mockup-Dq7IxPMF.jpg" alt="">
+      </div>
+<div class="right-side-content-ab">
+  <h1>If It’s Not Loud Tonight, You Didn’t Eat Us Right.</h1>
+  <p>This isn’t just chocolate… it’s your new favorite sex toy 🍫🔞 Pop it, lick it, & get filthy for real. 💦</p>
+  <ul>
+    <li>😵‍💫🍫 Melts Panties, Not Just Stress </li>
+      <li>😴 No more “I’m tired” excuses </li>
+        <li>🛏️ Designed for Real-Life Lust </li>
+        <li>🍆🦍 Makes Him Thicker, Harder, Meaner </li>
+          <li>💦👅 Turns Her into a Slippery Problem </li>
+           
+  </ul>
+  <div class="cta" id="product-page"> Shop now and get dirty 💦  </div>
+</div>
+
+    </div>
+      <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+ <div class="heading-review-main">NATURE'S NAUGHTIEST<br>RECIPE</div>
+
+ <div class="ingredients-section">
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="/assets/ingredients-C4CUq1bX.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="/assets/Hubby-Chocolate-Mockup-DiOTVAkp.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">HUSBAND EFFECTS </h1>
+          <span class="warning">⚠️ Explicit Warnings</span>
+          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your personal
+            addict.
+            For husband ingredients benefits</p>
+          <ul>
+            <li>🍆 Rock-Hard Erections.</li>
+            <li>🦍 Unstoppable Stamina.</li>
+            <li>💦 Delayed Orgasm, Prolonged Timing.</li>
+            <li>😈 Stronger thrust power & rhythm.</li>
+            <li>🧠 Mentally sharp. Physically animal.</li>
+            <li>🧠 Confidence boost — no second-guessing in bed.</li>
+
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+    <div class="upper-section-ing">
+      <div class="right-side-circle-ing">
+        <div class="circle-ing">
+          <img src="/assets/ingredients-C4CUq1bX.png" alt="">
+        </div>
+        <div class="center-choco">
+          <img src="/assets/Wife-Chocolate-Mockup-CxoaQNpa.png" alt="">
+        </div>
+      </div>
+      <div class="left-side-content-ing">
+        <div class="right-side-content-ab">
+          <h1 class="ing-h">FOR WIFEY </h1>
+          <span class="warning">⚠️ Warning For Her</span>
+          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, uncontrollable wetness, nonstop orgasms.</p>
+          <ul>
+            <li>🌊 Extreme wetness.</li>
+            <li>⚡ Instant clit sensations.</li>
+            <li>🔁 3-5x deeper orgasms.</li>
+            <li>🔥 Faster arousal.</li>
+            <li>🍑 Tighter, hungrier, and louder.</li>
+            <li>😩 Increases craving</li>
+            <li>🧠 Switches off stress.
+            </li>
+
+          </ul>
+          <div class="cta" id="product-page">Shop now and get dirty 💦 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+     
+    <div class="splide">
+    <div class="splide__track splide__track-2 ">
+      <ul class="splide__list">
+        <li class="splide__slide">Mind blown, clit numb</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide">No pills. Just madness.</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide">Target: G-Spot locked</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+   <div class="heading-review-main">Not Just Reviews… <br> These Are Afterglows.</div>
+  <div class="review-section-container">
+    <div class="width-container" id="cardTrack">
+      <div class="card-review">
+        <div class="star"><img src="data:image/svg+xml,%3csvg%20width='188'%20height='30'%20viewBox='0%200%20188%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6.10361%2030L8.72881%2018.9051L0%2011.4458L11.498%2010.4643L16.0011%200L20.5041%2010.4622L32%2011.4437L23.2712%2018.903L25.8985%2029.9979L16.0011%2024.109L6.10361%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M45.1036%2030L47.7288%2018.9051L39%2011.4458L50.498%2010.4643L55.0011%200L59.5041%2010.4622L71%2011.4437L62.2712%2018.903L64.8985%2029.9979L55.0011%2024.109L45.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M84.1036%2030L86.7288%2018.9051L78%2011.4458L89.498%2010.4643L94.0011%200L98.5041%2010.4622L110%2011.4437L101.271%2018.903L103.899%2029.9979L94.0011%2024.109L84.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M123.104%2030L125.729%2018.9051L117%2011.4458L128.498%2010.4643L133.001%200L137.504%2010.4622L149%2011.4437L140.271%2018.903L142.899%2029.9979L133.001%2024.109L123.104%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M165.332%2025.6188L172.001%2021.6511L178.67%2025.671L176.923%2018.1533L182.798%2013.1414L175.071%2012.4628L172.001%205.36266L168.931%2012.4106L161.204%2013.0892L167.079%2018.1533L165.332%2025.6188ZM162.104%2030L164.729%2018.9051L156%2011.4458L167.498%2010.4643L172.001%200L176.504%2010.4622L188%2011.4437L179.271%2018.903L181.899%2029.9979L172.001%2024.109L162.104%2030Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+        <div class="heading-name">Fatima R</div>
+        <div class="client-name">CLIENT</div>
+        <p>We've been married for over 15 years, and lately, things have just felt a bit… routine. I saw an ad for this and thought, why not? We had a quiet evening at home and shared a box of the Dark Desire. It felt like we were back on our first dates, talking and connecting in a way we haven't in years. Thank you for helping us find our spark again.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="data:image/svg+xml,%3csvg%20width='188'%20height='30'%20viewBox='0%200%20188%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6.10361%2030L8.72881%2018.9051L0%2011.4458L11.498%2010.4643L16.0011%200L20.5041%2010.4622L32%2011.4437L23.2712%2018.903L25.8985%2029.9979L16.0011%2024.109L6.10361%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M45.1036%2030L47.7288%2018.9051L39%2011.4458L50.498%2010.4643L55.0011%200L59.5041%2010.4622L71%2011.4437L62.2712%2018.903L64.8985%2029.9979L55.0011%2024.109L45.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M84.1036%2030L86.7288%2018.9051L78%2011.4458L89.498%2010.4643L94.0011%200L98.5041%2010.4622L110%2011.4437L101.271%2018.903L103.899%2029.9979L94.0011%2024.109L84.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M123.104%2030L125.729%2018.9051L117%2011.4458L128.498%2010.4643L133.001%200L137.504%2010.4622L149%2011.4437L140.271%2018.903L142.899%2029.9979L133.001%2024.109L123.104%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M165.332%2025.6188L172.001%2021.6511L178.67%2025.671L176.923%2018.1533L182.798%2013.1414L175.071%2012.4628L172.001%205.36266L168.931%2012.4106L161.204%2013.0892L167.079%2018.1533L165.332%2025.6188ZM162.104%2030L164.729%2018.9051L156%2011.4458L167.498%2010.4643L172.001%200L176.504%2010.4622L188%2011.4437L179.271%2018.903L181.899%2029.9979L172.001%2024.109L162.104%2030Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+        <div class="heading-name">Ahmed S.</div>
+        <div class="client-name">CLIENT</div>
+        <p>To be honest, I'm not a big chocolate guy, but my wife insisted we try this. I'm glad she did. We had the Dark Desire. It slowed us down, made us focus on each other, and led to a truly romantic night. Highly recommend it to any couple looking to add a little something extra to their intimate routine</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="data:image/svg+xml,%3csvg%20width='188'%20height='30'%20viewBox='0%200%20188%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6.10361%2030L8.72881%2018.9051L0%2011.4458L11.498%2010.4643L16.0011%200L20.5041%2010.4622L32%2011.4437L23.2712%2018.903L25.8985%2029.9979L16.0011%2024.109L6.10361%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M45.1036%2030L47.7288%2018.9051L39%2011.4458L50.498%2010.4643L55.0011%200L59.5041%2010.4622L71%2011.4437L62.2712%2018.903L64.8985%2029.9979L55.0011%2024.109L45.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M84.1036%2030L86.7288%2018.9051L78%2011.4458L89.498%2010.4643L94.0011%200L98.5041%2010.4622L110%2011.4437L101.271%2018.903L103.899%2029.9979L94.0011%2024.109L84.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M123.104%2030L125.729%2018.9051L117%2011.4458L128.498%2010.4643L133.001%200L137.504%2010.4622L149%2011.4437L140.271%2018.903L142.899%2029.9979L133.001%2024.109L123.104%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M165.332%2025.6188L172.001%2021.6511L178.67%2025.671L176.923%2018.1533L182.798%2013.1414L175.071%2012.4628L172.001%205.36266L168.931%2012.4106L161.204%2013.0892L167.079%2018.1533L165.332%2025.6188ZM162.104%2030L164.729%2018.9051L156%2011.4458L167.498%2010.4643L172.001%200L176.504%2010.4622L188%2011.4437L179.271%2018.903L181.899%2029.9979L172.001%2024.109L162.104%2030Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+        <div class="heading-name">Aisha J.</div>
+        <div class="client-name">CLIENT</div>
+        <p>I was skeptical at first, but after a friend recommended it, I ordered a box for my husband and me. The StrawBae is divine! We made it a point to share them after the kids were in bed. It's become our new little ritual, our 'us time.' This has been a game-changer for us.</p>
+      </div>
+      <div class="card-review">
+        <div class="star"><img src="data:image/svg+xml,%3csvg%20width='188'%20height='30'%20viewBox='0%200%20188%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M6.10361%2030L8.72881%2018.9051L0%2011.4458L11.498%2010.4643L16.0011%200L20.5041%2010.4622L32%2011.4437L23.2712%2018.903L25.8985%2029.9979L16.0011%2024.109L6.10361%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M45.1036%2030L47.7288%2018.9051L39%2011.4458L50.498%2010.4643L55.0011%200L59.5041%2010.4622L71%2011.4437L62.2712%2018.903L64.8985%2029.9979L55.0011%2024.109L45.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M84.1036%2030L86.7288%2018.9051L78%2011.4458L89.498%2010.4643L94.0011%200L98.5041%2010.4622L110%2011.4437L101.271%2018.903L103.899%2029.9979L94.0011%2024.109L84.1036%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M123.104%2030L125.729%2018.9051L117%2011.4458L128.498%2010.4643L133.001%200L137.504%2010.4622L149%2011.4437L140.271%2018.903L142.899%2029.9979L133.001%2024.109L123.104%2030Z'%20fill='%23FFF7DD'/%3e%3cpath%20d='M165.332%2025.6188L172.001%2021.6511L178.67%2025.671L176.923%2018.1533L182.798%2013.1414L175.071%2012.4628L172.001%205.36266L168.931%2012.4106L161.204%2013.0892L167.079%2018.1533L165.332%2025.6188ZM162.104%2030L164.729%2018.9051L156%2011.4458L167.498%2010.4643L172.001%200L176.504%2010.4622L188%2011.4437L179.271%2018.903L181.899%2029.9979L172.001%2024.109L162.104%2030Z'%20fill='%23FFF7DD'/%3e%3c/svg%3e" alt=""></div>
+        <div class="heading-name"> Zahra H</div>
+        <div class="client-name">CLIENT</div>
+        <p>My husband travels a lot for work, and it's always hard to get back into sync when he's home. I bought a box of the VanilLust chocolates to have waiting for him when he got back. It felt special and thoughtful, and it definitely set the mood for a beautiful evening. We’re already planning to make this a regular thing!</p>
+      </div>
+    </div>
+    <div class="pagination-btn">
+      <div class="right"><img src="data:image/png;base64,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" alt=""></div>
+      <div class="left"><img src="data:image/png;base64,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" alt=""></div>
+    </div>
+  </div>
+    <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide"> No side effects. Just side sluts.</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide">Taste her addiction</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide">Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+   <div class="faqs-section-container">
+    <div class="faq-headings">
+      🍫 Frequently Asked Questions (FAQs)
+
+    </div>
+    <div class="faq-toggle-container">
+     
+    
+    <div class="faq">
+  <div class="bar-f">
+    <h1>When should we take JWW Chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Right before things get hot. 🔥
+Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferably on a light stomach, no heavy food or alcohol. Whether it’s a planned night of passion or a spontaneous session, this is your pre-game ritual for unforgettable sex.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Is this safe for regular use?</h1>
+     <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes. We use only 100% natural and herbal ingredients, without any artificial stimulants, hormones, or chemicals. Safe for both men and women — no side effects, no crash.</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>How long before it starts working?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Usually within 30 to 45 minutes after taking it on a light stomach. Effects can last for several hours — and some say the afterglow lasts even longer. 😉</p>
+  </div>
+</div>
+  <div class="faq">
+  <div class="bar-f">
+    <h1>Will it work for both partners?</h1>
+        <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Yes — we’ve created Hubby & Wifey tabs, tailored specifically to the male and female body. The ingredients are chosen to enhance blood flow, arousal, lubrication, stamina, satisfaction and many things for both.</p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>What makes it better than vaigra or supplements?</h1>
+   <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>1. Faster & Stronger Than Viagra**  
+✅ Onset in 30-60mins
+
+2. Zero Side Effects
+❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)  
+❌ No dependency(adaptogens protect receptors) </p>
+  </div>
+</div>
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Does it taste like herbs or medicine?</h1>
+      <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>Not at all. We use premium chocolate — dark, white, and strawberry . You’ll never taste the herbs… just pleasure. 🍫 </p>
+  </div>
+</div>
+
+ <div class="faq">
+  <div class="bar-f">
+    <h1>Who should not take JWW chocolates?</h1>
+    <div class="toggle-btn-faq"><img src="data:image/svg+xml,%3csvg%20width='34'%20height='33'%20viewBox='0%200%2034%2033'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M32%2016.5H2M17%201.5V31.5'%20stroke='%23552716'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt=""></div>
+  </div>
+  <div class="faq-content">
+<p>JWW chocolates is not intended for use by singles (who are not legally married) and children under the age of 18. If you are pregnant, nursing, taking any medication, or have any medical condition, consult your doctor before use.</p>
+  </div>
+</div>
+
+    </div>
+  </div>
+   <div class="splide">
+    <div class="splide__track splide__track-3 ">
+      <ul class="splide__list">
+        <li class="splide__slide">So strong, it’s sinful</li>
+      
+        <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+        <li class="splide__slide"> For couples who can’t behave</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+        <li class="splide__slide"> Stay hard after the nut</li>
+     
+        <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+      </ul>
+    </div>
+  </div>
+  
+ <footer>
+    <div class="section-main-footer">
+      <div class="side-left-logo">
+        <div class="logo-footer">
+          <img src="/assets/footer-logo-D9TIPGS-.png" alt="">
+        </div>
+        <div class="para-footer">
+          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫 Herbal, Fast & Intense: Made for unstoppable cravings
+          💦
+        </div>
+        <div class="cta-footer">
+          <div class="cta">Get dirty now</div>
+        </div>
+      </div>
+    <div class="menu-links-footer">
+  <ul>
+    <li>
+      <h1>LINKS</h1>
+    </li>
+    <li><a href="./index.html">HOME</a></li>
+    <li><a href="./About.html">ABOUT</a></li>
+    <li><a href="./contact.html">CONTACT</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <h1>SOCIAL MEDIA</h1>
+    </li>
+    <li><a href="https://www.instagram.com/jabweweds/" target="_blank">INSTAGRAM</a></li>
+    <li><a href="https://www.facebook.com/share/1BHEh4A6wU/" target="_blank">FACEBOOK</a></li>
+    <li><a href="https://x.com/JabWeWeds?t=Icz5FqbLT_86aVEqnzplqQ&s=09" target="_blank">X</a></li>
+    <li><a href="https://wa.me/923074250312" target="_blank">WHATSAPP</a></li>
+  </ul>
+</div>
+
+    </div>
+    <div class="privacy-policy">
+      <p>all right reserved jabweweds</p>
+    </div>
+    <div class="splide">
+      <div class="splide__track splide__track-1  ">
+        <ul class="splide__list ">
+          <li class="splide__slide slide-footer">Better than lube</li>
+
+          <li class="splide__slide"><img src="/assets/marq-2-DGfNmwWv.png" alt=""></li>
+          <li class="splide__slide  slide-footer">Pre-cum in seconds</li>
+
+          <li class="splide__slide"><img src="/assets/marq-3-DDFeUGEg.png" alt=""></li>
+          <li class="splide__slide  slide-footer">4+hrs of pounding</li>
+
+          <li class="splide__slide"><img src="/assets/marq-1-DXlVenYi.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  const productPageLinks = document.querySelectorAll("#product-page");
+
+  productPageLinks.forEach(element => {
+    element.style.cursor = "pointer"; // make it clickable
+    element.addEventListener("click", () => {
+      window.location.href = "./product-page.html";
+    });
+  });
+</script>
+</html>

@@ -1,0 +1,135 @@
+.hero-contact{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: 100%;
+        
+    }
+ 
+ .left-sided-contact-heading{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     @media (max-width: 768px) {
+       width: 100% !important;
+    align-items: center;
+    margin-top: 25vh;
+        
+    }
+    h1{
+        font-size: 8rem;
+        font-weight: 100;
+        color: #934919;
+          @media (max-width: 768px) {
+         font-size: 15rem;
+         text-align: center;
+        
+    }
+       
+    }
+    
+    .blue-b {
+     
+      color: #96D2EE;
+    }
+
+    .pink-p {
+   
+      color: #F27B75;
+    }
+    p{
+        font-size: 1.4rem;
+        font-weight: 400;
+        width: 80%;
+        font-family: "Roboto", sans-serif;
+        color: #552716;
+        margin-top: 1rem;
+        @media (max-width: 768px) {
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            font-size: 4rem;
+            justify-content: center;
+            text-align: center;
+            
+        }
+    }
+ }
+}
+.right-side-social-account{
+    width: 50%;
+    display: flex;
+    row-gap: 4rem;
+    justify-content: center;
+ 
+    flex-wrap: wrap;
+    @media (max-width: 768px) {
+        width: 100% !important;
+        flex-direction: column;
+        flex-wrap: unset;
+        
+    }
+    .bar-social{
+width: 45%;
+display: flex;
+justify-content: center;
+@media (max-width: 768px) {
+ width: 100%;
+ padding: 3rem;
+ text-align: center;
+ justify-content: center;
+ margin-top: 5rem;
+ align-items: center;
+
+    
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 768px) {
+        gap: 2rem;
+        
+    }
+    li{
+        text-decoration: none;
+        list-style: none;
+  padding-bottom: 0.5rem;
+        font-size: 1.2rem;
+     
+        h1{
+            font-size: 2.5rem;
+            font-weight: 100;
+            color: #934919;
+            padding-bottom: 1rem;
+            @media (max-width: 768px) {
+                font-size: 7rem;
+                font-weight: lighter;
+                
+            }
+        }
+        a{
+            text-decoration: none;
+            color: #552716;
+            font-size: 1.5rem;
+
+            font-weight: 400;
+            font-family: "Roboto", sans-serif;
+               @media (max-width: 768px) {
+            font-size: 5.5rem !important;
+            margin-top: 3rem;
+            
+        }
+            &:hover{
+                color: #F27B75;
+            }
+        }
+    }
+}
+    }
+}
