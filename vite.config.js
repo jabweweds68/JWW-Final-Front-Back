@@ -16,6 +16,7 @@ export default defineConfig({
         dashboard:'src/Dashboard.html',
         login:'src/Login.html',
         orders:'src/Orders.html',
+        countdown: 'src/count-down.html'
       }
     }
   },

@@ -1602,3 +1602,161 @@ img{
     
   }
 }
+
+.nav-count{
+  position: fixed;
+  width: 100%;
+  top: 3%;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 768px) {
+    top: 3%;
+    
+  }
+  img{
+    width: 8%;
+    height: 8%;
+    object-fit: cover;
+    @media (max-width: 768px) {
+      width: 30%;
+  }
+}
+}
+.counts-box{
+  display: flex;
+  gap: 3rem;
+  height: 100vh;
+
+  justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 15%;
+    flex-direction: column;
+    @media (max-width: 768px) {
+ position: absolute;
+ right: 0;
+  bottom: 5%;
+    width: 100vw;
+      
+    }
+
+    span{
+      font-size: 3rem;
+      color: #934919;
+      font-family: "font-anton";
+       @media (max-width: 768px) {
+          font-size: 20rem;
+          
+        }
+    }
+    section{
+      display: flex;
+   
+      align-items: center;
+      gap: 4rem;
+   
+    .counts-1{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .Days-count{
+        font-size: 8rem;
+        color: #552716;
+        font-family: "font-anton";
+        @media (max-width: 768px) {
+          font-size: 20rem;
+          
+        }
+
+      }
+        .Hours-count{
+        font-size: 8rem;
+        color: #552716;
+        font-family: "font-anton";
+        @media (max-width: 768px) {
+          font-size: 20rem;
+          
+        }
+
+      }
+        .Mints-count{
+        font-size: 8rem;
+        color: #552716;
+        font-family: "font-anton";
+        @media (max-width: 768px) {
+          font-size: 20rem;
+          
+        }
+
+      }
+
+    }
+     }
+}
+.Hours-text{
+  font-size: 2rem;
+  color: #934919;
+  font-family: "font-anton";
+   @media (max-width: 768px) {
+          font-size: 7rem;
+          
+        }
+}
+.heading-text{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  h1{
+  font-size: 4rem;
+  color: #934919;
+  font-family: "font-anton";
+  font-weight: 100 !important;
+
+
+  
+   @media (max-width: 768px) {
+          font-size: 7rem;
+          
+        }
+      }
+}
+.chocolate-bar-float{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  @media (max-width: 768px) {
+   bottom: 20% !important;
+   width: 100vw !important;
+    
+  }
+  .c-Count{
+position: absolute;
+left: -8%;
+scale: 0.8;
+@media (max-width: 768px) {
+ top: 53%;
+ left: -40%;
+
+  
+}
+  
+
+&:nth-child(2){
+  left: 0%;
+  @media (max-width: 768px) {
+    left: -15%;
+    
+  }
+
+}
+&:nth-child(3){
+  left: 10%;
+}
+
+  }
+
+}
