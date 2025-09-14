@@ -544,12 +544,16 @@
     </div>
   </footer>
 
-  <script >
-        const CONFIG = {
-    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
-};
-    </script>
   <script>
+    const CONFIG = {
+      BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+    };
+  </script>
+  <script>
+    // ====================
+    // FIXED PRODUCT PAGE SCRIPT (Replace your existing product page script)
+    // ====================
+
     // API Configuration
     const API_BASE_URL = CONFIG.BACKEND_URL;
 
@@ -564,119 +568,17 @@
       totalPrice: 0
     };
 
-    function initImageSlider(images) {
-      if (images.length <= 1) return; // No need to animate single image
-
-      // Set initial state
-      gsap.set(images, { opacity: 0 });
-      gsap.set(images[0], { opacity: 1 });
-
-      let currentIndex = 0;
-
-      // Create the sliding animation
-      const slideInterval = setInterval(() => {
-        const nextIndex = (currentIndex + 1) % images.length;
-
-        gsap.timeline()
-          .to(images[currentIndex], { opacity: 0, duration: 0.5 })
-          .set(images[nextIndex], { opacity: 1 }, "-=0.25");
-
-        currentIndex = nextIndex;
-      }, 3000); // Change image every 3 seconds
-
-      // Store interval reference for cleanup
-      window.productSliderInterval = slideInterval;
-    }
-    function initCategoryAnimations(buttons) {
-      buttons.forEach((button, index) => {
-        // Add hover effects
-        button.addEventListener('mouseenter', () => {
-          gsap.to(button, { scale: 1.05, duration: 0.3 });
-        });
-
-        button.addEventListener('mouseleave', () => {
-          gsap.to(button, { scale: 1, duration: 0.3 });
-        });
-
-        // Initial entrance animation
-        gsap.fromTo(button,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, delay: index * 0.1 }
-        );
-      });
-    }
-    function initPageAnimations() {
-      // Animate product name
-      const productName = document.getElementById('product-name');
-      if (productName && productName.textContent !== 'Loading...') {
-        gsap.fromTo(productName,
-          { opacity: 0, x: -30 },
-          { opacity: 1, x: 0, duration: 0.8 }
-        );
-      }
-
-      // Animate product description
-      const productDesc = document.getElementById('product-description');
-      if (productDesc && productDesc.textContent !== 'Loading product description...') {
-        gsap.fromTo(productDesc,
-          { opacity: 0, x: -30 },
-          { opacity: 1, x: 0, duration: 0.8, delay: 0.2 }
-        );
-      }
-
-      // Animate size buttons
-      const sizeButtons = document.querySelectorAll('#size-buttons .cta');
-      sizeButtons.forEach((button, index) => {
-        gsap.fromTo(button,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, delay: 0.3 + (index * 0.1) }
-        );
-      });
-
-      // Animate box selection
-      const boxElements = document.querySelectorAll('.p-box-1');
-      boxElements.forEach((box, index) => {
-        gsap.fromTo(box,
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 0.6, delay: 0.4 + (index * 0.1) }
-        );
-      });
+    // Get URL parameters function
+    function getURLParameters() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        productId: urlParams.get('productId'),
+        productSlug: urlParams.get('product'),
+        productName: urlParams.get('name')
+      };
     }
 
-    //Initialize GSAP animations
-    function initializeProductPageAnimations() {
-      // Ensure GSAP is available
-      if (typeof gsap === 'undefined') {
-        console.warn('GSAP is not loaded');
-        return;
-      }
-
-      // Check if elements exist before animating
-      const sliderImages = document.querySelectorAll('#slider-product-ch img');
-      const categoryButtons = document.querySelectorAll('.btn-s');
-
-      if (sliderImages.length === 0) {
-        console.warn('No slider images found for GSAP animation');
-        return;
-      }
-
-      // Kill any existing animations
-      gsap.killTweensOf(sliderImages);
-      gsap.killTweensOf(categoryButtons);
-
-      // Initialize image slider animations
-      initImageSlider(sliderImages);
-
-      // Initialize category button animations
-      if (categoryButtons.length > 0) {
-        initCategoryAnimations(categoryButtons);
-      }
-
-      // Initialize other page animations
-      initPageAnimations();
-    }
-
-    // Fetch products from API
+    // UPDATED: Fetch products with URL parameter handling
     async function fetchProducts() {
       try {
         const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
@@ -684,7 +586,20 @@
 
         if (data.success) {
           productsData = data.products;
+
+          // Check URL parameters BEFORE initializing default product
+          const urlParams = getURLParameters();
+          console.log('URL Parameters:', urlParams); // Debug log
+
           initializeProductPage();
+
+          // Handle URL parameters for specific product selection
+          if (urlParams.productId || urlParams.productSlug || urlParams.productName) {
+            selectProductFromURL(urlParams);
+          } else {
+            // Only select default if no URL parameters
+            selectDefaultProduct();
+          }
 
           // Dispatch custom event for other scripts to listen to
           setTimeout(() => {
@@ -701,57 +616,84 @@
         document.getElementById('product-description').textContent = error.message;
       }
     }
+
+    // UPDATED: Function to select product based on URL parameters
+    function selectProductFromURL(urlParams) {
+      let selectedProduct = null;
+
+      console.log('Searching for product with params:', urlParams); // Debug log
+      console.log('Available products:', productsData.map(p => ({ id: p._id, title: p.title }))); // Debug log
+
+      // Try to find by product ID first (most accurate)
+      if (urlParams.productId) {
+        selectedProduct = productsData.find(p => p._id === urlParams.productId);
+        console.log('Found by ID:', selectedProduct); // Debug log
+      }
+
+      // If not found by ID, try by slug
+      if (!selectedProduct && urlParams.productSlug) {
+        selectedProduct = productsData.find(p => {
+          const slug = p.title.toLowerCase().replace(/\s+/g, '-');
+          return slug === urlParams.productSlug;
+        });
+        console.log('Found by slug:', selectedProduct); // Debug log
+      }
+
+      // If still not found, try by name (case-insensitive)
+      if (!selectedProduct && urlParams.productName) {
+        selectedProduct = productsData.find(p =>
+          p.title.toLowerCase().includes(urlParams.productName.toLowerCase().replace(/\s+/g, ' '))
+        );
+        console.log('Found by name:', selectedProduct); // Debug log
+      }
+
+      if (selectedProduct) {
+        // Update active state in category buttons after a short delay
+        setTimeout(() => {
+          updateActiveCategory(selectedProduct._id);
+          selectProduct(selectedProduct);
+        }, 300);
+      } else {
+        console.warn('Product not found for URL params:', urlParams);
+        // Fallback to default product
+        selectDefaultProduct();
+      }
+    }
+
+    // Function to update active category button
+    function updateActiveCategory(productId) {
+      const categoryButtons = document.querySelectorAll('.btn-s');
+      categoryButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.productId === productId) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
     // Initialize the product page with API data
     function initializeProductPage() {
       if (productsData.length === 0) return;
-
       createCategoryButtons();
-      selectDefaultProduct();
       setupEventListeners();
     }
-    function updateBottomImages(images) {
-      const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1 img');
-      const lastImage = document.querySelector('.upper-picture-p.last-p img');
 
-      // Update the two middle images - using images starting from index 1 (since 0 is cover)
-      if (middleImages.length >= 2) {
-        if (images && images.length > 2) {
-          middleImages[0].src = getImageUrl(images[2]); // Use 3rd image (index 2)
-          middleImages[0].alt = "Product image 3";
-        }
-        if (images && images.length > 3) {
-          middleImages[1].src = getImageUrl(images[3]); // Use 4th image (index 3)
-          middleImages[1].alt = "Product image 4";
-        }
-      }
-
-      // Update the last image
-      if (lastImage && images && images.length > 4) {
-        lastImage.src = getImageUrl(images[4]); // Use 5th image (index 4)
-        lastImage.alt = "Product image 5";
-      } else if (lastImage && images && images.length > 1) {
-        // If there aren't enough images, use the second image (index 1) as fallback
-        lastImage.src = getImageUrl(images[1]);
-        lastImage.alt = "Product image";
-      }
-    }
     // Create category buttons from API data
     function createCategoryButtons() {
       const categoryContainer = document.getElementById('category-buttons');
 
       categoryContainer.innerHTML = productsData.map((product, index) => {
-        const isActive = index === 0 ? 'active' : '';
         const categoryClass = getCategoryClass(product.category);
 
         return `
-            <div class="btn-s ${isActive}" data-product-id="${product._id}" data-index="${index}">
-                <div class="choco-img">
-                    <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
-                </div>
-                <div class="bg-btn ${categoryClass}"></div>
-                <div class="text-btn">${product.title.toUpperCase()}</div>
-            </div>
-        `;
+      <div class="btn-s" data-product-id="${product._id}" data-index="${index}">
+        <div class="choco-img">
+          <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+        </div>
+        <div class="bg-btn ${categoryClass}"></div>
+        <div class="text-btn">${product.title.toUpperCase()}</div>
+      </div>
+    `;
       }).join('');
     }
 
@@ -772,71 +714,114 @@
     // Get image URL with fallback
     function getImageUrl(image) {
       if (!image) return './assets/images/ABout-pic.png';
-
       const imageUrl = typeof image === 'string' ? image : image.url;
       return imageUrl ? `${API_BASE_URL}${imageUrl}` : './assets/images/ABout-pic.png';
     }
 
-    // Select default product (first one)
+    // Select default product (first one) - only if no URL params
     function selectDefaultProduct() {
       if (productsData.length > 0) {
+        // Set first product as active
+        const firstButton = document.querySelector('.btn-s[data-index="0"]');
+        if (firstButton) {
+          firstButton.classList.add('active');
+        }
         selectProduct(productsData[0]);
       }
     }
 
     // Select a specific product
-  function selectProduct(product) {
-    currentProduct.id = product._id;
-    currentProduct.flavor = product.title.toLowerCase();
+    function selectProduct(product) {
+      currentProduct.id = product._id;
+      currentProduct.flavor = product.title.toLowerCase();
 
-    // Update product name and description
-    document.getElementById('product-name').textContent = product.title;
-    document.getElementById('product-description').textContent = product.description;
+      // Update product name and description
+      document.getElementById('product-name').textContent = product.title;
+      document.getElementById('product-description').textContent = product.description;
 
-    // Update product images
-    updateProductImages(product.images);
+      // Update product images
+      updateProductImages(product.images);
 
-    // Create size buttons from product data
-    createSizeButtons(product.sizeVariants);
+      // Create size buttons from product data
+      createSizeButtons(product.sizeVariants);
 
-    // Update menu products (with null check)
-    updateMenuProducts();
+      // Update menu products (with null check)
+      updateMenuProducts();
 
-    // Setup bottom image click functionality
-    setTimeout(() => {
+      // Setup bottom image click functionality
+      setTimeout(() => {
         setupBottomImageClicks();
-    }, 200);
+      }, 200);
 
-    // Let product-cmp.js know that new data is ready
-    // Reset the flag so product-cmp.js can reinitialize
-    window.productSliderInitialized = false;
+      // Reset the flag so product-cmp.js can reinitialize
+      window.productSliderInitialized = false;
 
-    // Dispatch event after DOM updates
-    setTimeout(() => {
+      // Dispatch event after DOM updates
+      setTimeout(() => {
         document.dispatchEvent(new CustomEvent('productDataLoaded', {
-            detail: {
-                products: productsData,
-                currentProduct: product
-            }
+          detail: {
+            products: productsData,
+            currentProduct: product
+          }
         }));
-    }, 300);
+      }, 300);
+    }
 
-    // Initialize GSAP animations after a brief delay (if no conflicts)
-    setTimeout(() => {
-        if (typeof initializeProductPageAnimations === 'function' && !window.productSliderInitialized) {
-            initializeProductPageAnimations();
+    // Update product images in the slider - EXCLUDING COVER IMAGE
+    function updateProductImages(images) {
+      const slider = document.getElementById('slider-product-ch');
+
+      if (images && images.length > 1) {
+        // Skip the first image (index 0) which is the cover image
+        const sliderImages = images.slice(1);
+
+        slider.innerHTML = sliderImages.map((image, index) =>
+          `<img src="${getImageUrl(image)}" alt="Product image" class="product-slider-img" style="opacity: ${index === 0 ? 1 : 0};">`
+        ).join('');
+      } else if (images && images.length === 1) {
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="No additional images" class="product-slider-img" style="opacity: 1;">';
+      } else {
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
+      }
+
+      // Update the bottom three images
+      updateBottomImages(images);
+
+      // Initialize slider after images are loaded
+      initializeProductSlider();
+    }
+
+    function updateBottomImages(images) {
+      const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1 img');
+      const lastImage = document.querySelector('.upper-picture-p.last-p img');
+
+      if (middleImages.length >= 2) {
+        if (images && images.length > 2) {
+          middleImages[0].src = getImageUrl(images[2]);
+          middleImages[0].alt = "Product image 3";
         }
-    }, 500);
-}
-  function initializeProductSlider() {
-      // Clean up any existing intervals first
+        if (images && images.length > 3) {
+          middleImages[1].src = getImageUrl(images[3]);
+          middleImages[1].alt = "Product image 4";
+        }
+      }
+
+      if (lastImage && images && images.length > 4) {
+        lastImage.src = getImageUrl(images[4]);
+        lastImage.alt = "Product image 5";
+      } else if (lastImage && images && images.length > 1) {
+        lastImage.src = getImageUrl(images[1]);
+        lastImage.alt = "Product image";
+      }
+    }
+
+    function initializeProductSlider() {
       if (window.sliderChInterval) {
         clearInterval(window.sliderChInterval);
       }
 
-      // Don't initialize if product-cmp.js already handled it
       if (window.productSliderInitialized) {
-        console.log('Product slider already initialized by product-cmp.js');
+        console.log('Product slider already initialized');
         return;
       }
 
@@ -848,7 +833,6 @@
 
       let sliderChCurrent = 0;
 
-      // Use CSS transitions if GSAP isn't available or to avoid conflicts
       function showImageCSS(index) {
         sliderChImages.forEach((img, i) => {
           img.style.opacity = i === index ? '1' : '0';
@@ -858,17 +842,14 @@
 
       function startAutoCSS() {
         if (sliderChImages.length <= 1) return;
-
         window.sliderChInterval = setInterval(() => {
           sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
           showImageCSS(sliderChCurrent);
         }, 3000);
       }
 
-      // Set initial state
       showImageCSS(0);
 
-      // Button handlers
       if (sliderChNextBtn && !sliderChNextBtn.hasEventListener) {
         sliderChNextBtn.addEventListener("click", () => {
           clearInterval(window.sliderChInterval);
@@ -892,32 +873,8 @@
       startAutoCSS();
       window.productSliderInitialized = true;
     }
-    // Update product images in the slider
-    // Update product images in the slider - EXCLUDING COVER IMAGE
-    function updateProductImages(images) {
-      const slider = document.getElementById('slider-product-ch');
 
-      if (images && images.length > 1) {
-        // Skip the first image (index 0) which is the cover image
-        const sliderImages = images.slice(1); // This removes the first image
-
-        slider.innerHTML = sliderImages.map((image, index) =>
-          `<img src="${getImageUrl(image)}" alt="Product image" class="product-slider-img" style="opacity: ${index === 0 ? 1 : 0};">`
-        ).join('');
-      } else if (images && images.length === 1) {
-        // If only one image exists, show a placeholder or message
-        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="No additional images" class="product-slider-img" style="opacity: 1;">';
-      } else {
-        // No images at all
-        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
-      }
-
-      // Update the bottom three images (these can still use all images including cover)
-      updateBottomImages(images);
-
-      // Initialize slider after images are loaded
-      initializeProductSlider();
-    }    // Create size buttons from API data
+    // Create size buttons from API data
     function createSizeButtons(sizeVariants) {
       const sizeContainer = document.getElementById('size-buttons');
 
@@ -925,16 +882,14 @@
         sizeContainer.innerHTML = sizeVariants.map((variant, index) => {
           const isActive = index === 0 ? 'active' : '';
           return `
-                <div class="cta ${isActive}" data-size="${variant.size.toLowerCase()}" data-price="${variant.price}">
-                    ${variant.size}
-                </div>
-            `;
+        <div class="cta ${isActive}" data-size="${variant.size.toLowerCase()}" data-price="${variant.price}">
+          ${variant.size}
+        </div>
+      `;
         }).join('');
 
-        // Set default size
         currentProduct.size = sizeVariants[0].size.toLowerCase();
         currentProduct.sizePrice = sizeVariants[0].price;
-
         createBoxSelection();
       } else {
         sizeContainer.innerHTML = '<p>No sizes available</p>';
@@ -950,17 +905,16 @@
         const price = currentProduct.sizePrice * count;
 
         return `
-            <div class="p-box-1 ${isActive}" data-box="${count}">
-                <div class="heading-1-box">${count} BOX</div>
-                <div class="lower-price-tg">
-                    <p>${count} Chocolate${count > 1 ? 's' : ''}</p>
-                    <p class="box-price">PKR: ${price}</p>
-                </div>
-            </div>
-        `;
+      <div class="p-box-1 ${isActive}" data-box="${count}">
+        <div class="heading-1-box">${count} BOX</div>
+        <div class="lower-price-tg">
+          <p>${count} Chocolate${count > 1 ? 's' : ''}</p>
+          <p class="box-price">PKR: ${price}</p>
+        </div>
+      </div>
+    `;
       }).join('');
 
-      // Set default box count
       currentProduct.boxCount = 1;
       updatePricing();
     }
@@ -968,30 +922,27 @@
     // Update menu products
     function updateMenuProducts() {
       const menuContainer = document.getElementById('menu-products');
-
-      // Check if element exists
       if (!menuContainer) {
-        console.warn('menu-products element not found, skipping menu update');
+        console.warn('menu-products element not found');
         return;
       }
 
       menuContainer.innerHTML = `
-        <div class="grid-box-container">
-            ${productsData.map(product => `
-                <div class="box" data-product-id="${product._id}">
-                    <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
-                    <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
-                    <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
-                    <div class="name-box">${product.title.toUpperCase()}</div>
-                    <div class="choco-menu">
-                        <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
-                    </div>
-                </div>
-            `).join('')}
+    <div class="grid-box-container">
+      ${productsData.map(product => `
+        <div class="box" data-product-id="${product._id}">
+          <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+          <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+          <div class="name-box">${product.title.toUpperCase()}</div>
+          <div class="choco-menu">
+            <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+          </div>
         </div>
-    `;
+      `).join('')}
+    </div>
+  `;
 
-      // Show dynamic menu and hide static menu
       menuContainer.style.display = 'block';
       const staticMenu = document.getElementById('static-menu');
       if (staticMenu) {
@@ -999,27 +950,22 @@
       }
     }
 
-    // Setup event listeners - UPDATED TO USE CART MANAGER
+    // Setup event listeners
     function setupEventListeners() {
-      // Category buttons
       document.addEventListener('click', (e) => {
         if (e.target.closest('.btn-s')) {
           const button = e.target.closest('.btn-s');
           const productId = button.dataset.productId;
-          const index = parseInt(button.dataset.index);
 
-          // Remove active class from all buttons
           document.querySelectorAll('.btn-s').forEach(btn => btn.classList.remove('active'));
           button.classList.add('active');
 
-          // Select the product
           const product = productsData.find(p => p._id === productId);
           if (product) {
             selectProduct(product);
           }
         }
 
-        // Size buttons
         if (e.target.classList.contains('cta') && e.target.closest('#size-buttons')) {
           document.querySelectorAll('#size-buttons .cta').forEach(btn => btn.classList.remove('active'));
           e.target.classList.add('active');
@@ -1029,7 +975,6 @@
           createBoxSelection();
         }
 
-        // Box selection
         if (e.target.closest('.p-box-1')) {
           const button = e.target.closest('.p-box-1');
           document.querySelectorAll('.p-box-1').forEach(btn => btn.classList.remove('active'));
@@ -1040,7 +985,6 @@
         }
       });
 
-      // Cart functionality - Updated to use global cart manager
       document.getElementById('add-to-cart').addEventListener('click', addToCart);
       document.getElementById('open-cart').addEventListener('click', () => cartManager.openCart());
       document.getElementById('close-cart').addEventListener('click', () => cartManager.closeCart());
@@ -1058,7 +1002,7 @@
       document.getElementById('total-description').textContent = `${currentProduct.boxCount} Chocolate${currentProduct.boxCount > 1 ? 's' : ''}`;
     }
 
-    // UPDATED ADD TO CART FUNCTION TO USE CART MANAGER
+    // Add to cart function
     function addToCart() {
       if (!currentProduct.id) {
         alert('Please select a product');
@@ -1071,11 +1015,10 @@
         return;
       }
 
-      // Create product data compatible with the universal cart manager
       const productData = {
         productId: currentProduct.id,
         name: product.title,
-        image: getImageUrl(product.images[0]), // This will be the main product image
+        image: getImageUrl(product.images[0]),
         flavor: currentProduct.flavor,
         size: currentProduct.size,
         sizePrice: currentProduct.sizePrice,
@@ -1083,21 +1026,8 @@
         totalPrice: currentProduct.totalPrice
       };
 
-      // console.log('Product page adding to cart:', productData);
-
-      // Use the global cart manager
       cartManager.addToCart(productData);
     }
-
-    // REMOVED OLD CART FUNCTIONS - Now using CartManager
-    // The following functions are no longer needed and have been removed:
-    // - updateCartDisplay
-    // - changeQuantity  
-    // - updateCartTotals
-    // - clearCart
-    // - openCart
-    // - closeCart
-    // - showCartNotification
 
     // Setup bottom image click functionality
     function setupBottomImageClicks() {
@@ -1105,25 +1035,20 @@
       const lastImage = document.querySelector('.upper-picture-p.last-p');
       const mainSlider = document.getElementById('slider-product-ch');
 
-      // Handle middle images click
       middleImages.forEach((imageContainer, index) => {
         imageContainer.style.cursor = 'pointer';
         imageContainer.addEventListener('click', () => {
           const currentProductData = productsData.find(p => p._id === currentProduct.id);
           if (currentProductData && currentProductData.images[index + 1]) {
-            // Update main slider to show this image
             const sliderImages = mainSlider.querySelectorAll('img');
             if (sliderImages[index + 1]) {
-              // Hide all images
               sliderImages.forEach(img => img.style.opacity = '0');
-              // Show clicked image
               sliderImages[index + 1].style.opacity = '1';
             }
           }
         });
       });
 
-      // Handle last image click
       if (lastImage) {
         lastImage.style.cursor = 'pointer';
         lastImage.addEventListener('click', () => {
@@ -1139,38 +1064,30 @@
       }
     }
 
-    function cleanupAnimations() {
-      if (window.productSliderInterval) {
-        clearInterval(window.productSliderInterval);
-        window.productSliderInterval = null;
-      }
-
-      if (window.productSliderTL) {
-        window.productSliderTL.kill();
-        window.productSliderTL = null;
-      }
-
-      // Kill any remaining tweens
-      if (typeof gsap !== 'undefined') {
-        gsap.killTweensOf("*");
-      }
-    }
-
-    // Initialize the application - UPDATED TO WAIT FOR CART MANAGER
+    // Initialize the application
     document.addEventListener('DOMContentLoaded', () => {
-      // console.log('Product page DOM loaded');
-
-      // Wait for cart manager to initialize, then fetch products
+      console.log('Product page DOM loaded');
       setTimeout(() => {
         fetchProducts();
       }, 200);
     });
 
-    window.addEventListener('beforeunload', cleanupAnimations);
+    // Cleanup function
+    function cleanupAnimations() {
+      if (window.productSliderInterval) {
+        clearInterval(window.productSliderInterval);
+        window.productSliderInterval = null;
+      }
+      if (window.productSliderTL) {
+        window.productSliderTL.kill();
+        window.productSliderTL = null;
+      }
+      if (typeof gsap !== 'undefined') {
+        gsap.killTweensOf("*");
+      }
+    }
 
-    // Make functions globally available
-    window.initializeProductPageAnimations = initializeProductPageAnimations;
-    window.cleanupAnimations = cleanupAnimations;
+    window.addEventListener('beforeunload', cleanupAnimations);
   </script>
 
 </body>

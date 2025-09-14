@@ -247,10 +247,10 @@
             </button>
         </form>
     </div>
-    <script >
+    <script>
         const CONFIG = {
-    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
-};
+            BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+        };
     </script>
     <script>
         const BACKEND_URL = CONFIG.BACKEND_URL;
@@ -355,9 +355,9 @@
                         password: password
                     })
                 });
-                
+
                 const data = await response.json();
-                console.log("REsponse",data)
+                console.log("REsponse", data)
 
                 if (response.ok && data.success) {
                     // Login successful - store token and redirect to dashboard
