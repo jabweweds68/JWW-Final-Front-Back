@@ -15,7 +15,7 @@ const tl = gsap.timeline({
     start: "top top",
     end: "+=400%",       // Stick for 3x viewport height
     scrub: 1,
-    markers: true,
+  
     pin: true,
     anticipatePin: 1,
   }
