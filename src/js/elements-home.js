@@ -287,3 +287,31 @@ chocolateFLy.to("#choco-m-1", {
   stagger: 0.1,
   ease: "power2.inOut",
 }, "0");
+
+
+const cards = document.querySelectorAll(".card-products-home");
+
+cards.forEach(card => {
+  const image = card.querySelector(".product-images-card img");
+  const sizeOptions = card.querySelectorAll(".size-option");
+
+  sizeOptions.forEach(option => {
+    option.addEventListener("click", () => {
+      // reset ALL cards before applying new scale
+      cards.forEach(c => {
+        c.querySelector(".product-images-card img").style.transform = "scale(1)";
+        c.querySelectorAll(".size-option").forEach(o => o.classList.remove("active"));
+      });
+
+      // activate clicked option
+      option.classList.add("active");
+
+      // scale only the clicked card
+      if (option.textContent.trim() === "Small") {
+        image.style.transform = "scale(0.8)";
+      } else if (option.textContent.trim() === "Large") {
+        image.style.transform = "scale(1)";
+      }
+    });
+  });
+});

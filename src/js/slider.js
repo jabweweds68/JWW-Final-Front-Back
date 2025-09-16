@@ -1,91 +1,81 @@
-import gsap from "gsap";
+const slider = document.querySelector(".inner-product-cards-container");
+let isDown = false;
+let startX;
+let currentX = 0;
+let prevX = 0;
+let velocity = 0;
+let animationFrame;
 
-const container = document.querySelector(".container-slide");
-const slides = document.querySelectorAll(".slide-product");
-const btnLeft = document.querySelector(".left-slide");
-const btnRight = document.querySelector(".right-slide");
-const chocolateSlider = document.querySelector(".chocolate-slider-top-bottom");
-const elements = document.querySelectorAll(".elements-slider-1 .ele-ing");
+function animate() {
+  currentX += velocity;
+  velocity *= 0.95; // friction
 
-let currentIndex = 0;
-const totalSlides = slides.length;
+  // boundaries
+  const maxTranslate = 0;
+  const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
 
-function updateButtons() {
-  btnLeft.style.pointerEvents = currentIndex === 0 ? "none" : "auto";
-  btnLeft.style.opacity = currentIndex === 0 ? "0.3" : "1";
-
-  btnRight.style.pointerEvents = currentIndex === totalSlides - 1 ? "none" : "auto";
-  btnRight.style.opacity = currentIndex === totalSlides - 1 ? "0.3" : "1";
-}
-
-function animateElements(index) {
-  elements.forEach((el, i) => {
-    const randomX = gsap.utils.random(-50, 50);
-    const randomY = gsap.utils.random(-30, 30);
-    const randomRot = gsap.utils.random(-15, 15);
-
-    gsap.to(el, {
-      x: randomX * index,
-      y: randomY * index,
-      rotation: randomRot * index,
-      scale: 1 + index * 0.05,
-      duration: 1,
-      ease: "power3.out",
-    });
-  });
-}
-
-function animateSlider() {
-  const offsetY = 100 - currentIndex * 100;
-
-  gsap.to(chocolateSlider, {
-    y: `${offsetY}vh`,
-    duration: 0.8,
-    ease: "power2.inOut",
-  });
-
-  gsap.to(container, {
-    x: `${-100 * currentIndex}vw`,
-    duration: 0.8,
-    ease: "power2.inOut",
-  });
-
-  animateElements(currentIndex);
-  updateButtons();
-}
-
-btnRight.addEventListener("click", () => {
-  if (currentIndex < totalSlides - 1) {
-    currentIndex++;
-    animateSlider();
+  if (currentX > maxTranslate) {
+    currentX = maxTranslate;
+    velocity = 0;
   }
-});
-
-btnLeft.addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    animateSlider();
+  if (currentX < minTranslate) {
+    currentX = minTranslate;
+    velocity = 0;
   }
+
+  slider.style.transform = `translateX(${currentX}px)`;
+
+  if (Math.abs(velocity) > 0.1) {
+    animationFrame = requestAnimationFrame(animate);
+  }
+}
+
+// --- Desktop Events ---
+slider.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.pageX;
+  prevX = currentX;
+  velocity = 0;
+  cancelAnimationFrame(animationFrame);
 });
 
-// Initial setup
-updateButtons();
-animateElements(0);
-
-
-
-
-// Select all chocolate image wrappers
-const chocoImgs = document.querySelectorAll(".choco-main-lr img");
-
-// Apply floating animation to each image
-chocoImgs.forEach((img, i) => {
-  gsap.to(img, {
-    y: 20,
-    duration: 2 + i * 0.5, // Slightly different durations for variation
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: 0.1,
-  });
+slider.addEventListener("mouseup", () => {
+  isDown = false;
+  requestAnimationFrame(animate);
 });
+
+slider.addEventListener("mouseleave", () => {
+  isDown = false;
+});
+
+slider.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const delta = e.pageX - startX;
+  currentX = prevX + delta;
+  velocity = delta - (currentX - prevX);
+  slider.style.transform = `translateX(${currentX}px)`;
+});
+
+// --- Mobile Touch Events ---
+slider.addEventListener("touchstart", (e) => {
+  isDown = true;
+  startX = e.touches[0].pageX;
+  prevX = currentX;
+  velocity = 0;
+  cancelAnimationFrame(animationFrame);
+});
+
+slider.addEventListener("touchend", () => {
+  isDown = false;
+  requestAnimationFrame(animate);
+});
+
+slider.addEventListener("touchmove", (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const delta = e.touches[0].pageX - startX;
+  currentX = prevX + delta;
+  velocity = delta - (currentX - prevX);
+  slider.style.transform = `translateX(${currentX}px)`;
+}, { passive: false }); // passive: false to allow preventDefault

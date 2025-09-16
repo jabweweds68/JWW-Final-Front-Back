@@ -86,6 +86,7 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+    
     @media (max-width: 768px) {
        display: none;
         
@@ -165,6 +166,7 @@
   .sizes-btn .cta.active-btn {
   background: #552716;
   color: #fff;
+  
 
 }
 .boxes-price-select{
