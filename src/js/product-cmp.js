@@ -7,6 +7,8 @@ import "./faq-toggle";
 
 import gsap from "gsap";
 
+// Global flag to prevent duplicate initializations
+let productSliderInitialized = false;
 
 // Wait for DOM and dynamic content to be ready
 function initializeProductSlider() {
@@ -16,23 +18,23 @@ function initializeProductSlider() {
 
   // Check if elements exist
   if (!sliderChImages.length || !sliderChPrevBtn || !sliderChNextBtn) {
-    console.log('Slider elements not ready yet, retrying...');
+    // console.log('Slider elements not ready yet, retrying...');
     return false;
   }
 
-  // Don't initialize if already done by main script
+  // IMPORTANT: Don't initialize if main script already handled it
   if (window.productSliderInitialized) {
-    console.log('Product slider already initialized by main script');
+    // console.log('Product slider already initialized by main script');
     return true;
   }
 
-  let sliderChCurrent = 0;
-  let sliderChInterval;
-
-  // Clean up any existing intervals
+  // Clean up any existing intervals first
   if (window.sliderChInterval) {
     clearInterval(window.sliderChInterval);
+    window.sliderChInterval = null;
   }
+
+  let sliderChCurrent = 0;
 
   // Use GSAP if available, otherwise fallback to CSS
   if (typeof gsap !== 'undefined') {
@@ -46,7 +48,7 @@ function initializeProductSlider() {
     }
 
     function sliderChStartAuto() {
-      if (sliderChImages.length <= 1) return; // Don't auto-slide single images
+      if (sliderChImages.length <= 1) return;
       
       window.sliderChInterval = setInterval(() => {
         sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
@@ -57,41 +59,42 @@ function initializeProductSlider() {
     function sliderChStopAuto() {
       if (window.sliderChInterval) {
         clearInterval(window.sliderChInterval);
+        window.sliderChInterval = null;
       }
     }
 
-    // Prevent duplicate event listeners
-    if (!sliderChNextBtn.hasProductCmpListener) {
-      sliderChNextBtn.addEventListener("click", () => {
-        sliderChStopAuto();
-        sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
-        sliderChShowImage(sliderChCurrent);
-        sliderChStartAuto();
-      });
-      sliderChNextBtn.hasProductCmpListener = true;
-    }
+    // Remove existing listeners to prevent duplicates
+    const newNextBtn = sliderChNextBtn.cloneNode(true);
+    const newPrevBtn = sliderChPrevBtn.cloneNode(true);
+    sliderChNextBtn.parentNode.replaceChild(newNextBtn, sliderChNextBtn);
+    sliderChPrevBtn.parentNode.replaceChild(newPrevBtn, sliderChPrevBtn);
 
-    if (!sliderChPrevBtn.hasProductCmpListener) {
-      sliderChPrevBtn.addEventListener("click", () => {
-        sliderChStopAuto();
-        sliderChCurrent = (sliderChCurrent - 1 + sliderChImages.length) % sliderChImages.length;
-        sliderChShowImage(sliderChCurrent);
-        sliderChStartAuto();
-      });
-      sliderChPrevBtn.hasProductCmpListener = true;
-    }
+    // Add fresh event listeners
+    newNextBtn.addEventListener("click", () => {
+      sliderChStopAuto();
+      sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
+      sliderChShowImage(sliderChCurrent);
+      sliderChStartAuto();
+    });
+
+    newPrevBtn.addEventListener("click", () => {
+      sliderChStopAuto();
+      sliderChCurrent = (sliderChCurrent - 1 + sliderChImages.length) % sliderChImages.length;
+      sliderChShowImage(sliderChCurrent);
+      sliderChStartAuto();
+    });
 
     // Start autoplay
     sliderChStartAuto();
   } else {
-    console.log('GSAP not available, skipping slider initialization');
+    // console.log('GSAP not available, skipping slider initialization');
     return false;
   }
 
-  // Mark as initialized
-  window.productSliderInitialized = true;
+  // Mark as initialized by this script only
+  productSliderInitialized = true;
   
-  return true; // Success
+  return true;
 }
 
 function initializeSizeButtons() {
@@ -101,15 +104,26 @@ function initializeSizeButtons() {
     return false;
   }
 
-  sizeBtns.forEach(btn => {
+  // Remove existing listeners by cloning elements
+  sizeBtns.forEach((btn, index) => {
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+  });
+
+  // Get fresh references and add listeners
+  const freshSizeBtns = document.querySelectorAll(".sizes-btn .cta");
+  
+  freshSizeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      sizeBtns.forEach(b => b.classList.remove("active-btn"));
+      freshSizeBtns.forEach(b => b.classList.remove("active-btn"));
       btn.classList.add("active-btn");
     });
   });
 
-  // Make first button active by default
-  sizeBtns[0].classList.add("active-btn");
+  // Make first button active by default if none are active
+  if (!document.querySelector(".sizes-btn .cta.active-btn")) {
+    freshSizeBtns[0]?.classList.add("active-btn");
+  }
   
   return true;
 }
@@ -121,15 +135,26 @@ function initializeBoxes() {
     return false;
   }
 
-  // Make first one active by default
-  boxes[0].classList.add("active");
+  // Remove existing listeners by cloning elements
+  boxes.forEach((box, index) => {
+    const newBox = box.cloneNode(true);
+    box.parentNode.replaceChild(newBox, box);
+  });
 
-  boxes.forEach(box => {
+  // Get fresh references and add listeners
+  const freshBoxes = document.querySelectorAll(".p-box-1");
+
+  freshBoxes.forEach(box => {
     box.addEventListener("click", () => {
-      boxes.forEach(b => b.classList.remove("active"));
+      freshBoxes.forEach(b => b.classList.remove("active"));
       box.classList.add("active");
     });
   });
+
+  // Make first one active by default if none are active
+  if (!document.querySelector(".p-box-1.active")) {
+    freshBoxes[0]?.classList.add("active");
+  }
   
   return true;
 }
@@ -154,21 +179,35 @@ function adjustCartHeight() {
   return true;
 }
 
+// Cleanup function to reset state
+function cleanup() {
+  // console.log('Cleaning up product components...');
+  
+  // Clear any intervals
+  if (window.sliderChInterval) {
+    clearInterval(window.sliderChInterval);
+    window.sliderChInterval = null;
+  }
+  
+  // Reset initialization flag
+  productSliderInitialized = false;
+}
+
 // Retry function with exponential backoff
-function retryInitialization(initFunc, maxRetries = 10, delay = 100) {
+function retryInitialization(initFunc, maxRetries = 8, delay = 100) {
   let retries = 0;
   
   function attempt() {
     const success = initFunc();
     
     if (success) {
-      console.log(`${initFunc.name} initialized successfully`);
+      // console.log(`${initFunc.name} initialized successfully`);
       return;
     }
     
     retries++;
     if (retries < maxRetries) {
-      setTimeout(attempt, delay * Math.pow(1.5, retries)); // Exponential backoff
+      setTimeout(attempt, delay * Math.pow(1.3, retries));
     } else {
       console.warn(`${initFunc.name} failed to initialize after ${maxRetries} attempts`);
     }
@@ -179,27 +218,36 @@ function retryInitialization(initFunc, maxRetries = 10, delay = 100) {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Product component initializing...');
+  // console.log('Product component initializing...');
   
-  // Wait a bit for the main product page script to create elements
+  // Wait for the main product page script to create elements
   setTimeout(() => {
-    retryInitialization(initializeProductSlider);
+    if (!window.productSliderInitialized) {
+      retryInitialization(initializeProductSlider);
+    }
     retryInitialization(initializeSizeButtons);
     retryInitialization(initializeBoxes);
     retryInitialization(adjustCartHeight);
-  }, 500);
+  }, 800);
 });
 
-// Also listen for custom events from the main product script
-document.addEventListener('productDataLoaded', () => {
-  console.log('Product data loaded, reinitializing components...');
+// Listen for product changes and reinitialize components
+document.addEventListener('productDataLoaded', (event) => {
+  // console.log('Product data loaded, reinitializing components...');
   
+  // Cleanup first
+  cleanup();
+  
+  // Wait a bit for DOM updates to complete
   setTimeout(() => {
-    retryInitialization(initializeProductSlider);
+    // Only initialize slider if main script hasn't done it
+    if (!window.productSliderInitialized) {
+      retryInitialization(initializeProductSlider);
+    }
     retryInitialization(initializeSizeButtons);
     retryInitialization(initializeBoxes);
     retryInitialization(adjustCartHeight);
-  }, 200);
+  }, 300);
 });
 
 // Export functions for manual initialization if needed
@@ -207,5 +255,6 @@ window.productComponentsInit = {
   initializeProductSlider,
   initializeSizeButtons,
   initializeBoxes,
-  adjustCartHeight
+  adjustCartHeight,
+  cleanup
 };

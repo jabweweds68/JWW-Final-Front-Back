@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products</title>
+  <title>Document</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -133,7 +133,7 @@
       <div class="product-para" id="product-description">Loading product description...</div>
 
       <h2 class="heading-product-c">Categories</h2>
-      <div class="slider-btn-section product-btn-size" id="category-buttons">
+      <div class="slider-btn-section" id="category-buttons">
         <!-- Category buttons will be dynamically loaded -->
       </div>
 
@@ -582,7 +582,7 @@
 
           // Check URL parameters BEFORE initializing default product
           const urlParams = getURLParameters();
-          console.log('URL Parameters:', urlParams); // Debug log
+          // console.log('URL Parameters:', urlParams); // Debug log
 
           initializeProductPage();
 
@@ -614,13 +614,13 @@
     function selectProductFromURL(urlParams) {
       let selectedProduct = null;
 
-      console.log('Searching for product with params:', urlParams); // Debug log
-      console.log('Available products:', productsData.map(p => ({ id: p._id, title: p.title }))); // Debug log
+      // console.log('Searching for product with params:', urlParams); // Debug log
+      // console.log('Available products:', productsData.map(p => ({ id: p._id, title: p.title }))); // Debug log
 
       // Try to find by product ID first (most accurate)
       if (urlParams.productId) {
         selectedProduct = productsData.find(p => p._id === urlParams.productId);
-        console.log('Found by ID:', selectedProduct); // Debug log
+        // console.log('Found by ID:', selectedProduct); // Debug log
       }
 
       // If not found by ID, try by slug
@@ -629,7 +629,7 @@
           const slug = p.title.toLowerCase().replace(/\s+/g, '-');
           return slug === urlParams.productSlug;
         });
-        console.log('Found by slug:', selectedProduct); // Debug log
+        // console.log('Found by slug:', selectedProduct); // Debug log
       }
 
       // If still not found, try by name (case-insensitive)
@@ -637,7 +637,7 @@
         selectedProduct = productsData.find(p =>
           p.title.toLowerCase().includes(urlParams.productName.toLowerCase().replace(/\s+/g, ' '))
         );
-        console.log('Found by name:', selectedProduct); // Debug log
+        // console.log('Found by name:', selectedProduct); // Debug log
       }
 
       if (selectedProduct) {
@@ -809,20 +809,23 @@
     }
 
     function initializeProductSlider() {
+      // Clear any existing intervals first
       if (window.sliderChInterval) {
         clearInterval(window.sliderChInterval);
+        window.sliderChInterval = null;
       }
 
-      if (window.productSliderInitialized) {
-        console.log('Product slider already initialized');
-        return;
-      }
+      // Reset the initialization flag to allow re-initialization
+      window.productSliderInitialized = false;
 
       const sliderChImages = document.querySelectorAll("#slider-product-ch img");
       const sliderChPrevBtn = document.querySelectorAll(".btns-next-p-1")[0];
       const sliderChNextBtn = document.querySelectorAll(".btns-next-p-1")[1];
 
-      if (sliderChImages.length === 0) return;
+      if (sliderChImages.length === 0) {
+        // console.log('No slider images found');
+        return;
+      }
 
       let sliderChCurrent = 0;
 
@@ -841,32 +844,44 @@
         }, 3000);
       }
 
+      function stopAutoCSS() {
+        if (window.sliderChInterval) {
+          clearInterval(window.sliderChInterval);
+          window.sliderChInterval = null;
+        }
+      }
+
+      // Initialize display
       showImageCSS(0);
 
-      if (sliderChNextBtn && !sliderChNextBtn.hasEventListener) {
-        sliderChNextBtn.addEventListener("click", () => {
-          clearInterval(window.sliderChInterval);
+      // Remove existing event listeners by cloning and replacing buttons
+      if (sliderChNextBtn) {
+        const newNextBtn = sliderChNextBtn.cloneNode(true);
+        sliderChNextBtn.parentNode.replaceChild(newNextBtn, sliderChNextBtn);
+
+        newNextBtn.addEventListener("click", () => {
+          stopAutoCSS();
           sliderChCurrent = (sliderChCurrent + 1) % sliderChImages.length;
           showImageCSS(sliderChCurrent);
           startAutoCSS();
         });
-        sliderChNextBtn.hasEventListener = true;
       }
 
-      if (sliderChPrevBtn && !sliderChPrevBtn.hasEventListener) {
-        sliderChPrevBtn.addEventListener("click", () => {
-          clearInterval(window.sliderChInterval);
+      if (sliderChPrevBtn) {
+        const newPrevBtn = sliderChPrevBtn.cloneNode(true);
+        sliderChPrevBtn.parentNode.replaceChild(newPrevBtn, sliderChPrevBtn);
+
+        newPrevBtn.addEventListener("click", () => {
+          stopAutoCSS();
           sliderChCurrent = (sliderChCurrent - 1 + sliderChImages.length) % sliderChImages.length;
           showImageCSS(sliderChCurrent);
           startAutoCSS();
         });
-        sliderChPrevBtn.hasEventListener = true;
       }
 
       startAutoCSS();
       window.productSliderInitialized = true;
     }
-
     // Create size buttons from API data
     function createSizeButtons(sizeVariants) {
       const sizeContainer = document.getElementById('size-buttons');
@@ -1059,7 +1074,7 @@
 
     // Initialize the application
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('Product page DOM loaded');
+      // console.log('Product page DOM loaded');
       setTimeout(() => {
         fetchProducts();
       }, 200);
