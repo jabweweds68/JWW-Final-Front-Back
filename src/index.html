@@ -289,7 +289,7 @@
         <li class="splide__slide"> Explodes inside out</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
-        <li class="splide__slide">She rides like possessed</li>
+        <li class="splide__slide">She rides like Crazy</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
       </ul>
@@ -308,10 +308,9 @@
       </div>
       <div class="left-side-content-ing">
         <div class="right-side-content-ab">
-          <h1 class="ing-h">HUSBAND EFFECTS </h1>
+          <h1 class="ing-h">FOR HUBBY</h1>
           <span class="warning">⚠️ Explicit Warnings</span>
-          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your personal
-            addict.
+          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your ultimate lover. Let's see what ingredients do for the husband
             For husband ingredients benefits</p>
           <ul>
             <li>🍆 Rock-Hard Erections.</li>
@@ -340,7 +339,7 @@
         <div class="right-side-content-ab">
           <h1 class="ing-h">FOR WIFEY </h1>
           <span class="warning">⚠️ Warning For Her</span>
-          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, uncontrollable wetness, nonstop orgasms.</p>
+          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, wetness, and non-stop orgasms. Let's see what our ingredients do for the wifey.</p>
           <ul>
             <li>🌊 Extreme wetness.</li>
             <li>⚡ Instant clit sensations.</li>
@@ -382,7 +381,7 @@
         <li class="splide__slide">No pills. Just madness.</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-3.png" alt=""></li>
-        <li class="splide__slide">Target: G-Spot locked</li>
+        <li class="splide__slide">Target: G-Spot hit perfectly</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-1.png" alt=""></li>
       </ul>
@@ -503,7 +502,7 @@
     </div>
   </div> -->
   
-  <section class="product-cards-container">
+  <!-- <section class="product-cards-container">
     <div class="inner-product-cards-container">
       <div class="card-products-home">
         <div class="product-name-h1">
@@ -585,7 +584,19 @@
         </div>
       </div>
     </div>
+  </section> -->
+  
+  
+    <section class="product-cards-container">
+    <div class="inner-product-cards-container" id="products-loading">
+      <div class="loading-message">Loading products...</div>
+    </div>
+    <div class="inner-product-cards-container" id="dynamic-products-container" style="display: none;">
+      <!-- Dynamic products will be inserted here -->
+    </div>
   </section>
+  
+  
   <div class="splide">
     <div class="splide__track splide__track-3 ">
       <ul class="splide__list">
@@ -604,8 +615,9 @@
   <div class="halal-section">
     <div class="box-content">
       <div class="icon"><img src="https://chocolatex.in/cdn/shop/files/Group_129_138x.png?v=1728386781" alt=""></div>
-      <h2>Indulge in Gameplay</h2>
-      <p>Enjoy a quick, hot, naughty card game to break the ice.</p>
+      <h2>Enjoy the gameplay </h2>
+      <p>
+Get ready for a hot & naughty game to bring the spice back</p>
     </div>
     <div class="box-content">
       <div class="icon"><img src="https://chocolatex.in/cdn/shop/files/disguise_1_138x.png?v=1728386795" alt=""></div>
@@ -684,7 +696,7 @@
   <div class="splide">
     <div class="splide__track splide__track-3 ">
       <ul class="splide__list">
-        <li class="splide__slide"> No side effects. Just side sluts.</li>
+        <li class="splide__slide"> No side effects. Just pleasure</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
         <li class="splide__slide">Taste her addiction</li>
@@ -798,14 +810,15 @@
           <h1>What makes it better than vaigra or supplements?</h1>
           <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
         </div>
-        <div class="faq-content">
-          <p>1. Faster & Stronger Than Viagra**
-            ✅ Onset in 30-60mins
+       <div class="faq-content">
+<p>1. Faster & Stronger Than Viagra** <br>
+2. ✅ Onset in 30-60mins <br>
 
-            2. Zero Side Effects
-            ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)
-            ❌ No dependency(adaptogens protect receptors) </p>
-        </div>
+3. Zero Side Effects <br>
+4. ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)   
+<br>
+5. ❌ No dependency(adaptogens protect receptors) </p>
+  </div>
       </div>
       <div class="faq">
         <div class="bar-f">
@@ -903,26 +916,210 @@
     </div>
   </footer>
 </body>
-<script type="module" src="./js/index.js"></script>
+<script>
+const CONFIG = {
+  BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+};
+</script>
+
+<!-- Dynamic Product Loading Script -->
+<script>
+// Updated product section script for home page
+document.addEventListener('DOMContentLoaded', () => {
+  loadHomeProducts();
+});
+
+async function loadHomeProducts() {
+  const loadingContainer = document.getElementById('products-loading');
+  const productsContainer = document.getElementById('dynamic-products-container');
+  
+  try {
+    const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
+    const data = await response.json();
+    
+    if (data.success && data.products) {
+      renderHomeProducts(data.products);
+      
+      // Hide loading, show products
+      loadingContainer.style.display = 'none';
+      productsContainer.style.display = 'flex';
+    } else {
+      throw new Error('Failed to load products');
+    }
+  } catch (error) {
+    console.error('Error loading products:', error);
+    loadingContainer.innerHTML = '<div class="error-message">Failed to load products. Please refresh the page.</div>';
+  }
+}
+
+function renderHomeProducts(products) {
+  const container = document.getElementById('dynamic-products-container');
+  
+  container.innerHTML = products.map(product => {
+    const firstImage = product.images && product.images.length > 0 
+      ? `${CONFIG.BACKEND_URL}${getImagePath(product.images[0])}` 
+      : './assets/images/ABout-pic.png';
+    
+    const sizes = product.sizeVariants || [];
+    const firstSize = sizes[0] || { size: 'Regular', price: 400 };
+    
+    return `
+      <div class="card-products-home" data-product-id="${product._id}">
+        <div class="product-name-h1">
+          <h1>${product.title.toUpperCase()}</h1>
+          <p>${product.description || 'Premium chocolate for intimate moments.'}</p>
+        </div>
+        
+        <div class="product-images-card">
+          <img src="${firstImage}" alt="${product.title}" onerror="this.src='./assets/images/ABout-pic.png'">
+        </div>
+        
+        <div class="size-container-main">
+          <h1>Choose a size:</h1>
+          <div class="sizes-btns-active" data-product-id="${product._id}">
+            ${sizes.map((variant, index) => `
+              <div class="cta size-option ${index === 0 ? 'active' : ''}" 
+                   data-size="${variant.size.toLowerCase()}" 
+                   data-price="${variant.price}">
+                ${variant.size}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div class="Price-section">
+          <h1>Price:</h1>
+          <p class="product-price">PKR: ${firstSize.price}</p>
+        </div>
+        
+        <div class="btns-cart-view">
+          <div class="cta active active-btn add-to-cart-home" 
+               data-product-id="${product._id}"
+               data-product-name="${product.title}"
+               data-product-image="${firstImage}">
+            Add to cart
+          </div>
+          <div class="cta active active-btn view-product" 
+               data-product-id="${product._id}"
+               data-product-name="${product.title}">
+            View
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  // Setup event listeners for the new elements
+  setupHomeProductListeners();
+}
+
+function getImagePath(image) {
+  if (typeof image === 'string') return image;
+  return image.url || '';
+}
+
+function setupHomeProductListeners() {
+  // Size selection listeners
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('size-option')) {
+      const parentContainer = e.target.closest('.sizes-btns-active');
+      const productCard = e.target.closest('.card-products-home');
+      
+      // Update active state
+      parentContainer.querySelectorAll('.size-option').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      e.target.classList.add('active');
+      
+      // Update price display
+      const price = e.target.dataset.price;
+      const priceDisplay = productCard.querySelector('.product-price');
+      if (priceDisplay) {
+        priceDisplay.textContent = `PKR: ${price}`;
+      }
+      
+      // Update add to cart button data
+      const addToCartBtn = productCard.querySelector('.add-to-cart-home');
+      if (addToCartBtn) {
+        addToCartBtn.dataset.price = price;
+        addToCartBtn.dataset.size = e.target.dataset.size;
+      }
+    }
+    
+    // Add to cart functionality
+    if (e.target.classList.contains('add-to-cart-home')) {
+      handleAddToCartHome(e.target);
+    }
+    
+    // View product functionality
+    if (e.target.classList.contains('view-product')) {
+      handleViewProduct(e.target);
+    }
+  });
+}
+
+function handleAddToCartHome(button) {
+  const productCard = button.closest('.card-products-home');
+  const productId = button.dataset.productId;
+  const productName = button.dataset.productName;
+  const productImage = button.dataset.productImage;
+  
+  // Get selected size and price
+  const activeSize = productCard.querySelector('.size-option.active');
+  const size = activeSize ? activeSize.dataset.size : 'regular';
+  const sizePrice = activeSize ? parseInt(activeSize.dataset.price) : 400;
+  
+  // Create product data for cart
+  const productData = {
+    productId: productId,
+    name: productName,
+    image: productImage,
+    flavor: productName.toLowerCase().replace(/\s+/g, ''),
+    size: size,
+    sizePrice: sizePrice,
+    boxCount: 1,
+    totalPrice: sizePrice
+  };
+  
+  // Add to cart using cart manager
+  const success = cartManager.addToCart(productData);
+  
+  if (success) {
+    // Show success feedback
+    const originalText = button.textContent;
+    button.textContent = 'ADDED!';
+    button.style.backgroundColor = '#4CAF50';
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.style.backgroundColor = '';
+    }, 1500);
+  }
+}
+
+function handleViewProduct(button) {
+  const productId = button.dataset.productId;
+  const productName = button.dataset.productName;
+  
+  // Navigate to product page with parameters
+  const productSlug = productName.toLowerCase().replace(/\s+/g, '-');
+  const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
+  window.location.href = url;
+}
+</script>
+
+<!-- Original Scripts -->
 <script>
   const productPageLinks = document.querySelectorAll("#product-page");
 
   productPageLinks.forEach(element => {
-    element.style.cursor = "pointer"; // make it clickable
+    element.style.cursor = "pointer"; 
     element.addEventListener("click", () => {
       window.location.href = "./product-page.html";
     });
   });
-  // ====================
-  // 1. UPDATE HOME PAGE (index.html) - Add this to your existing script
-  // ====================
 
   // Configuration
-  const CONFIG = {
-    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
-  };
-
-  // Product mapping for static menu items
   const PRODUCT_MAPPING = {
     'DARK DESIRE': 'dark-desire',
     'STRAWBAE': 'strawbae',
@@ -932,14 +1129,12 @@
 
   // Function to handle menu product clicks
   function setupMenuProductNavigation() {
-    // Handle static menu items
     const staticMenuBoxes = document.querySelectorAll('.slide-bar .box');
 
     staticMenuBoxes.forEach(box => {
       const productName = box.querySelector('.name-box')?.textContent;
 
       if (productName && PRODUCT_MAPPING[productName]) {
-        // Remove existing product-page id to prevent conflicts
         box.removeAttribute('id');
         box.classList.add('menu-product-item');
         box.style.cursor = 'pointer';
@@ -955,13 +1150,11 @@
     });
   }
 
-  // Function to navigate to product page with parameters
   function navigateToProduct(productSlug, productName) {
     const url = `./product-page.html?product=${encodeURIComponent(productSlug)}&name=${encodeURIComponent(productName)}`;
     window.location.href = url;
   }
 
-  // Function to update menu with dynamic products from API
   async function updateMenuWithAPIProducts() {
     try {
       const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
@@ -972,11 +1165,9 @@
       }
     } catch (error) {
       console.error('Error fetching products for menu:', error);
-      // Keep static menu as fallback
     }
   }
 
-  // Function to create dynamic menu from API data
   function updateDynamicMenu(products) {
     const menuContainer = document.querySelector('.slide-bar .grid-box-container');
     if (!menuContainer) return;
@@ -997,11 +1188,9 @@
         `;
     }).join('');
 
-    // Setup click handlers for dynamic menu
     setupDynamicMenuNavigation(products);
   }
 
-  // Setup navigation for dynamically generated menu
   function setupDynamicMenuNavigation(products) {
     const menuBoxes = document.querySelectorAll('.slide-bar .box[data-product-id]');
 
@@ -1022,19 +1211,17 @@
     });
   }
 
-  // Navigate to product by ID (for API products)
   function navigateToProductById(productId, productName, productSlug) {
     const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
     window.location.href = url;
   }
 
-  // Helper functions
   function getCategoryClass(category) {
     switch (category?.toLowerCase()) {
       case 'strawberry flavour':
         return 'straw-bg';
       case 'dark desire':
-        return ''; // default
+        return ''; 
       case 'vanilla lust':
         return 'vanilla-bg';
       default:
@@ -1048,17 +1235,10 @@
     return imageUrl ? `${CONFIG.BACKEND_URL}${imageUrl}` : './assets/images/ABout-pic.png';
   }
 
-  // ====================
-  // 2. INITIALIZE HOME PAGE NAVIGATION
-  // ====================
   document.addEventListener('DOMContentLoaded', () => {
-    // Setup static menu first
     setupMenuProductNavigation();
-
-    // Try to load dynamic menu from API
     updateMenuWithAPIProducts();
 
-    // Keep existing product-page functionality for other elements
     const otherProductLinks = document.querySelectorAll("#product-page:not(.slide-bar .box)");
     otherProductLinks.forEach(element => {
       element.style.cursor = "pointer";
@@ -1067,133 +1247,43 @@
       });
     });
   });
-
-  // ====================
-  // 3. PRODUCT PAGE UPDATES (product-page.html)
-  // ====================
-
-  // Add this function to your existing product page script
-  function getURLParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return {
-      productId: urlParams.get('productId'),
-      productSlug: urlParams.get('product'),
-      productName: urlParams.get('name')
-    };
-  }
-
-  // Update your existing fetchProducts function to handle URL parameters
-  async function fetchProductsWithSelection() {
-    try {
-      const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
-      const data = await response.json();
-
-      if (data.success) {
-        productsData = data.products;
-        initializeProductPage();
-
-        // Check URL parameters for specific product selection
-        const urlParams = getURLParameters();
-        if (urlParams.productId || urlParams.productSlug) {
-          selectProductFromURL(urlParams);
-        }
-
-        // Dispatch event for other scripts
-        setTimeout(() => {
-          document.dispatchEvent(new CustomEvent('productDataLoaded', {
-            detail: { products: productsData }
-          }));
-        }, 100);
-      } else {
-        throw new Error(data.message || 'Failed to fetch products');
-      }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      document.getElementById('product-name').textContent = 'Error loading products';
-      document.getElementById('product-description').textContent = error.message;
-    }
-  }
-
-  // Function to select product based on URL parameters
-  function selectProductFromURL(urlParams) {
-    let selectedProduct = null;
-
-    if (urlParams.productId) {
-      // Find by ID (most accurate)
-      selectedProduct = productsData.find(p => p._id === urlParams.productId);
-    } else if (urlParams.productSlug) {
-      // Find by slug matching
-      selectedProduct = productsData.find(p => {
-        const slug = p.title.toLowerCase().replace(/\s+/g, '-');
-        return slug === urlParams.productSlug;
-      });
-    }
-
-    if (selectedProduct) {
-      // Update active state in category buttons
-      setTimeout(() => {
-        updateActiveCategory(selectedProduct._id);
-        selectProduct(selectedProduct);
-      }, 200);
-    } else if (urlParams.productName) {
-      // Fallback: try to match by name
-      selectedProduct = productsData.find(p =>
-        p.title.toLowerCase() === urlParams.productName.toLowerCase()
-      );
-
-      if (selectedProduct) {
-        setTimeout(() => {
-          updateActiveCategory(selectedProduct._id);
-          selectProduct(selectedProduct);
-        }, 200);
-      }
-    }
-  }
-
-  // Function to update active category button
-  function updateActiveCategory(productId) {
-    const categoryButtons = document.querySelectorAll('.btn-s');
-    categoryButtons.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.productId === productId) {
-        btn.classList.add('active');
-      }
-    });
-  }
-
-  // Update your DOMContentLoaded event in product page
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Product page DOM loaded');
-
-    // Wait for cart manager, then fetch products with selection
-    setTimeout(() => {
-      fetchProductsWithSelection(); // Use updated function
-    }, 200);
-  });
-
-  // ====================
-  // 4. OPTIONAL: Add breadcrumb navigation
-  // ====================
-  function addBreadcrumb(productName) {
-    const breadcrumbHtml = `
-        <div class="breadcrumb-nav" style="padding: 20px 0; font-size: 14px; color: #666;">
-            <a href="./index.html" style="color: #667eea; text-decoration: none;">Home</a> 
-            <span style="margin: 0 8px;">/</span> 
-            <span>Products</span>
-            <span style="margin: 0 8px;">/</span>
-            <span style="color: #333; font-weight: 500;">${productName}</span>
-        </div>
-    `;
-
-    const nav = document.querySelector('nav');
-    if (nav) {
-      nav.insertAdjacentHTML('afterend', breadcrumbHtml);
-    }
-  }
-
-  // Call this in selectProduct function if you want breadcrumbs
-  // addBreadcrumb(product.title);
 </script>
+
+<!-- CSS Styles -->
+<style>
+.loading-message, .error-message {
+  text-align: center;
+  padding: 40px 20px;
+  
+  font-size: 18px;
+  color: #e74c3c;
+}
+.loading-message{
+   position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.error-message {
+  color: #e74c3c;
+  background: #ffeaea;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.add-to-cart-home:active {
+  animation: pulse 0.3s ease;
+}
+</style>
+
+<script type="module" src="./js/index.js"></script>
 <script type="module" src="./js/cart-manager.js"></script>
 
 </html>

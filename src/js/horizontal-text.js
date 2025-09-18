@@ -1,10 +1,9 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 
-
 // Define your custom colors
-
 const middleColor = "#42f5e9";  // Middle color
 const endColor = "#f5e942";     // End color
 
@@ -13,50 +12,47 @@ const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal-scroll-animation",
     start: "top top",
-    end: "+=400%",       // Stick for 3x viewport height
+    end: "+=400%",     // Stick for 4x viewport height
     scrub: 1,
-  
     pin: true,
-    
     anticipatePin: 1,
+    invalidateOnRefresh: true, // 🔥 recalc when layout changes
   }
 });
 
 // Move the container horizontally
 tl.to(".main-slide-horizontal", {
   x: "-200vw",
- duration: 1,
+  duration: 1,
   ease: "none",
 }, 0);
 
-// Color transition 1: Start → Middle
+// Color transitions
 tl.to(".text-bg", {
   color: "#934919",
-  ease: "none",
   backgroundColor: "#552716",
-}, 0); // ≈ 1/3 of scroll
+  ease: "none"
+}, 0);
+
 tl.to(".text-bg", {
   color: "#FFF7DD",
-  ease: "none",
   backgroundColor: "#F27B75",
-}, 0.5); // ≈ 1/3 of scroll
+  ease: "none"
+}, 0.5);
+
 tl.to(".chocolate-horizontal", {
+  x: "-50vw",
   ease: "none",
   stagger: 0.3,
-x: "-50vw",
-}, 0); // ≈ 1/3 of scroll
+}, 0);
+
 tl.to(".element-horizontal", {
+  x: "-50vw",
   ease: "none",
   stagger: 0.5,
-x: "-50vw",
-}, 0.2); // ≈ 1/3 of scroll
+}, 0.2);
 
-
-
-
-// Color transition 2: Middle → End
-// tl.to(".text-bg", {
-//   color: endColor,
-//   ease: "none"
-// }, 0.01); // ≈ 2/3 of scroll
-
+// ✅ Refresh ScrollTrigger after all content (like images) is loaded
+window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
+});

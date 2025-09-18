@@ -1598,7 +1598,7 @@ img{
 }
 .choco-img{
   @media (max-width: 800px) {
-    width: 60rem !important;
+    width: 80rem !important;
     
   }
 }
@@ -1763,27 +1763,35 @@ scale: 0.8;
 .product-cards-container{
   position: relative;
   width: 100vw;
-height: fit-content;
+height: 160vh;
+
+
 
   overflow-x: hidden;
+  overflow-y: hidden; /* Prevent vertical scroll */
   display: flex;
   
   align-items: center;
   .inner-product-cards-container{
-    width: max-content;
-    display: flex;
+ gap: 2rem; /* spacing between cards */
+  width: max-content; /* Fit cards horizontally */
+  height: auto; /* Let content define height */
+    display: flex ;
     padding: 3rem;
-    cursor: grab;
-     transition: transform 0.3s ease-out;
+     transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: transform;
-    gap: 3rem;
-     user-select: none; /* 🚀 Prevent text/images from being selected */
-    .card-products-home{
-   height: fit-content;
+    cursor: grab;
+    align-items: center;
+    //  transition: transform 0.3s ease-out;
+
+  
    
+    .card-products-home{
+     flex-shrink: 0; /* Prevent shrinking */
       width: 32vw;
       overflow: hidden;
       border-radius: 13px;
+       
       border: 0.5px solid #55271680;
       display: flex;
       justify-content: center;
@@ -1829,10 +1837,13 @@ height: fit-content;
 
   }
   .product-images-card{
-    width: 80%;
-    height: 80%;
+   height: 60vh !important;
+  
+   
       pointer-events: none;
      transition: 0.5s;
+     height: auto;
+     overflow: hidden;
       user-select: none; /* 🚀 Prevent text/images from being selected */
      cursor: none;
      @media (max-width: 800px) {
@@ -1842,9 +1853,11 @@ height: fit-content;
      }
     img{
       width: 100%;
+    
       height: 100%;
     transition:  transform 0.5s ease-in-out;
       object-fit: cover;
+      
     }
   }
   &:hover{
@@ -1950,4 +1963,7 @@ align-items: center;
 .size-option.active {
   background: #552716;
   color: #FFF7DD;
+}
+.dynamic-products-container{
+  will-change: transform;
 }

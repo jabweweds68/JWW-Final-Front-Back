@@ -1,4 +1,7 @@
-const slider = document.querySelector(".inner-product-cards-container");
+// Select elements
+const slider = document.getElementById("dynamic-products-container");
+const loading = document.getElementById("loading-message");
+
 let isDown = false;
 let startX;
 let currentX = 0;
@@ -6,11 +9,12 @@ let prevX = 0;
 let velocity = 0;
 let animationFrame;
 
+// --- Drag inertia animation ---
 function animate() {
   currentX += velocity;
   velocity *= 0.95; // friction
 
-  // boundaries
+  // boundaries (recalculate in case products/images just loaded)
   const maxTranslate = 0;
   const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
 
@@ -78,4 +82,23 @@ slider.addEventListener("touchmove", (e) => {
   currentX = prevX + delta;
   velocity = delta - (currentX - prevX);
   slider.style.transform = `translateX(${currentX}px)`;
-}, { passive: false }); // passive: false to allow preventDefault
+}, { passive: false });
+
+// --- Refresh slider after products/images load ---
+window.addEventListener("load", () => {
+  currentX = 0;
+  velocity = 0;
+  slider.style.transform = `translateX(0px)`;
+
+  // Hide loader + show container
+  loading.style.display = "none";
+  slider.style.display = "flex";
+});
+
+// --- If products are injected later (API / lazy load), reset transform ---
+const observer = new MutationObserver(() => {
+  currentX = 0;
+  velocity = 0;
+  slider.style.transform = `translateX(0px)`;
+});
+observer.observe(slider, { childList: true, subtree: true });

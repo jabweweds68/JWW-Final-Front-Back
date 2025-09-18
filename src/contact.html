@@ -219,12 +219,13 @@ Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferab
    <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
   </div>
   <div class="faq-content">
-<p>1. Faster & Stronger Than Viagra**  
-✅ Onset in 30-60mins
+<p>1. Faster & Stronger Than Viagra** <br>
+2. ✅ Onset in 30-60mins <br>
 
-2. Zero Side Effects
-❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)  
-❌ No dependency(adaptogens protect receptors) </p>
+3. Zero Side Effects <br>
+4. ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)   
+<br>
+5. ❌ No dependency(adaptogens protect receptors) </p>
   </div>
 </div>
  <div class="faq">
@@ -329,6 +330,286 @@ Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferab
       window.location.href = "./product-page.html";
     });
   });
+  // ====================
+  // 1. UPDATE HOME PAGE (index.html) - Add this to your existing script
+  // ====================
+
+  // Configuration
+  const CONFIG = {
+    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+  };
+
+  // Product mapping for static menu items
+  const PRODUCT_MAPPING = {
+    'DARK DESIRE': 'dark-desire',
+    'STRAWBAE': 'strawbae',
+    'VANILLALUST': 'vanillalust',
+    'BUNDLE': 'bundle'
+  };
+
+  // Function to handle menu product clicks
+  function setupMenuProductNavigation() {
+    // Handle static menu items
+    const staticMenuBoxes = document.querySelectorAll('.slide-bar .box');
+
+    staticMenuBoxes.forEach(box => {
+      const productName = box.querySelector('.name-box')?.textContent;
+
+      if (productName && PRODUCT_MAPPING[productName]) {
+        // Remove existing product-page id to prevent conflicts
+        box.removeAttribute('id');
+        box.classList.add('menu-product-item');
+        box.style.cursor = 'pointer';
+
+        box.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const productSlug = PRODUCT_MAPPING[productName];
+          navigateToProduct(productSlug, productName);
+        });
+      }
+    });
+  }
+
+  // Function to navigate to product page with parameters
+  function navigateToProduct(productSlug, productName) {
+    const url = `./product-page.html?product=${encodeURIComponent(productSlug)}&name=${encodeURIComponent(productName)}`;
+    window.location.href = url;
+  }
+
+  // Function to update menu with dynamic products from API
+  async function updateMenuWithAPIProducts() {
+    try {
+      const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
+      const data = await response.json();
+
+      if (data.success && data.products) {
+        updateDynamicMenu(data.products);
+      }
+    } catch (error) {
+      console.error('Error fetching products for menu:', error);
+      // Keep static menu as fallback
+    }
+  }
+
+  // Function to create dynamic menu from API data
+  function updateDynamicMenu(products) {
+    const menuContainer = document.querySelector('.slide-bar .grid-box-container');
+    if (!menuContainer) return;
+
+    menuContainer.innerHTML = products.map(product => {
+      const categoryClass = getCategoryClass(product.category);
+
+      return `
+            <div class="box ${categoryClass}" data-product-id="${product._id}">
+                <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+                <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+                <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+                <div class="name-box">${product.title.toUpperCase()}</div>
+                <div class="choco-menu">
+                    <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Setup click handlers for dynamic menu
+    setupDynamicMenuNavigation(products);
+  }
+
+  // Setup navigation for dynamically generated menu
+  function setupDynamicMenuNavigation(products) {
+    const menuBoxes = document.querySelectorAll('.slide-bar .box[data-product-id]');
+
+    menuBoxes.forEach(box => {
+      box.style.cursor = 'pointer';
+      box.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const productId = box.dataset.productId;
+        const product = products.find(p => p._id === productId);
+
+        if (product) {
+          const productSlug = product.title.toLowerCase().replace(/\s+/g, '-');
+          navigateToProductById(productId, product.title, productSlug);
+        }
+      });
+    });
+  }
+
+  // Navigate to product by ID (for API products)
+  function navigateToProductById(productId, productName, productSlug) {
+    const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
+    window.location.href = url;
+  }
+
+  // Helper functions
+  function getCategoryClass(category) {
+    switch (category?.toLowerCase()) {
+      case 'strawberry flavour':
+        return 'straw-bg';
+      case 'dark desire':
+        return ''; // default
+      case 'vanilla lust':
+        return 'vanilla-bg';
+      default:
+        return '';
+    }
+  }
+
+  function getImageUrl(image) {
+    if (!image) return './assets/images/ABout-pic.png';
+    const imageUrl = typeof image === 'string' ? image : image.url;
+    return imageUrl ? `${CONFIG.BACKEND_URL}${imageUrl}` : './assets/images/ABout-pic.png';
+  }
+
+  // ====================
+  // 2. INITIALIZE HOME PAGE NAVIGATION
+  // ====================
+  document.addEventListener('DOMContentLoaded', () => {
+    // Setup static menu first
+    setupMenuProductNavigation();
+
+    // Try to load dynamic menu from API
+    updateMenuWithAPIProducts();
+
+    // Keep existing product-page functionality for other elements
+    const otherProductLinks = document.querySelectorAll("#product-page:not(.slide-bar .box)");
+    otherProductLinks.forEach(element => {
+      element.style.cursor = "pointer";
+      element.addEventListener("click", () => {
+        window.location.href = "./product-page.html";
+      });
+    });
+  });
+
+  // ====================
+  // 3. PRODUCT PAGE UPDATES (product-page.html)
+  // ====================
+
+  // Add this function to your existing product page script
+  function getURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      productId: urlParams.get('productId'),
+      productSlug: urlParams.get('product'),
+      productName: urlParams.get('name')
+    };
+  }
+
+  // Update your existing fetchProducts function to handle URL parameters
+  async function fetchProductsWithSelection() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
+      const data = await response.json();
+
+      if (data.success) {
+        productsData = data.products;
+        initializeProductPage();
+
+        // Check URL parameters for specific product selection
+        const urlParams = getURLParameters();
+        if (urlParams.productId || urlParams.productSlug) {
+          selectProductFromURL(urlParams);
+        }
+
+        // Dispatch event for other scripts
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('productDataLoaded', {
+            detail: { products: productsData }
+          }));
+        }, 100);
+      } else {
+        throw new Error(data.message || 'Failed to fetch products');
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      document.getElementById('product-name').textContent = 'Error loading products';
+      document.getElementById('product-description').textContent = error.message;
+    }
+  }
+
+  // Function to select product based on URL parameters
+  function selectProductFromURL(urlParams) {
+    let selectedProduct = null;
+
+    if (urlParams.productId) {
+      // Find by ID (most accurate)
+      selectedProduct = productsData.find(p => p._id === urlParams.productId);
+    } else if (urlParams.productSlug) {
+      // Find by slug matching
+      selectedProduct = productsData.find(p => {
+        const slug = p.title.toLowerCase().replace(/\s+/g, '-');
+        return slug === urlParams.productSlug;
+      });
+    }
+
+    if (selectedProduct) {
+      // Update active state in category buttons
+      setTimeout(() => {
+        updateActiveCategory(selectedProduct._id);
+        selectProduct(selectedProduct);
+      }, 200);
+    } else if (urlParams.productName) {
+      // Fallback: try to match by name
+      selectedProduct = productsData.find(p =>
+        p.title.toLowerCase() === urlParams.productName.toLowerCase()
+      );
+
+      if (selectedProduct) {
+        setTimeout(() => {
+          updateActiveCategory(selectedProduct._id);
+          selectProduct(selectedProduct);
+        }, 200);
+      }
+    }
+  }
+
+  // Function to update active category button
+  function updateActiveCategory(productId) {
+    const categoryButtons = document.querySelectorAll('.btn-s');
+    categoryButtons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.productId === productId) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  // Update your DOMContentLoaded event in product page
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Product page DOM loaded');
+
+    // Wait for cart manager, then fetch products with selection
+    setTimeout(() => {
+      fetchProductsWithSelection(); // Use updated function
+    }, 200);
+  });
+
+  // ====================
+  // 4. OPTIONAL: Add breadcrumb navigation
+  // ====================
+  function addBreadcrumb(productName) {
+    const breadcrumbHtml = `
+        <div class="breadcrumb-nav" style="padding: 20px 0; font-size: 14px; color: #666;">
+            <a href="./index.html" style="color: #667eea; text-decoration: none;">Home</a> 
+            <span style="margin: 0 8px;">/</span> 
+            <span>Products</span>
+            <span style="margin: 0 8px;">/</span>
+            <span style="color: #333; font-weight: 500;">${productName}</span>
+        </div>
+    `;
+
+    const nav = document.querySelector('nav');
+    if (nav) {
+      nav.insertAdjacentHTML('afterend', breadcrumbHtml);
+    }
+  }
+
+  // Call this in selectProduct function if you want breadcrumbs
+  // addBreadcrumb(product.title);
 </script>
 <script src="./js/contact.js" type="module"></script>
 <script type="module" src="./js/cart-manager.js"></script>

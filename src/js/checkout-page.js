@@ -4,14 +4,13 @@ import "./side-bar";
 import "./marquee";
 
 // ===== SINGLE CONFIGURATION =====
-
 const CHECKOUT_CONFIG = {
     adminWhatsApp: '+923111246705',
     companyName: 'JWW Chocolates',
     currency: 'PKR',
     deliveryCharge: 250,
     // Backend API Configuration
-    apiBaseUrl: "https://jww-backend-main-production.up.railway.app",
+    apiBaseUrl: 'http://localhost:8000',
     // EmailJS Configuration - Replace with your actual credentials
     emailJS: {
         publicKey: '1RkfeMikntWtXPQjS',
@@ -443,19 +442,19 @@ async function handleFormSubmission(event) {
         hideLoadingOverlay(loadingOverlay);
 
         // Success message
-        //         alert(`✅ ORDER PLACED SUCCESSFULLY!
+//         alert(`✅ ORDER PLACED SUCCESSFULLY!
 
-        // Frontend Order ID: ${frontendOrderId}
-        // Database Order ID: ${backendResult.backendOrderId}
-        // Total Amount: ${CHECKOUT_CONFIG.currency} ${backendResult.totalCartPrice}
+// Frontend Order ID: ${frontendOrderId}
+// Database Order ID: ${backendResult.backendOrderId}
+// Total Amount: ${CHECKOUT_CONFIG.currency} ${backendResult.totalCartPrice}
 
-        // ✅ Order saved to database
-        // ${emailSent ? `📧 Confirmation email sent to: ${formData.email}` : '⚠️ Email failed - please check EmailJS setup'}
-        // 📱 Order details sent to admin via WhatsApp
+// ✅ Order saved to database
+// ${emailSent ? `📧 Confirmation email sent to: ${formData.email}` : '⚠️ Email failed - please check EmailJS setup'}
+// 📱 Order details sent to admin via WhatsApp
 
-        // We will contact you within 24 hours!
+// We will contact you within 24 hours!
 
-        // Thank you for choosing ${CHECKOUT_CONFIG.companyName}!`);
+// Thank you for choosing ${CHECKOUT_CONFIG.companyName}!`);
 
         // Reset and redirect
         document.getElementById('checkout-form').reset();
