@@ -1772,6 +1772,10 @@ height: 160vh;
   display: flex;
   
   align-items: center;
+  @media (max-width: 768px) {
+    height: 120vh;
+    
+  }
   .inner-product-cards-container{
  gap: 2rem; /* spacing between cards */
   width: max-content; /* Fit cards horizontally */
@@ -1846,10 +1850,12 @@ height: 160vh;
      overflow: hidden;
       user-select: none; /* 🚀 Prevent text/images from being selected */
      cursor: none;
+     display: flex;
+     justify-content: center;
+     align-items: center;
      @media (max-width: 800px) {
-
-       width: 70%;
-    height: 70%;
+width: 100%;
+   height: 60vh !important;
      }
     img{
       width: 100%;
@@ -1857,6 +1863,11 @@ height: 160vh;
       height: 100%;
     transition:  transform 0.5s ease-in-out;
       object-fit: cover;
+      @media (max-width: 800px) {
+         width: 80%;
+          height: 80%;
+        
+      }
       
     }
   }

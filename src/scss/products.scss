@@ -363,13 +363,21 @@ footer{
 }
 .para-footer{
     padding-top: 1rem;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: lighter;
      font-family: "font-anton";
     color: #FFF7DD;
     @media (max-width: 800px) {
          font-size: 4.4rem;
          width: 80%;
+    }
+    p{
+        font-size: 2rem;
+        font-family: "Roboto";
+        @media (max-width: 800px) {
+            font-size: 4rem;
+            
+        }
     }
 }
 .menu-links-footer{
