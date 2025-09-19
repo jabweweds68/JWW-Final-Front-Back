@@ -10,7 +10,7 @@ const CHECKOUT_CONFIG = {
     currency: 'PKR',
     deliveryCharge: 250,
     // Backend API Configuration
-    apiBaseUrl: 'http://localhost:8000',
+    apiBaseUrl: 'https://jww-backend-main-production.up.railway.app',
     // EmailJS Configuration - Replace with your actual credentials
     emailJS: {
         publicKey: '1RkfeMikntWtXPQjS',
