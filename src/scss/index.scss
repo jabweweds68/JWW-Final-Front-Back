@@ -374,9 +374,9 @@ width: 50%;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         @media (max-width: 768px) {
-            width: 40vw;
-            height: 20vh;
-            font-size: 8rem;
+            width: 25vw;
+            height: 15vh;
+            font-size: 5rem;
         }
       .bg-btn{
           width: 100%;
@@ -1330,6 +1330,7 @@ font-weight: lighter;
   flex-direction: column;
   margin-top: 10rem;
   gap: 10rem;
+  overflow: hidden;
   margin-bottom: 10rem;
   @media (max-width: 800px) {
     gap: 5rem;
