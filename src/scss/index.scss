@@ -81,7 +81,7 @@ nav{
     position: absolute;
 justify-content: space-between;
     align-items: center;
-    top: 2%;
+    top: 4%;
   padding-left: 2rem;
     padding-right: 2rem;
     width: 100%;
@@ -211,6 +211,8 @@ width: 50%;
          padding-left: 2rem;
        flex-direction: column;
        justify-content: center;
+       z-index: 100;
+       position: relative;
          @media (max-width: 768px) {
       width: 100%;
       margin-top: 20rem;
@@ -1981,4 +1983,20 @@ align-items: center;
 .strawbae-color{
   background-color: #D7362E !important;
  
+}
+.splide-height-manage {
+  height: 5vh !important;
+  overflow: hidden;
+  background-color:  #d7362e !important;
+  padding: 0.1rem !important;
+  color: #FFF7DD !important;
+ .splide__slide{
+  font-weight: 100 !important;
+  font-size: 2rem !important;
+   color: #FFF7DD !important;
+  img{
+    width: 80% !important;
+    height: 80% !important;
+  }
+ }
 }
