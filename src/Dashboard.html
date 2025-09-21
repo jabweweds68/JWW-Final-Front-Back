@@ -7,8 +7,7 @@
     <title>JWW Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/src/Dashboard.css">
-    <script  type="module" src="./js/routeProtection.js"></script>
-    <!-- <script src="routeProtection.js"></script> -->
+    <script type="module" src="./js/routeProtection.js"></script>
 </head>
 
 <style>
@@ -53,7 +52,6 @@
         min-height: 100vh;
         padding-top: 70px;
         visibility: hidden;
-        /* Space for fixed navbar */
     }
 
     /* Navigation Styles */
@@ -372,7 +370,7 @@
         display: flex;
         flex-direction: column;
         gap: 6px;
-        max-width: 160px;
+        max-width: 180px;
     }
 
     .size-variant {
@@ -384,11 +382,27 @@
         justify-content: space-between;
         align-items: center;
         border: 1px solid var(--border);
+        flex-direction: column;
+        gap: 4px;
     }
 
     .variant-price {
         font-weight: 600;
         color: var(--text-primary);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .variant-price .original-price {
+        color: var(--text-secondary);
+        text-decoration: line-through;
+        font-size: 0.75rem;
+    }
+
+    .variant-price .discounted-price {
+        color: var(--success);
+        font-weight: 700;
     }
 
     .status-available {
@@ -472,7 +486,7 @@
         margin: 2% auto;
         border-radius: var(--radius-lg);
         width: 90%;
-        max-width: 640px;
+        max-width: 800px;
         max-height: 90vh;
         overflow: hidden;
         box-shadow: var(--shadow-xl);
@@ -578,7 +592,7 @@
 
     .size-variant-item {
         display: grid;
-        grid-template-columns: 1fr 1fr auto auto;
+        grid-template-columns: 1fr 1fr 1fr auto auto;
         gap: 12px;
         align-items: center;
         margin-bottom: 12px;
@@ -589,7 +603,8 @@
     }
 
     .size-variant-item input[type="text"],
-    .size-variant-item input[type="number"] {
+    .size-variant-item input[type="number"],
+    .size-variant-item select {
         padding: 8px 12px;
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
@@ -710,108 +725,117 @@
         border-radius: var(--radius);
         padding: 24px;
         background: var(--bg-secondary);
-    }
-
-    .cover-photo-section {
         margin-bottom: 24px;
-        padding-bottom: 24px;
-        border-bottom: 2px solid var(--border);
     }
 
-    .cover-photo-label {
+    .image-section-title {
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
         font-weight: 600;
         color: var(--primary);
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
-    .cover-photo-upload {
+    .image-upload-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .image-upload-item {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        align-items: center;
+        gap: 8px;
     }
 
-    .cover-preview {
+    .image-upload-label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-align: center;
+    }
+
+    .image-preview {
         width: 120px;
         height: 120px;
         border: 2px dashed var(--border);
         border-radius: var(--radius);
         display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--bg-primary);
-        overflow: hidden;
-        position: relative;
-    }
-
-    .cover-preview img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .cover-preview.empty {
-        color: var(--text-muted);
         flex-direction: column;
-    }
-
-    .cover-preview.empty i {
-        font-size: 2rem;
-        margin-bottom: 8px;
-    }
-
-    .other-images-section {
-        margin-top: 24px;
-    }
-
-    .other-images-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        font-size: 1rem;
-    }
-
-    .image-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 12px;
-        max-width: 100%;
-    }
-
-    .image-preview {
-        width: 80px;
-        height: 80px;
-        border: 2px dashed var(--border);
-        border-radius: var(--radius-sm);
-        display: flex;
         align-items: center;
         justify-content: center;
         background: var(--bg-primary);
-        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
         position: relative;
+        overflow: hidden;
+    }
+
+    .image-preview:hover {
+        border-color: var(--primary);
+        background: var(--bg-secondary);
+    }
+
+    .image-preview.filled {
+        border-color: var(--success);
+        border-style: solid;
     }
 
     .image-preview img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    .image-preview.empty {
-        color: var(--text-muted);
-        flex-direction: column;
-        font-size: 0.75rem;
+        border-radius: calc(var(--radius) - 2px);
     }
 
     .image-preview.empty i {
-        font-size: 1.2rem;
-        margin-bottom: 4px;
+        font-size: 2rem;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+
+    .image-preview.empty span {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-align: center;
+    }
+
+    .image-remove-btn {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: var(--error);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .image-preview.filled:hover .image-remove-btn {
+        opacity: 1;
+    }
+
+    .additional-images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+    }
+
+    .additional-images-grid .image-preview {
+        width: 100px;
+        height: 100px;
     }
 
     .form-help {
@@ -819,81 +843,6 @@
         margin-top: 8px;
         font-size: 0.875rem;
         color: var(--text-secondary);
-    }
-
-    .view-product-details {
-        display: grid;
-        gap: 24px;
-    }
-
-    .detail-section h4 {
-        color: var(--primary);
-        font-weight: 600;
-        margin-bottom: 12px;
-        font-size: 1.1rem;
-    }
-
-    .detail-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
-    }
-
-    .detail-item {
-        background: var(--bg-secondary);
-        padding: 16px;
-        border-radius: var(--radius);
-        border: 1px solid var(--border);
-    }
-
-    .detail-label {
-        font-weight: 500;
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        margin-bottom: 4px;
-    }
-
-    .detail-value {
-        color: var(--text-primary);
-        font-weight: 500;
-    }
-
-    .image-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 12px;
-    }
-
-    .gallery-image {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        border-radius: var(--radius);
-        border: 2px solid var(--border);
-        transition: all 0.2s ease;
-    }
-
-    .gallery-image:hover {
-        transform: scale(1.05);
-        box-shadow: var(--shadow-md);
-    }
-
-    .cover-gallery-image {
-        border: 3px solid var(--primary);
-        position: relative;
-    }
-
-    .cover-gallery-image::after {
-        content: 'Cover';
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        background: var(--primary);
-        color: white;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 0.7rem;
-        font-weight: 600;
     }
 
     .loading-overlay {
@@ -975,228 +924,111 @@
         color: #f59e0b;
     }
 
-    .gallery-image-container {
+    /* View Product Modal Styles */
+    .detail-section {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .detail-section:last-child {
+        border-bottom: none;
+    }
+
+    .detail-section h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-section h5 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+    }
+
+    .detail-item {
+        background: var(--bg-secondary);
+        padding: 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+    }
+
+    .detail-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        line-height: 1.4;
+    }
+
+    /* Image hover styles for edit/delete */
+    .editable-image-container {
         position: relative;
         display: inline-block;
-        margin: 8px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         overflow: hidden;
-        transition: all 0.3s ease;
     }
 
-    .gallery-image-container:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Gallery Image Styling */
-    .gallery-image {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .gallery-image-container:hover .gallery-image {
-        filter: brightness(0.8);
-    }
-
-    /* Cover Photo Styling */
-    .gallery-image-container .cover-gallery-image {
-        border: 3px solid #007bff;
-    }
-
-    /* Image Badges */
-    .cover-badge {
+    .editable-image-container .image-overlay {
         position: absolute;
-        top: 5px;
-        left: 5px;
-        background: #007bff;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: bold;
-        z-index: 2;
-    }
-
-    .image-number {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 11px;
-        z-index: 2;
-    }
-
-    /* Image Action Buttons */
-    .image-actions {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
         display: flex;
-        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
         opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 3;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
     }
 
-    .gallery-image-container:hover .image-actions {
+    .editable-image-container:hover .image-overlay {
         opacity: 1;
-        visibility: visible;
     }
 
-    .image-action-btn {
-        background: rgba(255, 255, 255, 0.95);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(10px);
+    .image-action-btn:hover {
+        transform: scale(1.1);
+        background: white;
     }
 
-    .edit-image-btn {
-        color: #f59e0b;
+    .image-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
     }
 
-    .edit-image-btn:hover {
-        background: #f59e0b;
-        color: white;
-    }
-
-    .delete-image-btn {
-        color: #ef4444;
-    }
-
-    .delete-image-btn:hover {
-        background: #ef4444;
-        color: white;
-    }
-
-    .image-action-btn i {
-        font-size: 16px;
-    }
-
-    /* Loading States for Image Actions */
-    .image-action-btn.loading {
-        pointer-events: none;
-        opacity: 0.6;
-    }
-
-    .image-action-btn.loading::after {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        border: 2px solid transparent;
-        border-top: 2px solid currentColor;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* Image Upload Styles */
-    .image-upload-container {
-        margin-top: 8px;
-    }
-
-    .image-preview {
-        width: 120px;
-        height: 120px;
-        border: 2px dashed #ccc;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: #f9f9f9;
-    }
-
-    .image-preview:hover {
-        border-color: var(--primary);
-        background: #f0f8ff;
-    }
-
-    .image-preview.empty i {
-        font-size: 24px;
-        color: #999;
-        margin-bottom: 5px;
-    }
-
-    .image-preview.empty span {
-        font-size: 12px;
-        color: #666;
+    .image-gallery-item {
         text-align: center;
     }
 
-    .image-preview img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 6px;
-    }
-
-    .image-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-        margin-bottom: 15px;
-    }
-
-    .image-grid .image-preview {
-        width: 100px;
-        height: 100px;
-    }
-
-    .image-grid .image-preview.empty i {
-        font-size: 20px;
-    }
-
-    .image-grid .image-preview.empty span {
-        font-size: 10px;
-    }
-
-    .upload-images-btn {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.3s ease;
-    }
-
-    .upload-images-btn:hover {
-        background: var(--primary-dark);
-    }
-
-    .upload-images-btn i {
-        margin-right: 6px;
+    /* Hidden file input for image updates */
+    .hidden-file-input {
+        display: none;
     }
 
     /* Responsive Design */
@@ -1279,6 +1111,18 @@
 
         .modal-body {
             padding: 24px;
+        }
+
+        .image-upload-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .additional-images-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .image-gallery-grid {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -1419,39 +1263,65 @@
                         </select>
                     </div>
 
-                    <!-- Cover Photo Section -->
+                    <!-- Image Upload Section -->
                     <div class="form-group" id="imageUploadSection">
-                        <label class="form-label">Cover Photo</label>
-                        <div class="image-upload-container">
-                            <div class="image-preview empty" id="coverPreview"
-                                onclick="document.getElementById('coverPhotoInput').click()">
-                                <i class="fas fa-image"></i>
-                                <span>Cover Photo</span>
-                            </div>
-                            <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;"
-                                onchange="handleCoverPhoto(event)">
-                        </div>
-                    </div>
+                        <label class="form-label">Product Images</label>
 
-                    <!-- Additional Images Section -->
-                    <div class="form-group" id="additionalImagesSection">
-                        <label class="form-label">Additional Product Images (Up to 6)</label>
-                        <div class="image-upload-container">
-                            <div class="image-grid" id="imageGrid">
-                                <!-- Image slots will be generated by JavaScript -->
+                        <!-- Cover Photo and Small Variant Image -->
+                        <div class="image-upload-section">
+                            <div class="image-section-title">
+                                <i class="fas fa-images"></i>
+                                Main Product Images
                             </div>
-                            <input type="file" id="productImagesInput" accept="image/*" multiple style="display: none;"
-                                onchange="handleProductImages(event)">
-                            <button type="button" class="upload-images-btn"
-                                onclick="document.getElementById('productImagesInput').click()">
+                            <div class="image-upload-grid">
+                                <div class="image-upload-item">
+                                    <div class="image-upload-label">Cover Photo (Large Size)</div>
+                                    <div class="image-preview empty" id="coverPreview"
+                                        onclick="document.getElementById('coverPhotoInput').click()">
+                                        <i class="fas fa-image"></i>
+                                        <span>Cover Photo</span>
+                                    </div>
+                                    <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;"
+                                        onchange="handleCoverPhoto(event)">
+                                </div>
+
+                                <div class="image-upload-item">
+                                    <div class="image-upload-label">Small Variant Image</div>
+                                    <div class="image-preview empty" id="smallVariantPreview"
+                                        onclick="document.getElementById('smallVariantInput').click()">
+                                        <i class="fas fa-image"></i>
+                                        <span>Small Size</span>
+                                    </div>
+                                    <input type="file" id="smallVariantInput" accept="image/*" style="display: none;"
+                                        onchange="handleSmallVariantPhoto(event)">
+                                </div>
+                            </div>
+                            <small class="form-help">Cover photo will be used for Large size. Small variant image will
+                                be shown when Small size is selected.</small>
+                        </div>
+
+                        <!-- Additional Images -->
+                        <div class="image-upload-section">
+                            <div class="image-section-title">
+                                <i class="fas fa-plus-circle"></i>
+                                Additional Images (Up to 6)
+                            </div>
+                            <div class="additional-images-grid" id="additionalImagesGrid">
+                                <!-- Additional image slots will be generated by JavaScript -->
+                            </div>
+                            <input type="file" id="additionalImagesInput" accept="image/*" multiple
+                                style="display: none;" onchange="handleAdditionalImages(event)">
+                            <button type="button" class="btn-secondary"
+                                onclick="document.getElementById('additionalImagesInput').click()">
                                 <i class="fas fa-upload"></i>
-                                Upload Additional Images
+                                Add More Images
                             </button>
+                            <small class="form-help">Additional product images for gallery display.</small>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Size Variants</label>
+                        <label class="form-label">Size Variants & Pricing</label>
                         <div class="size-variants-container">
                             <div id="sizeVariantsContainer">
                                 <!-- Size variants will be added here -->
@@ -1506,25 +1376,30 @@
         </div>
     </div>
 
-     <script >
+    <!-- Hidden file input for image updates -->
+    <input type="file" id="hiddenImageUpdateInput" class="hidden-file-input" accept="image/*"
+        onchange="handleImageUpdate(event)">
+
+    <script>
         const CONFIG = {
-    BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
-};
+            // BACKEND_URL:'http://localhost:8000'
+            BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+        };
     </script>
     <script>
         let products = [];
         let editingProductId = null;
         let coverPhotoFile = null;
+        let smallVariantFile = null;
         let additionalImagesFiles = [];
+        let currentImageBeingUpdated = { productId: null, imageId: null };
         const API_BASE_URL = CONFIG.BACKEND_URL;
 
         // Navigation functionality
         function switchPage(page) {
             if (page === 'orders') {
-                // Navigate to orders page
                 window.location.href = 'orders.html';
             }
-            // If page is 'products', stay on current page
         }
 
         function toggleMobileMenu() {
@@ -1534,31 +1409,31 @@
             navToggle.classList.toggle('active');
         }
 
-        // Initialize dashboard by loading products from backend
+        // Initialize dashboard
         async function initializeData() {
             await loadProducts();
         }
 
-        // Initialize image grid with 6 slots (only for add product)
-        function initializeImageGrid() {
-            const imageGrid = document.getElementById('imageGrid');
-            if (!imageGrid) return; // Skip if element doesn't exist
+        // Initialize additional images grid with 6 slots
+        function initializeAdditionalImagesGrid() {
+            const grid = document.getElementById('additionalImagesGrid');
+            if (!grid) return;
 
-            imageGrid.innerHTML = '';
-
+            grid.innerHTML = '';
             for (let i = 0; i < 6; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'image-preview empty';
-                slot.id = `imageSlot${i}`;
+                slot.id = `additionalSlot${i}`;
+                slot.onclick = () => document.getElementById('additionalImagesInput').click();
                 slot.innerHTML = `
-            <i class="fas fa-plus"></i>
-            <span>${i + 1}</span>
-        `;
-                imageGrid.appendChild(slot);
+                    <i class="fas fa-plus"></i>
+                    <span>${i + 1}</span>
+                `;
+                grid.appendChild(slot);
             }
         }
 
-        // Handle cover photo selection (only for add product)
+        // Handle cover photo selection
         function handleCoverPhoto(event) {
             const file = event.target.files[0];
             if (file) {
@@ -1571,21 +1446,48 @@
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     const preview = document.getElementById('coverPreview');
-                    if (preview) {
-                        preview.innerHTML = `<img src="${e.target.result}" alt="Cover photo">`;
-                        preview.classList.remove('empty');
-                    }
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="Cover photo">
+                        <button type="button" class="image-remove-btn" onclick="removeCoverPhoto()">×</button>
+                    `;
+                    preview.classList.remove('empty');
+                    preview.classList.add('filled');
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // Handle additional images selection (only for add product)
-        function handleProductImages(event) {
-            const files = Array.from(event.target.files);
+        // Handle small variant photo selection
+        function handleSmallVariantPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('Small variant image must be less than 5MB', 'error');
+                    return;
+                }
 
-            if (additionalImagesFiles.length + files.length > 6) {
-                showNotification('You can only add up to 6 additional images', 'error');
+                smallVariantFile = file;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('smallVariantPreview');
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="Small variant image">
+                        <button type="button" class="image-remove-btn" onclick="removeSmallVariantPhoto()">×</button>
+                    `;
+                    preview.classList.remove('empty');
+                    preview.classList.add('filled');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle additional images selection
+        function handleAdditionalImages(event) {
+            const files = Array.from(event.target.files);
+            const remainingSlots = 6 - additionalImagesFiles.length;
+
+            if (files.length > remainingSlots) {
+                showNotification(`You can only add ${remainingSlots} more images`, 'error');
                 return;
             }
 
@@ -1597,43 +1499,59 @@
 
                 if (additionalImagesFiles.length < 6) {
                     additionalImagesFiles.push(file);
-                    updateImageGrid();
                 }
             }
+            updateAdditionalImagesGrid();
         }
 
-        // Update image grid display (only for add product)
-        function updateImageGrid() {
+        // Update additional images grid display
+        function updateAdditionalImagesGrid() {
             for (let i = 0; i < 6; i++) {
-                const slot = document.getElementById(`imageSlot${i}`);
+                const slot = document.getElementById(`additionalSlot${i}`);
                 if (!slot) continue;
 
                 if (i < additionalImagesFiles.length) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         slot.innerHTML = `
-                    <img src="${e.target.result}" alt="Product image ${i + 1}">
-                    <button type="button" onclick="removeImage(${i})" style="position: absolute; top: 2px; right: 2px; background: var(--error); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 0.7rem;">×</button>
-                `;
+                            <img src="${e.target.result}" alt="Additional image ${i + 1}">
+                            <button type="button" class="image-remove-btn" onclick="removeAdditionalImage(${i})">×</button>
+                        `;
                         slot.classList.remove('empty');
-                        slot.style.position = 'relative';
+                        slot.classList.add('filled');
                     };
                     reader.readAsDataURL(additionalImagesFiles[i]);
                 } else {
                     slot.innerHTML = `
-                <i class="fas fa-plus"></i>
-                <span>${i + 1}</span>
-            `;
+                        <i class="fas fa-plus"></i>
+                        <span>${i + 1}</span>
+                    `;
                     slot.classList.add('empty');
-                    slot.style.position = 'static';
+                    slot.classList.remove('filled');
                 }
             }
         }
 
-        // Remove image from additional images (only for add product)
-        function removeImage(index) {
+        // Remove functions
+        function removeCoverPhoto() {
+            coverPhotoFile = null;
+            const preview = document.getElementById('coverPreview');
+            preview.innerHTML = '<i class="fas fa-image"></i><span>Cover Photo</span>';
+            preview.classList.add('empty');
+            preview.classList.remove('filled');
+        }
+
+        function removeSmallVariantPhoto() {
+            smallVariantFile = null;
+            const preview = document.getElementById('smallVariantPreview');
+            preview.innerHTML = '<i class="fas fa-image"></i><span>Small Size</span>';
+            preview.classList.add('empty');
+            preview.classList.remove('filled');
+        }
+
+        function removeAdditionalImage(index) {
             additionalImagesFiles.splice(index, 1);
-            updateImageGrid();
+            updateAdditionalImagesGrid();
         }
 
         // Load products from backend
@@ -1731,47 +1649,53 @@
             emptyState.style.display = 'none';
 
             tbody.innerHTML = products.map(product => `
-        <tr>
-            <td>
-                <img src="${ API_BASE_URL+ product.images[0].url}" 
-                     alt="${escapeHtml(product.title || 'Product')}" class="product-image"
-                     onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-            </td>
-            <td>
-                <div class="product-title">${escapeHtml(product.title || 'Untitled')}</div>
-                <div class="product-description">${escapeHtml(product.description || 'No description')}</div>
-            </td>
-            <td>
-                <span class="category-badge">${escapeHtml(product.category || 'No category')}</span>
-            </td>
-            <td>
-                <div class="size-variants">
-                    ${(product.sizeVariants || []).map(variant => `
-                        <div class="size-variant">
-                            <span>${escapeHtml(variant.size || 'Unknown')}</span>
-                            <span class="variant-price">${(variant.price || 0).toFixed(2)}</span>
-                            <span class="${variant.isAvailable ? 'status-available' : 'status-unavailable'}">
-                                <i class="fas ${variant.isAvailable ? 'fa-check' : 'fa-times'}"></i>
-                            </span>
+                <tr>
+                    <td>
+                        <img src="${API_BASE_URL + (product.images[0]?.url || '')}" 
+                             alt="${escapeHtml(product.title || 'Product')}" class="product-image"
+                             onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
+                    </td>
+                    <td>
+                        <div class="product-title">${escapeHtml(product.title || 'Untitled')}</div>
+                        <div class="product-description">${escapeHtml(product.description || 'No description')}</div>
+                    </td>
+                    <td>
+                        <span class="category-badge">${escapeHtml(product.category || 'No category')}</span>
+                    </td>
+                    <td>
+                        <div class="size-variants">
+                            ${(product.sizeVariants || []).map(variant => `
+                                <div class="size-variant">
+                                    <span>${escapeHtml(variant.size || 'Unknown')}</span>
+                                    <div class="variant-price">
+                                        ${variant.discountedPrice ?
+                    `<span class="original-price">${(variant.price || 0).toFixed(2)}</span>
+                                             <span class="discounted-price">${(variant.discountedPrice || 0).toFixed(2)}</span>` :
+                    `<span>${(variant.price || 0).toFixed(2)}</span>`
+                }
+                                    </div>
+                                    <span class="${variant.isAvailable ? 'status-available' : 'status-unavailable'}">
+                                        <i class="fas ${variant.isAvailable ? 'fa-check' : 'fa-times'}"></i>
+                                    </span>
+                                </div>
+                            `).join('')}
                         </div>
-                    `).join('')}
-                </div>
-            </td>
-            <td>
-                <div class="actions">
-                    <button class="action-btn view-btn" onclick="viewProduct('${product._id || product.id}')" title="View Details">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="action-btn edit-btn" onclick="editProduct('${product._id || product.id}')" title="Edit Product">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn" onclick="deleteProduct('${product._id || product.id}')" title="Delete Product">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn view-btn" onclick="viewProduct('${product._id || product.id}')" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn edit-btn" onclick="editProduct('${product._id || product.id}')" title="Edit Product">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteProduct('${product._id || product.id}')" title="Delete Product">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
         }
 
         // Helper function to escape HTML
@@ -1784,7 +1708,7 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // Open Add Product Modal - WITH image functionality
+        // Open Add Product Modal
         function openAddModal() {
             editingProductId = null;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Add Product';
@@ -1792,300 +1716,48 @@
             document.getElementById('sizeVariantsContainer').innerHTML = '';
             document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Save Product';
 
-            // Reset image uploads for add product
+            // Reset image uploads
             coverPhotoFile = null;
+            smallVariantFile = null;
             additionalImagesFiles = [];
-            const coverPreview = document.getElementById('coverPreview');
-            if (coverPreview) {
-                coverPreview.innerHTML = '<i class="fas fa-image"></i><span>Cover Photo</span>';
-                coverPreview.classList.add('empty');
-            }
-            initializeImageGrid();
 
-            addSizeVariant();
+            // Reset image previews
+            removeCoverPhoto();
+            removeSmallVariantPhoto();
+            initializeAdditionalImagesGrid();
+
+            // Add default size variants
+            addSizeVariant({ size: 'Small', price: '', discountedPrice: '', isAvailable: true });
+            addSizeVariant({ size: 'Large', price: '', discountedPrice: '', isAvailable: true });
+
             document.getElementById('productModal').style.display = 'block';
         }
 
-        // Edit Product Modal - WITHOUT image functionality
-        async function editProduct(id) {
-            try {
-                showLoadingOverlay(true);
-
-                const response = await fetch(`${API_BASE_URL}/SingleProduct?id=${id}`);
-                const data = await response.json();
-
-                if (!data.success || !data.product) {
-                    showNotification('Product not found', 'error');
-                    return;
-                }
-
-                const product = data.product;
-                editingProductId = id;
-
-                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Product';
-                document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Update Product';
-                document.getElementById('productTitle').value = product.title || '';
-                document.getElementById('productDescription').value = product.description || '';
-                document.getElementById('productCategory').value = product.category || '';
-
-                // Reset image uploads - NO image handling in edit mode
-                coverPhotoFile = null;
-                additionalImagesFiles = [];
-
-                // Hide image upload sections if they exist
-                const coverPreview = document.getElementById('coverPreview');
-                const imageGrid = document.getElementById('imageGrid');
-                const imageUploadSection = document.getElementById('imageUploadSection');
-                const additionalImagesSection = document.getElementById('additionalImagesSection');
-
-                if (coverPreview) coverPreview.style.display = 'none';
-                if (imageGrid) imageGrid.style.display = 'none';
-                if (imageUploadSection) imageUploadSection.style.display = 'none';
-                if (additionalImagesSection) additionalImagesSection.style.display = 'none';
-
-                // Populate size variants
-                const container = document.getElementById('sizeVariantsContainer');
-                container.innerHTML = '';
-
-                if (product.sizeVariants && product.sizeVariants.length > 0) {
-                    product.sizeVariants.forEach(variant => {
-                        addSizeVariant(variant);
-                    });
-                } else {
-                    addSizeVariant();
-                }
-
-                document.getElementById('productModal').style.display = 'block';
-
-            } catch (error) {
-                console.error('Error loading product for edit:', error);
-                showNotification('Failed to load product details', 'error');
-            } finally {
-                showLoadingOverlay(false);
-            }
-        }
-
-        // View Product Modal - WITH image viewing and manipulation
-        async function viewProduct(id) {
-            try {
-                showLoadingOverlay(true);
-
-                const response = await fetch(`${API_BASE_URL}/SingleProduct?id=${id}`);
-                const data = await response.json();
-
-                if (!data.success || !data.product) {
-                    showNotification('Product not found', 'error');
-                    return;
-                }
-
-                const product = data.product;
-                const modalBody = document.getElementById('viewModalBody');
-
-                function getGalleryImageUrl(img, index) {
-                    if (typeof img === 'string') {
-                        return `${API_BASE_URL}${img}`;
-                    } else if (img && typeof img === 'object') {
-                        if (img.url) return `${API_BASE_URL}${img.url}`;
-                        if (img.path) return `${API_BASE_URL}/${img.path}`;
-                        if (img.filename) return `${API_BASE_URL}/uploads/${img.filename}`;
-                    }
-                    return 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop';
-                }
-
-                modalBody.innerHTML = `
-            <div class="view-product-details">
-                <div class="detail-section">
-                    <div class="detail-grid">
-                        <div class="detail-item">
-                            <div class="detail-label">Product Title</div>
-                            <div class="detail-value">${escapeHtml(product.title || 'N/A')}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Category</div>
-                            <div class="detail-value">${escapeHtml(product.category || 'N/A')}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-section">
-                    <div class="detail-item">
-                        <div class="detail-label">Description</div>
-                        <div class="detail-value">${escapeHtml(product.description || 'No description available')}</div>
-                    </div>
-                </div>
-                
-                <div class="detail-section">
-                    <h4><i class="fas fa-resize"></i> Size Variants</h4>
-                    <div class="detail-grid">
-                        ${(product.sizeVariants || []).map(variant => `
-                            <div class="detail-item">
-                                <div class="detail-label">${escapeHtml(variant.size || 'Unknown Size')}</div>
-                                <div class="detail-value">
-                                    $${(variant.price || 0).toFixed(2)}
-                                    <span style="color: ${variant.isAvailable ? 'var(--success)' : 'var(--error)'}; margin-left: 8px;">
-                                        <i class="fas ${variant.isAvailable ? 'fa-check-circle' : 'fa-times-circle'}"></i>
-                                        ${variant.isAvailable ? 'Available' : 'Unavailable'}
-                                    </span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                
-                <div class="detail-section">
-                    <h4><i class="fas fa-images"></i> Product Images</h4>
-                    <div class="image-gallery">
-                        ${product.images && Array.isArray(product.images) && product.images.length > 0
-                        ? product.images.map((img, index) => {
-                            const imageUrl = getGalleryImageUrl(img, index);
-                            const isCover = index === 0;
-                            const imageId = img._id?.$oid || img._id;
-                            return `
-                                    <div class="gallery-image-container" data-image-id="${imageId}">
-                                        <img src="${imageUrl}" 
-                                             alt="${escapeHtml(product.title || 'Product')}" 
-                                             class="gallery-image ${isCover ? 'cover-gallery-image' : ''}"
-                                             onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-                                        ${isCover ? '<span class="cover-badge">Cover Photo</span>' : `<span class="image-number">Image ${index}</span>`}
-                                        <div class="image-actions">
-                                            <button class="image-action-btn edit-image-btn" onclick="editImage('${product._id?.$oid || product._id}', '${imageId}', ${index})" title="Edit Image">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="image-action-btn delete-image-btn" onclick="deleteImage('${product._id?.$oid || product._id}', '${imageId}', ${index})" title="Delete Image">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                `;
-                        }).join('')
-                        : '<p style="color: #666; font-style: italic;">No images available for this product</p>'
-                    }
-                    </div>
-                </div>
-            </div>
-        `;
-
-                document.getElementById('viewModal').style.display = 'block';
-
-            } catch (error) {
-                console.error('Error loading product details:', error);
-                showNotification('Failed to load product details', 'error');
-            } finally {
-                showLoadingOverlay(false);
-            }
-        }
-
-        // Edit image function (for view modal)
-        async function editImage(productId, imageId, imageIndex) {
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = 'image/*';
-            fileInput.style.display = 'none';
-
-            fileInput.onchange = async function (event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                if (file.size > 5 * 1024 * 1024) {
-                    showNotification('Image must be less than 5MB', 'error');
-                    return;
-                }
-
-                const isCover = imageIndex === 0;
-                const imageType = isCover ? 'cover photo' : `image ${imageIndex}`;
-                if (!confirm(`Are you sure you want to replace the ${imageType}?`)) {
-                    return;
-                }
-
-                try {
-                    showLoadingOverlay(true);
-
-                    const formData = new FormData();
-                    formData.append('productId', productId);
-                    formData.append('imageId', imageId);
-                    formData.append('image', file);
-
-                    const response = await fetch(`${API_BASE_URL}/UpdateImageInProduct`, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const result = await response.json();
-
-                    if (result.success) {
-                        showNotification('Image updated successfully', 'success');
-                        await viewProduct(productId);
-                        await loadProducts();
-                    } else {
-                        showNotification('Failed to update image: ' + (result.message || 'Unknown error'), 'error');
-                    }
-
-                } catch (error) {
-                    console.error('Error updating image:', error);
-                    showNotification('Failed to update image. Please try again.', 'error');
-                } finally {
-                    showLoadingOverlay(false);
-                }
-            };
-
-            document.body.appendChild(fileInput);
-            fileInput.click();
-            document.body.removeChild(fileInput);
-        }
-
-        // Delete product
-        async function deleteProduct(id) {
-            const product = products.find(p => (p._id || p.id) === id);
-            const productName = product ? product.title : 'this product';
-
-            if (confirm(`Are you sure you want to delete "${productName}"? This action cannot be undone.`)) {
-                try {
-                    showLoadingOverlay(true);
-                    const response = await fetch(`${API_BASE_URL}/DeleteProduct?id=${id}`, {
-                        method: 'GET',
-                    });
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        products = products.filter(p => (p._id || p.id) !== id);
-                        renderProducts();
-                        updateStats();
-                        showNotification('Product deleted successfully', 'success');
-                    } else {
-                        showNotification('Failed to delete product: ' + data.message, 'error');
-                    }
-                } catch (error) {
-                    console.error('Error deleting product:', error);
-                    showNotification('Failed to delete product. Please try again.', 'error');
-                } finally {
-                    showLoadingOverlay(false);
-                }
-            }
-        }
-
-        // Add size variant
+        // Add size variant with discount price support
         function addSizeVariant(variant = null) {
             const container = document.getElementById('sizeVariantsContainer');
             const variantId = Date.now() + Math.random();
 
             const variantHtml = `
-        <div class="size-variant-item" id="variant-${variantId}">
-            <select required>
-                <option value="">Select Size</option>
-                <option value="Small" ${variant && variant.size === 'Small' ? 'selected' : ''}>Small</option>
-                <option value="Large" ${variant && variant.size === 'Large' ? 'selected' : ''}>Large</option>
-            </select>
-            <input type="number" placeholder="Price" step="0.01" min="0" value="${variant ? variant.price || '' : ''}" required>
-            <div class="checkbox-container">
-                <input type="checkbox" ${variant ? (variant.isAvailable !== false ? 'checked' : '') : 'checked'} id="available-${variantId}">
-                <label for="available-${variantId}">Available</label>
-            </div>
-            <button type="button" class="remove-variant-btn" onclick="removeSizeVariant('${variantId}')" title="Remove variant">
-                <i class="fas fa-trash"></i>
-            </button>
-        </div>
-    `;
+                <div class="size-variant-item" id="variant-${variantId}">
+                    <select required>
+                        <option value="">Select Size</option>
+                        <option value="Small" ${variant && variant.size === 'Small' ? 'selected' : ''}>Small</option>
+                        <option value="Large" ${variant && variant.size === 'Large' ? 'selected' : ''}>Large</option>
+                    </select>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <input type="number" placeholder="Original Price" step="0.01" min="0" value="${variant ? variant.price || '' : ''}" required>
+                        <input type="number" placeholder="Discounted Price (Optional)" step="0.01" min="0" value="${variant ? variant.discountedPrice || '' : ''}">
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" ${variant ? (variant.isAvailable !== false ? 'checked' : '') : 'checked'} id="available-${variantId}">
+                        <label for="available-${variantId}">Available</label>
+                    </div>
+                    <button type="button" class="remove-variant-btn" onclick="removeSizeVariant('${variantId}')" title="Remove variant">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
 
             container.insertAdjacentHTML('beforeend', variantHtml);
         }
@@ -2095,12 +1767,12 @@
             const element = document.getElementById(`variant-${variantId}`);
             if (element && document.querySelectorAll('.size-variant-item').length > 1) {
                 element.remove();
-            } else if (document.querySelectorAll('.size-variant-item').length === 1) {
+            } else {
                 showNotification('At least one size variant is required', 'warning');
             }
         }
 
-        // Save product - Modified to handle image uploads only for new products
+        // Save product with new image structure
         async function saveProduct() {
             const title = document.getElementById('productTitle').value.trim();
             const description = document.getElementById('productDescription').value.trim();
@@ -2111,20 +1783,32 @@
                 return;
             }
 
-            // Collect size variants
+            // Collect size variants with discount prices
             const variantElements = document.querySelectorAll('.size-variant-item');
             const sizeVariants = [];
 
-            variantElements.forEach(element => {
+            for (let element of variantElements) {
                 const inputs = element.querySelectorAll('input, select');
                 const size = inputs[0].value.trim();
                 const price = parseFloat(inputs[1].value);
-                const isAvailable = inputs[2].checked;
+                const discountedPrice = inputs[2].value ? parseFloat(inputs[2].value) : null;
+                const isAvailable = inputs[3].checked;
 
                 if (size && !isNaN(price) && price >= 0) {
-                    sizeVariants.push({ size, price, isAvailable });
+                    const variant = { size, price, isAvailable };
+
+                    // Add discounted price if provided and valid
+                    if (discountedPrice !== null && !isNaN(discountedPrice)) {
+                        if (discountedPrice >= price) {
+                            showNotification(`Discounted price must be less than original price for ${size}`, 'error');
+                            return;
+                        }
+                        variant.discountedPrice = discountedPrice;
+                    }
+
+                    sizeVariants.push(variant);
                 }
-            });
+            }
 
             if (sizeVariants.length === 0) {
                 showNotification('Please add at least one valid size variant', 'error');
@@ -2148,42 +1832,39 @@
                 formData.append('category', category);
                 formData.append('sizeVariants', JSON.stringify(sizeVariants));
 
-                // Handle file uploads ONLY for new products (not editing)
-                if (!editingProductId) {
-                    let totalImages = 0;
+                let response;
+                let url;
+                let method = 'POST';
+
+                if (editingProductId) {
+                    // Update existing product (no image handling)
+                    formData.append('id', editingProductId);
+                    url = `${API_BASE_URL}/UpdateProduct`;
+                } else {
+                    // Create new product with images
+                    url = `${API_BASE_URL}/CreateProduct`;
+
+                    // Handle image uploads in specific order for new products
+                    // 1. Cover photo (first in array)
                     if (coverPhotoFile) {
                         formData.append('images', coverPhotoFile);
-                        totalImages++;
                     }
 
+                    // 2. Additional images (middle of array)
                     for (let file of additionalImagesFiles) {
-                        if (totalImages < 7) {
-                            formData.append('images', file);
-                            totalImages++;
-                        }
+                        formData.append('images', file);
                     }
 
-                    if (totalImages > 7) {
-                        showNotification('Maximum 7 images allowed', 'warning');
-                        return;
+                    // 3. Small variant image (last in array)
+                    if (smallVariantFile) {
+                        formData.append('images', smallVariantFile);
                     }
                 }
 
-                let response;
-                if (editingProductId) {
-                    // Update existing product - NO image handling
-                    formData.append('id', editingProductId);
-                    response = await fetch(`${API_BASE_URL}/UpdateProduct`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                } else {
-                    // Create new product - WITH image handling
-                    response = await fetch(`${API_BASE_URL}/CreateProduct`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                }
+                response = await fetch(url, {
+                    method: method,
+                    body: formData
+                });
 
                 const data = await response.json();
 
@@ -2192,35 +1873,404 @@
                     closeModal();
                     await loadProducts();
                 } else {
-                    showNotification('Failed to save product: ' + (data.message || 'Unknown error'), 'error');
+                    showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product: ` + (data.message || 'Unknown error'), 'error');
                 }
 
             } catch (error) {
                 console.error('Error saving product:', error);
-                showNotification('Failed to save product. Please check your connection and try again.', 'error');
+                showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product. Please check your connection and try again.`, 'error');
             } finally {
                 showLoadingOverlay(false);
             }
         }
 
-        // Close modal
+        // Edit product function (simplified - no image editing in this version)
+        async function editProduct(id) {
+            try {
+                showLoadingOverlay(true);
+                const response = await fetch(`${API_BASE_URL}/SingleProduct?id=${id}`);
+                const data = await response.json();
+
+                if (!data.success || !data.product) {
+                    showNotification('Product not found', 'error');
+                    return;
+                }
+
+                const product = data.product;
+                editingProductId = id;
+
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Product';
+                document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Update Product';
+                document.getElementById('productTitle').value = product.title || '';
+                document.getElementById('productDescription').value = product.description || '';
+                document.getElementById('productCategory').value = product.category || '';
+
+                // Hide image upload sections for edit mode
+                document.getElementById('imageUploadSection').style.display = 'none';
+
+                // Populate size variants
+                const container = document.getElementById('sizeVariantsContainer');
+                container.innerHTML = '';
+
+                if (product.sizeVariants && product.sizeVariants.length > 0) {
+                    product.sizeVariants.forEach(variant => {
+                        addSizeVariant(variant);
+                    });
+                } else {
+                    addSizeVariant();
+                }
+
+                document.getElementById('productModal').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading product for edit:', error);
+                showNotification('Failed to load product details', 'error');
+            } finally {
+                showLoadingOverlay(false);
+            }
+        }
+
+        // Image update and delete functions
+        function triggerImageUpdate(productId, imageId) {
+            currentImageBeingUpdated = { productId, imageId };
+            document.getElementById('hiddenImageUpdateInput').click();
+        }
+
+        async function handleImageUpdate(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('Image must be less than 5MB', 'error');
+                return;
+            }
+
+            const { productId, imageId } = currentImageBeingUpdated;
+
+            try {
+                showLoadingOverlay(true);
+
+                const formData = new FormData();
+                formData.append('productId', productId);
+                formData.append('imageId', imageId);
+                formData.append('image', file);
+
+                const response = await fetch(`${API_BASE_URL}/UpdateImageInProduct`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification('Image updated successfully', 'success');
+                    // Reload the view modal with updated data
+                    await viewProduct(productId);
+                    await loadProducts(); // Refresh the main table
+                } else {
+                    showNotification('Failed to update image: ' + (data.message || 'Unknown error'), 'error');
+                }
+
+            } catch (error) {
+                console.error('Error updating image:', error);
+                showNotification('Failed to update image. Please try again.', 'error');
+            } finally {
+                showLoadingOverlay(false);
+                // Reset the file input
+                event.target.value = '';
+                currentImageBeingUpdated = { productId: null, imageId: null };
+            }
+        }
+
+        async function deleteImage(productId, imageId) {
+            if (!confirm('Are you sure you want to delete this image?')) {
+                return;
+            }
+
+            try {
+                showLoadingOverlay(true);
+
+                const response = await fetch(`${API_BASE_URL}/DeleteImageFromProduct`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        imageId: imageId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification('Image deleted successfully', 'success');
+                    // Reload the view modal with updated data
+                    await viewProduct(productId);
+                    await loadProducts(); // Refresh the main table
+                } else {
+                    showNotification('Failed to delete image: ' + (data.message || 'Unknown error'), 'error');
+                }
+
+            } catch (error) {
+                console.error('Error deleting image:', error);
+                showNotification('Failed to delete image. Please try again.', 'error');
+            } finally {
+                showLoadingOverlay(false);
+            }
+        }
+
+        // Complete viewProduct function with image edit/delete functionality
+        async function viewProduct(id) {
+            try {
+                showLoadingOverlay(true);
+
+                const response = await fetch(`${API_BASE_URL}/SingleProduct?id=${id}`);
+                const data = await response.json();
+
+                if (!data.success || !data.product) {
+                    showNotification('Product not found', 'error');
+                    return;
+                }
+
+                const product = data.product;
+                const modalBody = document.getElementById('viewModalBody');
+
+                function getGalleryImageUrl(img, index) {
+                    if (typeof img === 'string') {
+                        return `${API_BASE_URL}${img}`;
+                    } else if (img && typeof img === 'object') {
+                        if (img.url) return `${API_BASE_URL}${img.url}`;
+                        if (img.path) return `${API_BASE_URL}/${img.path}`;
+                        if (img.filename) return `${API_BASE_URL}/uploads/Products/${img.filename}`;
+                    }
+                    return 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop';
+                }
+
+                function getImageId(img) {
+                    if (img && typeof img === 'object') {
+                        return img._id || img.id || null;
+                    }
+                    return null;
+                }
+
+                // Determine image structure based on your layout
+                const coverImage = product.images && product.images[0] ? product.images[0] : null;
+                const smallVariantImage = product.images && product.images.length > 1 ? product.images[product.images.length - 1] : null;
+                const additionalImages = product.images && product.images.length > 2 ? product.images.slice(1, -1) : [];
+
+                modalBody.innerHTML = `
+            <div class="view-product-details">
+                <!-- Product Basic Info -->
+                <div class="detail-section">
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">Product Title</div>
+                            <div class="detail-value">${escapeHtml(product.title || 'N/A')}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Category</div>
+                            <div class="detail-value">${escapeHtml(product.category || 'N/A')}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Created</div>
+                            <div class="detail-value">${product.createdAt ? new Date(product.createdAt).toLocaleDateString() : 'N/A'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Last Updated</div>
+                            <div class="detail-value">${product.updatedAt ? new Date(product.updatedAt).toLocaleDateString() : 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="detail-section">
+                    <div class="detail-item">
+                        <div class="detail-label">Description</div>
+                        <div class="detail-value">${escapeHtml(product.description || 'No description available')}</div>
+                    </div>
+                </div>
+                
+                <!-- Size Variants & Pricing -->
+                <div class="detail-section">
+                    <h4><i class="fas fa-tags"></i> Size Variants & Pricing</h4>
+                    <div class="detail-grid">
+                        ${(product.sizeVariants || []).map(variant => `
+                            <div class="detail-item">
+                                <div class="detail-label">${escapeHtml(variant.size || 'Unknown Size')}</div>
+                                <div class="detail-value">
+                                    ${variant.discountedPrice ?
+                        `<span style="text-decoration: line-through; color: var(--text-muted); margin-right: 8px;">${(variant.price || 0).toFixed(2)}</span> 
+                                         <span style="color: var(--success); font-weight: 700; font-size: 1.1rem;">${(variant.discountedPrice || 0).toFixed(2)}</span>
+                                         <div style="color: var(--success); font-size: 0.8rem; margin-top: 4px;">
+                                            <i class="fas fa-tag"></i> ${Math.round(((variant.price - variant.discountedPrice) / variant.price) * 100)}% OFF
+                                         </div>` :
+                        `<span style="font-weight: 700; font-size: 1.1rem;">${(variant.price || 0).toFixed(2)}</span>`
+                    }
+                                    <div style="margin-top: 8px;">
+                                        <span style="color: ${variant.isAvailable ? 'var(--success)' : 'var(--error)'};">
+                                            <i class="fas ${variant.isAvailable ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                                            ${variant.isAvailable ? 'Available' : 'Unavailable'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Product Images -->
+                <div class="detail-section">
+                    <h4><i class="fas fa-images"></i> Product Images</h4>
+                    
+                    <!-- Cover Image (Large Size) -->
+                    ${coverImage ? `
+                        <div style="margin-bottom: 24px;">
+                            <h5 style="color: var(--primary); margin-bottom: 12px;">
+                                <i class="fas fa-image"></i> Cover Photo (Large Size)
+                            </h5>
+                            <div style="text-align: center;">
+                                <div class="editable-image-container">
+                                    <img src="${getGalleryImageUrl(coverImage)}" 
+                                         alt="Cover Photo" 
+                                         style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--primary);"
+                                         onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
+                                    ${getImageId(coverImage) ? `
+                                        <div class="image-overlay">
+                                            <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(coverImage)}')" title="Update Image">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(coverImage)}')" title="Delete Image">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Small Variant Image -->
+                    ${smallVariantImage && product.images.length > 1 ? `
+                        <div style="margin-bottom: 24px;">
+                            <h5 style="color: var(--success); margin-bottom: 12px;">
+                                <i class="fas fa-image"></i> Small Variant Image
+                            </h5>
+                            <div style="text-align: center;">
+                                <div class="editable-image-container">
+                                    <img src="${getGalleryImageUrl(smallVariantImage)}" 
+                                         alt="Small Variant Image" 
+                                         style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--success);"
+                                         onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
+                                    ${getImageId(smallVariantImage) ? `
+                                        <div class="image-overlay">
+                                            <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(smallVariantImage)}')" title="Update Image">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(smallVariantImage)}')" title="Delete Image">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Additional Images -->
+                    ${additionalImages.length > 0 ? `
+                        <div>
+                            <h5 style="color: var(--accent); margin-bottom: 12px;">
+                                <i class="fas fa-images"></i> Additional Images (${additionalImages.length})
+                            </h5>
+                            <div class="image-gallery-grid">
+                                ${additionalImages.map((img, index) => `
+                                    <div class="image-gallery-item">
+                                        <div class="editable-image-container">
+                                            <img src="${getGalleryImageUrl(img)}" 
+                                                 alt="Additional Image ${index + 1}" 
+                                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid var(--border);"
+                                                 onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
+                                            ${getImageId(img) ? `
+                                                <div class="image-overlay">
+                                                    <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(img)}')" title="Update Image">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(img)}')" title="Delete Image">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                        <div style="margin-top: 4px; font-size: 0.8rem; color: var(--text-muted);">
+                                            Image ${index + 1}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${!coverImage && !smallVariantImage && additionalImages.length === 0 ?
+                        '<p style="color: var(--text-muted); font-style: italic; text-align: center; padding: 40px;">No images available for this product</p>'
+                        : ''
+                    }
+                </div>
+            </div>
+        `;
+
+                document.getElementById('viewModal').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading product details:', error);
+                showNotification('Failed to load product details', 'error');
+            } finally {
+                showLoadingOverlay(false);
+            }
+        }
+
+        // Delete product function
+        async function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                try {
+                    showLoadingOverlay(true);
+                    const response = await fetch(`${API_BASE_URL}/DeleteProduct?id=${id}`, {
+                        method: 'GET',
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showNotification('Product deleted successfully', 'success');
+                        await loadProducts();
+                    } else {
+                        showNotification('Failed to delete product: ' + data.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error deleting product:', error);
+                    showNotification('Failed to delete product. Please try again.', 'error');
+                } finally {
+                    showLoadingOverlay(false);
+                }
+            }
+        }
+
+        // Close modal function
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
             editingProductId = null;
             document.getElementById('productForm').reset();
+
+            // Reset image uploads
             coverPhotoFile = null;
+            smallVariantFile = null;
             additionalImagesFiles = [];
 
-            // Show image sections again for next use
-            const coverPreview = document.getElementById('coverPreview');
-            const imageGrid = document.getElementById('imageGrid');
-            const imageUploadSection = document.getElementById('imageUploadSection');
-            const additionalImagesSection = document.getElementById('additionalImagesSection');
-
-            if (coverPreview) coverPreview.style.display = 'block';
-            if (imageGrid) imageGrid.style.display = 'block';
-            if (imageUploadSection) imageUploadSection.style.display = 'block';
-            if (additionalImagesSection) additionalImagesSection.style.display = 'block';
+            // Show image sections again for next use and reset previews
+            document.getElementById('imageUploadSection').style.display = 'block';
+            removeCoverPhoto();
+            removeSmallVariantPhoto();
+            initializeAdditionalImagesGrid();
         }
 
         // Close view modal
@@ -2257,11 +2307,13 @@
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function () {
             initializeData();
+            initializeAdditionalImagesGrid();
         });
-    </script>
-    <script>
+
+        // Additional initialization function
         function initializePageContent() {
-            initializeData(); // Your existing function
+            initializeData();
+            initializeAdditionalImagesGrid();
         }
     </script>
 </body>

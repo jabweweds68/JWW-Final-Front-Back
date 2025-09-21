@@ -47,3 +47,12 @@ closeBtn.addEventListener('click', () => {
     ease: 'power2.out'
   });
 });
+
+
+const arrowTop = document.querySelector(".arrow-top-sect");
+arrowTop.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});

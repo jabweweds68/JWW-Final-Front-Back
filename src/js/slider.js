@@ -1,20 +1,15 @@
-// Select elements
 const slider = document.getElementById("dynamic-products-container");
-const loading = document.getElementById("loading-message");
-
 let isDown = false;
-let startX;
+let startX, startY;
 let currentX = 0;
 let prevX = 0;
 let velocity = 0;
 let animationFrame;
 
-// --- Drag inertia animation ---
 function animate() {
   currentX += velocity;
   velocity *= 0.95; // friction
 
-  // boundaries (recalculate in case products/images just loaded)
   const maxTranslate = 0;
   const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
 
@@ -34,7 +29,9 @@ function animate() {
   }
 }
 
-// --- Desktop Events ---
+/* -----------------------
+   🖥 DESKTOP EVENTS
+----------------------- */
 slider.addEventListener("mousedown", (e) => {
   isDown = true;
   startX = e.pageX;
@@ -61,44 +58,51 @@ slider.addEventListener("mousemove", (e) => {
   slider.style.transform = `translateX(${currentX}px)`;
 });
 
-// --- Mobile Touch Events ---
+/* -----------------------
+   📱 MOBILE EVENTS
+----------------------- */
+let isDragging = false;
+let isScrolling = false;
+
 slider.addEventListener("touchstart", (e) => {
   isDown = true;
   startX = e.touches[0].pageX;
+  startY = e.touches[0].pageY;
   prevX = currentX;
   velocity = 0;
+  isDragging = false;
+  isScrolling = false;
   cancelAnimationFrame(animationFrame);
-});
-
-slider.addEventListener("touchend", () => {
-  isDown = false;
-  requestAnimationFrame(animate);
-});
+}, { passive: true });
 
 slider.addEventListener("touchmove", (e) => {
   if (!isDown) return;
-  e.preventDefault();
-  const delta = e.touches[0].pageX - startX;
-  currentX = prevX + delta;
-  velocity = delta - (currentX - prevX);
-  slider.style.transform = `translateX(${currentX}px)`;
+
+  const deltaX = e.touches[0].pageX - startX;
+  const deltaY = e.touches[0].pageY - startY;
+
+  if (!isDragging && !isScrolling) {
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      isScrolling = true; // let page scroll
+      return;
+    } else {
+      isDragging = true; // enable horizontal drag
+    }
+  }
+
+  if (isDragging) {
+    e.preventDefault(); // stop vertical scroll ONLY while dragging horizontally
+    currentX = prevX + deltaX;
+    velocity = deltaX - (currentX - prevX);
+    slider.style.transform = `translateX(${currentX}px)`;
+  }
 }, { passive: false });
 
-// --- Refresh slider after products/images load ---
-window.addEventListener("load", () => {
-  currentX = 0;
-  velocity = 0;
-  slider.style.transform = `translateX(0px)`;
-
-  // Hide loader + show container
-  loading.style.display = "none";
-  slider.style.display = "flex";
+slider.addEventListener("touchend", () => {
+  if (isDragging) {
+    requestAnimationFrame(animate);
+  }
+  isDown = false;
+  isDragging = false;
+  isScrolling = false;
 });
-
-// --- If products are injected later (API / lazy load), reset transform ---
-const observer = new MutationObserver(() => {
-  currentX = 0;
-  velocity = 0;
-  slider.style.transform = `translateX(0px)`;
-});
-observer.observe(slider, { childList: true, subtree: true });

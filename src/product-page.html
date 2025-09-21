@@ -145,7 +145,6 @@
       <div class="boxes-price-select" id="box-selection">
         <!-- Box selection will be dynamically loaded -->
       </div>
-
       <div class="price-line">
         <div class="total" id="total-price">PKR: 0</div>
         <div class="total-name" id="total-description">Select options</div>
@@ -194,7 +193,7 @@
   <div class="splide">
     <div class="splide__track splide__track-3 ">
       <ul class="splide__list">
-        <li class="splide__slide"> No side effects.  Just pleasure.</li>
+        <li class="splide__slide"> No side effects. Just pleasure.</li>
 
         <li class="splide__slide"><img src="./assets/images/marq-2.png" alt=""></li>
         <li class="splide__slide">Taste her addiction</li>
@@ -207,7 +206,7 @@
     </div>
   </div>
   <div class="heading-review-main">NATURE'S NAUGHTIEST<br>RECIPE</div>
- <div class="ingredients-section">
+  <div class="ingredients-section">
     <div class="upper-section-ing">
       <div class="right-side-circle-ing">
         <div class="circle-ing">
@@ -221,7 +220,8 @@
         <div class="right-side-content-ab">
           <h1 class="ing-h">FOR HUBBY</h1>
           <span class="warning">⚠️ Explicit Warnings</span>
-          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your ultimate lover. Let's see what ingredients do for the husband
+          <p class="ing-p">🔥 Expect raging erections, torn condoms, and stamina that turns her into your ultimate
+            lover. Let's see what ingredients do for the husband
             For husband ingredients benefits</p>
           <ul>
             <li>🍆 Rock-Hard Erections.</li>
@@ -250,7 +250,8 @@
         <div class="right-side-content-ab">
           <h1 class="ing-h">FOR WIFEY </h1>
           <span class="warning">⚠️ Warning For Her</span>
-          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, wetness, and non-stop orgasms. Let's see what our ingredients do for the wifey.</p>
+          <p class="ing-p">🔥 🔥 May cause uncontrollable moaning, wetness, and non-stop orgasms. Let's see what our
+            ingredients do for the wifey.</p>
           <ul>
             <li>🌊 Extreme wetness.</li>
             <li>⚡ Instant clit sensations.</li>
@@ -432,15 +433,16 @@
           <h1>What makes it better than vaigra or supplements?</h1>
           <div class="toggle-btn-faq"><img src="./assets/images/x-vector.svg" alt=""></div>
         </div>
-     <div class="faq-content">
-<p>1. Faster & Stronger Than Viagra** <br>
-2. ✅ Onset in 30-60mins <br>
+        <div class="faq-content">
+          <p>1. Faster & Stronger Than Viagra** <br>
+            2. ✅ Onset in 30-60mins <br>
 
-3. Zero Side Effects <br>
-4. ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)   
-<br>
-5. ❌ No dependency(adaptogens protect receptors) </p>
-  </div>
+            3. Zero Side Effects <br>
+            4. ❌ No headaches, blue vision, or heart strain (Viagra blocks PDE5 unnaturally)
+            <br>
+            5. ❌ No dependency(adaptogens protect receptors)
+          </p>
+        </div>
       </div>
       <div class="faq">
         <div class="bar-f">
@@ -489,7 +491,8 @@
           <img src="./assets/images/footer-logo.png" alt="">
         </div>
         <div class="para-footer">
-          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫<br> <p> Herbal, Fast & Intense: Made for unstoppable cravings </p>
+          Pakistan's 1st Premium Herbal Seggs Chocolate Brand 🍫<br>
+          <p> Herbal, Fast & Intense: Made for unstoppable cravings </p>
           💦
         </div>
         <div class="cta-footer">
@@ -540,6 +543,8 @@
 
   <script>
     const CONFIG = {
+
+      // BACKEND_URL: 'http://localhost:8000'
       BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
     };
   </script>
@@ -678,21 +683,20 @@
 
       categoryContainer.innerHTML = productsData.map((product, index) => {
         const categoryClass = getCategoryClass(product.category);
+        // ALWAYS use cover image (first image) for category button
+        const coverImageUrl = getCoverImageUrl(product);
 
         return `
-      <div class="btn-s" data-product-id="${product._id}" data-index="${index}">
-        <div class="choco-img">
-          <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
-        </div>
-        <div class="bg-btn ${categoryClass}"></div>
-        <div class="text-btn">${product.title.toUpperCase()}</div>
-      </div>
-    `;
+            <div class="btn-s" data-product-id="${product._id}" data-index="${index}">
+                <div class="choco-img">
+                    <img src="${coverImageUrl}" alt="${product.title}">
+                </div>
+                <div class="bg-btn ${categoryClass}"></div>
+                <div class="text-btn">${product.title.toUpperCase()}</div>
+            </div>
+        `;
       }).join('');
-    }
-
-    // Get CSS class for category background
-    function getCategoryClass(category) {
+    } function getCategoryClass(category) {
       switch (category.toLowerCase()) {
         case 'strawberry flavour':
           return 'strwa-bg';
@@ -703,6 +707,15 @@
         default:
           return 'choco-bg';
       }
+    }
+    function getCoverImageUrl(product) {
+      if (!product.images || product.images.length === 0) {
+        return './assets/images/ABout-pic.png';
+      }
+
+      // Find cover image
+      const coverImage = product.images.find(img => img.isCover);
+      return coverImage ? getImageUrl(coverImage) : getImageUrl(product.images[0]);
     }
 
     // Get image URL with fallback
@@ -733,13 +746,13 @@
       document.getElementById('product-name').textContent = product.title;
       document.getElementById('product-description').textContent = product.description;
 
-      // Update product images
-      updateProductImages(product.images);
-
       // Create size buttons from product data
       createSizeButtons(product.sizeVariants);
 
-      // Update menu products (with null check)
+      // Always use the same slider images regardless of size
+      updateProductImages(product.images);
+
+      // Update other components...
       updateMenuProducts();
 
       // Setup bottom image click functionality
@@ -759,21 +772,38 @@
           }
         }));
       }, 300);
-    }
-
-    // Update product images in the slider - EXCLUDING COVER IMAGE
-    function updateProductImages(images) {
+    } function updateProductImagesWithSizeFilter(images, selectedSize) {
       const slider = document.getElementById('slider-product-ch');
 
-      if (images && images.length > 1) {
-        // Skip the first image (index 0) which is the cover image
-        const sliderImages = images.slice(1);
+      if (!images || images.length === 0) {
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
+        return;
+      }
 
+      let sliderImages = [];
+
+      if (selectedSize === 'small') {
+        // For small size: show small size image and other non-cover images
+        const smallImage = images.find(img => img.isSmallSizeImage);
+        if (smallImage) {
+          sliderImages = [smallImage, ...images.filter(img => !img.isCover && !img.isSmallSizeImage)];
+        } else {
+          sliderImages = images.filter(img => !img.isCover);
+        }
+      } else {
+        // For large size: show cover image and other non-small images
+        const coverImage = images.find(img => img.isCover);
+        if (coverImage) {
+          sliderImages = [coverImage, ...images.filter(img => !img.isCover && !img.isSmallSizeImage)];
+        } else {
+          sliderImages = images.filter(img => !img.isSmallSizeImage);
+        }
+      }
+
+      if (sliderImages.length > 0) {
         slider.innerHTML = sliderImages.map((image, index) =>
           `<img src="${getImageUrl(image)}" alt="Product image" class="product-slider-img" style="opacity: ${index === 0 ? 1 : 0};">`
         ).join('');
-      } else if (images && images.length === 1) {
-        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="No additional images" class="product-slider-img" style="opacity: 1;">';
       } else {
         slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
       }
@@ -785,30 +815,66 @@
       initializeProductSlider();
     }
 
+    // Update product images in the slider - EXCLUDING COVER IMAGE
+    function updateProductImages(images) {
+      const slider = document.getElementById('slider-product-ch');
+
+      if (images && images.length > 2) {
+        // Use only middle images (skip first cover image and last small variant image)
+        // Images at indices 1, 2, 3, 4, 5, 6 (total 6 images)
+        const sliderImages = images.slice(1, -1); // This excludes first and last image
+
+        if (sliderImages.length > 0) {
+          slider.innerHTML = sliderImages.map((image, index) =>
+            `<img src="${getImageUrl(image)}" alt="Product image" class="product-slider-img" style="opacity: ${index === 0 ? 1 : 0};">`
+          ).join('');
+        } else {
+          // Fallback if no middle images
+          slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
+        }
+      } else {
+        // Fallback for products with few images
+        slider.innerHTML = '<img src="./assets/images/ABout-pic.png" alt="Default product image" class="product-slider-img" style="opacity: 1;">';
+      }
+
+      // Update the bottom three images using middle images
+      updateBottomImages(images);
+
+      // Initialize slider after images are loaded
+      initializeProductSlider();
+    }
     function updateBottomImages(images) {
       const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1 img');
       const lastImage = document.querySelector('.upper-picture-p.last-p img');
 
-      if (middleImages.length >= 2) {
-        if (images && images.length > 2) {
-          middleImages[0].src = getImageUrl(images[2]);
-          middleImages[0].alt = "Product image 3";
-        }
-        if (images && images.length > 3) {
-          middleImages[1].src = getImageUrl(images[3]);
-          middleImages[1].alt = "Product image 4";
-        }
-      }
+      if (images && images.length > 2) {
+        const sliderImages = images.slice(1, -1); // Same middle images as slider
 
-      if (lastImage && images && images.length > 4) {
-        lastImage.src = getImageUrl(images[4]);
-        lastImage.alt = "Product image 5";
-      } else if (lastImage && images && images.length > 1) {
-        lastImage.src = getImageUrl(images[1]);
-        lastImage.alt = "Product image";
+        if (middleImages.length >= 2 && sliderImages.length >= 2) {
+          middleImages[0].src = getImageUrl(sliderImages[0]); // Second overall image (index 1)
+          middleImages[0].alt = "Product image";
+
+          if (sliderImages.length >= 2) {
+            middleImages[1].src = getImageUrl(sliderImages[1]); // Third overall image (index 2)
+            middleImages[1].alt = "Product image";
+          }
+        }
+
+        if (lastImage && sliderImages.length >= 3) {
+          lastImage.src = getImageUrl(sliderImages[2]); // Fourth overall image (index 3)
+          lastImage.alt = "Product image";
+        }
+      } else {
+        // Fallback for products with few images
+        if (middleImages.length >= 2) {
+          middleImages[0].src = './assets/images/ABout-pic.png';
+          middleImages[1].src = './assets/images/ABout-pic.png';
+        }
+        if (lastImage) {
+          lastImage.src = './assets/images/ABout-pic.png';
+        }
       }
     }
-
     function initializeProductSlider() {
       // Clear any existing intervals first
       if (window.sliderChInterval) {
@@ -890,44 +956,101 @@
       if (sizeVariants && sizeVariants.length > 0) {
         sizeContainer.innerHTML = sizeVariants.map((variant, index) => {
           const isActive = index === 0 ? 'active' : '';
+          const hasDiscount = variant.discountedPrice && variant.discountedPrice < variant.price;
+          const discountClass = hasDiscount ? 'has-discount' : '';
+
           return `
-        <div class="cta ${isActive}" data-size="${variant.size.toLowerCase()}" data-price="${variant.price}">
-          ${variant.size}
-        </div>
-      `;
+                <div class="cta size-btn ${isActive} ${discountClass}" 
+                     data-size="${variant.size.toLowerCase()}" 
+                     data-price="${variant.price}"
+                     data-discounted-price="${variant.discountedPrice || ''}"
+                     data-has-discount="${hasDiscount}">
+                    ${variant.size}
+                </div>
+            `;
         }).join('');
 
-        currentProduct.size = sizeVariants[0].size.toLowerCase();
-        currentProduct.sizePrice = sizeVariants[0].price;
+        // Set initial current product values
+        const firstVariant = sizeVariants[0];
+        currentProduct.size = firstVariant.size.toLowerCase();
+        currentProduct.sizePrice = firstVariant.discountedPrice || firstVariant.price;
+        currentProduct.originalPrice = firstVariant.price;
+        currentProduct.hasDiscount = firstVariant.discountedPrice && firstVariant.discountedPrice < firstVariant.price;
+
         createBoxSelection();
+        // Remove: updateSizeSpecificImages() call
       } else {
         sizeContainer.innerHTML = '<p>No sizes available</p>';
       }
     }
+    function updateSizeSpecificImages(selectedSize) {
+      const currentProductData = productsData.find(p => p._id === currentProduct.id);
+      if (!currentProductData || !currentProductData.images) return;
 
-    // Create box selection based on current size price
+      const images = currentProductData.images;
+
+      // Update ONLY the main slider image based on selected size
+      let mainImageUrl;
+      if (selectedSize === 'small') {
+        // Find small size image (isSmallSizeImage: true) or use last image
+        const smallImage = images.find(img => img.isSmallSizeImage) || images[images.length - 1];
+        mainImageUrl = getImageUrl(smallImage);
+      } else {
+        // Use cover image or first image for large size
+        const coverImage = images.find(img => img.isCover) || images[0];
+        mainImageUrl = getImageUrl(coverImage);
+      }
+
+      // Update ONLY the main product image in slider - NOT the category button
+      const mainProductImg = document.querySelector('#slider-product-ch img');
+      if (mainProductImg) {
+        mainProductImg.src = mainImageUrl;
+      }
+
+      // DO NOT update category button image - it should remain constant
+      // The category button should always show the cover image
+
+      // Update all other display images (this rebuilds the slider with proper images)
+      updateProductImages(images);
+    }   // Create box selection based on current size price
     function createBoxSelection() {
       const boxContainer = document.getElementById('box-selection');
+      const hasDiscount = currentProduct.hasDiscount;
+      const price = currentProduct.sizePrice; // This is already the final price (discounted if available)
+      const originalPrice = currentProduct.originalPrice;
 
       boxContainer.innerHTML = [1, 2, 3].map((count, index) => {
         const isActive = index === 0 ? 'active' : '';
-        const price = currentProduct.sizePrice * count;
+        const totalPrice = price * count;
+        const totalOriginalPrice = originalPrice * count;
+
+        let priceDisplay;
+        if (hasDiscount) {
+          priceDisplay = `
+                <div class="price-container">
+                    <span class="original-price">PKR: ${totalOriginalPrice}</span>
+                    <span class="discounted-price">PKR: ${totalPrice}</span>
+                    <span class="discount-badge">${Math.round((1 - price / originalPrice) * 100)}% OFF</span>
+                </div>
+            `;
+        } else {
+          priceDisplay = `<p class="box-price">PKR: ${totalPrice}</p>`;
+        }
 
         return `
-      <div class="p-box-1 ${isActive}" data-box="${count}">
-        <div class="heading-1-box">${count} BOX</div>
-        <div class="lower-price-tg">
-          <p>${count} Chocolate${count > 1 ? 's' : ''}</p>
-          <p class="box-price">PKR: ${price}</p>
-        </div>
-      </div>
-    `;
+            <div class="p-box-1 ${isActive}" data-box="${count}">
+                <div class="heading-1-box">${count} BOX</div>
+                <div class="lower-price-tg">
+                    <p>${count} Chocolate${count > 1 ? 's' : ''}</p>
+                    ${priceDisplay}
+                </div>
+            </div>
+        `;
       }).join('');
 
       currentProduct.boxCount = 1;
       updatePricing();
     }
-
     // Update menu products
     function updateMenuProducts() {
       const menuContainer = document.getElementById('menu-products');
@@ -962,6 +1085,7 @@
     // Setup event listeners
     function setupEventListeners() {
       document.addEventListener('click', (e) => {
+        // Category button click
         if (e.target.closest('.btn-s')) {
           const button = e.target.closest('.btn-s');
           const productId = button.dataset.productId;
@@ -975,15 +1099,26 @@
           }
         }
 
+        // Size button click - UPDATED: No image switching
         if (e.target.classList.contains('cta') && e.target.closest('#size-buttons')) {
           document.querySelectorAll('#size-buttons .cta').forEach(btn => btn.classList.remove('active'));
           e.target.classList.add('active');
 
-          currentProduct.size = e.target.dataset.size;
-          currentProduct.sizePrice = parseInt(e.target.dataset.price);
+          const selectedSize = e.target.dataset.size;
+          const price = parseInt(e.target.dataset.price);
+          const discountedPrice = e.target.dataset.discountedPrice ? parseInt(e.target.dataset.discountedPrice) : null;
+          const hasDiscount = e.target.dataset.hasDiscount === 'true';
+
+          currentProduct.size = selectedSize;
+          currentProduct.originalPrice = price;
+          currentProduct.sizePrice = discountedPrice || price;
+          currentProduct.hasDiscount = hasDiscount;
+
+          // Remove all image switching logic - just update pricing
           createBoxSelection();
         }
 
+        // Box selection click
         if (e.target.closest('.p-box-1')) {
           const button = e.target.closest('.p-box-1');
           document.querySelectorAll('.p-box-1').forEach(btn => btn.classList.remove('active'));
@@ -994,6 +1129,7 @@
         }
       });
 
+      // Other event listeners remain the same...
       document.getElementById('add-to-cart').addEventListener('click', addToCart);
       document.getElementById('open-cart').addEventListener('click', () => cartManager.openCart());
       document.getElementById('close-cart').addEventListener('click', () => cartManager.closeCart());
@@ -1003,14 +1139,28 @@
         clearCartBtn.addEventListener('click', () => cartManager.clearCart());
       }
     }
-
     // Update pricing display
     function updatePricing() {
-      currentProduct.totalPrice = currentProduct.sizePrice * currentProduct.boxCount;
-      document.getElementById('total-price').textContent = `PKR: ${currentProduct.totalPrice}`;
+      const hasDiscount = currentProduct.hasDiscount;
+      const totalPrice = currentProduct.sizePrice * currentProduct.boxCount;
+      const totalOriginalPrice = currentProduct.originalPrice * currentProduct.boxCount;
+
+      const totalPriceElement = document.getElementById('total-price');
+
+      if (hasDiscount) {
+        totalPriceElement.innerHTML = `
+            <div class="price-container">
+                <span class="original-price">PKR: ${totalOriginalPrice}</span>
+                <span class="discounted-price">PKR: ${totalPrice}</span>
+            </div>
+        `;
+      } else {
+        totalPriceElement.textContent = `PKR: ${totalPrice}`;
+      }
+
+      currentProduct.totalPrice = totalPrice;
       document.getElementById('total-description').textContent = `${currentProduct.boxCount} Chocolate${currentProduct.boxCount > 1 ? 's' : ''}`;
     }
-
     // Add to cart function
     function addToCart() {
       if (!currentProduct.id) {
@@ -1027,17 +1177,18 @@
       const productData = {
         productId: currentProduct.id,
         name: product.title,
-        image: getImageUrl(product.images[0]),
+        image: getCoverImageUrl(product), // Use cover image for cart
         flavor: currentProduct.flavor,
         size: currentProduct.size,
-        sizePrice: currentProduct.sizePrice,
+        sizePrice: currentProduct.sizePrice, // Final price (discounted if applicable)
+        originalPrice: currentProduct.originalPrice, // Original price
+        hasDiscount: currentProduct.hasDiscount,
         boxCount: currentProduct.boxCount,
         totalPrice: currentProduct.totalPrice
       };
 
       cartManager.addToCart(productData);
     }
-
     // Setup bottom image click functionality
     function setupBottomImageClicks() {
       const middleImages = document.querySelectorAll('.middle-picture-p .img-p-1');
@@ -1047,13 +1198,10 @@
       middleImages.forEach((imageContainer, index) => {
         imageContainer.style.cursor = 'pointer';
         imageContainer.addEventListener('click', () => {
-          const currentProductData = productsData.find(p => p._id === currentProduct.id);
-          if (currentProductData && currentProductData.images[index + 1]) {
-            const sliderImages = mainSlider.querySelectorAll('img');
-            if (sliderImages[index + 1]) {
-              sliderImages.forEach(img => img.style.opacity = '0');
-              sliderImages[index + 1].style.opacity = '1';
-            }
+          const sliderImages = mainSlider.querySelectorAll('img');
+          if (sliderImages[index]) {
+            sliderImages.forEach(img => img.style.opacity = '0');
+            sliderImages[index].style.opacity = '1';
           }
         });
       });
@@ -1061,18 +1209,14 @@
       if (lastImage) {
         lastImage.style.cursor = 'pointer';
         lastImage.addEventListener('click', () => {
-          const currentProductData = productsData.find(p => p._id === currentProduct.id);
-          if (currentProductData && currentProductData.images[3]) {
-            const sliderImages = mainSlider.querySelectorAll('img');
-            if (sliderImages[3]) {
-              sliderImages.forEach(img => img.style.opacity = '0');
-              sliderImages[3].style.opacity = '1';
-            }
+          const sliderImages = mainSlider.querySelectorAll('img');
+          if (sliderImages[2]) { // Third image in slider
+            sliderImages.forEach(img => img.style.opacity = '0');
+            sliderImages[2].style.opacity = '1';
           }
         });
       }
     }
-
     // Initialize the application
     document.addEventListener('DOMContentLoaded', () => {
       // console.log('Product page DOM loaded');
@@ -1101,85 +1245,85 @@
 
 
 
-<script>
-  const productPageLinks = document.querySelectorAll("#Navigate-to-checkout");
+  <script>
+    const productPageLinks = document.querySelectorAll("#Navigate-to-checkout");
 
-  productPageLinks.forEach(element => {
-    element.style.cursor = "pointer"; // make it clickable
-    element.addEventListener("click", () => {
-      window.location.href = "./checkout.html";
+    productPageLinks.forEach(element => {
+      element.style.cursor = "pointer"; // make it clickable
+      element.addEventListener("click", () => {
+        window.location.href = "./checkout.html";
+      });
     });
-  });
-  // ====================
-  // 1. UPDATE HOME PAGE (index.html) - Add this to your existing script
-  // ====================
+    // ====================
+    // 1. UPDATE HOME PAGE (index.html) - Add this to your existing script
+    // ====================
 
-  // Configuration
- 
+    // Configuration
 
-  // Product mapping for static menu items
-  const PRODUCT_MAPPING = {
-    'DARK DESIRE': 'dark-desire',
-    'STRAWBAE': 'strawbae',
-    'VANILLALUST': 'vanillalust',
-    'BUNDLE': 'bundle'
-  };
 
-  // Function to handle menu product clicks
-  function setupMenuProductNavigation() {
-    // Handle static menu items
-    const staticMenuBoxes = document.querySelectorAll('.slide-bar .box');
+    // Product mapping for static menu items
+    const PRODUCT_MAPPING = {
+      'DARK DESIRE': 'dark-desire',
+      'STRAWBAE': 'strawbae',
+      'VANILLALUST': 'vanillalust',
+      'BUNDLE': 'bundle'
+    };
 
-    staticMenuBoxes.forEach(box => {
-      const productName = box.querySelector('.name-box')?.textContent;
+    // Function to handle menu product clicks
+    function setupMenuProductNavigation() {
+      // Handle static menu items
+      const staticMenuBoxes = document.querySelectorAll('.slide-bar .box');
 
-      if (productName && PRODUCT_MAPPING[productName]) {
-        // Remove existing product-page id to prevent conflicts
-        box.removeAttribute('id');
-        box.classList.add('menu-product-item');
-        box.style.cursor = 'pointer';
+      staticMenuBoxes.forEach(box => {
+        const productName = box.querySelector('.name-box')?.textContent;
 
-        box.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
+        if (productName && PRODUCT_MAPPING[productName]) {
+          // Remove existing product-page id to prevent conflicts
+          box.removeAttribute('id');
+          box.classList.add('menu-product-item');
+          box.style.cursor = 'pointer';
 
-          const productSlug = PRODUCT_MAPPING[productName];
-          navigateToProduct(productSlug, productName);
-        });
-      }
-    });
-  }
+          box.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
 
-  // Function to navigate to product page with parameters
-  function navigateToProduct(productSlug, productName) {
-    const url = `./product-page.html?product=${encodeURIComponent(productSlug)}&name=${encodeURIComponent(productName)}`;
-    window.location.href = url;
-  }
-
-  // Function to update menu with dynamic products from API
-  async function updateMenuWithAPIProducts() {
-    try {
-      const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
-      const data = await response.json();
-
-      if (data.success && data.products) {
-        updateDynamicMenu(data.products);
-      }
-    } catch (error) {
-      console.error('Error fetching products for menu:', error);
-      // Keep static menu as fallback
+            const productSlug = PRODUCT_MAPPING[productName];
+            navigateToProduct(productSlug, productName);
+          });
+        }
+      });
     }
-  }
 
-  // Function to create dynamic menu from API data
-  function updateDynamicMenu(products) {
-    const menuContainer = document.querySelector('.slide-bar .grid-box-container');
-    if (!menuContainer) return;
+    // Function to navigate to product page with parameters
+    function navigateToProduct(productSlug, productName) {
+      const url = `./product-page.html?product=${encodeURIComponent(productSlug)}&name=${encodeURIComponent(productName)}`;
+      window.location.href = url;
+    }
 
-    menuContainer.innerHTML = products.map(product => {
-      const categoryClass = getCategoryClass(product.category);
+    // Function to update menu with dynamic products from API
+    async function updateMenuWithAPIProducts() {
+      try {
+        const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
+        const data = await response.json();
 
-      return `
+        if (data.success && data.products) {
+          updateDynamicMenu(data.products);
+        }
+      } catch (error) {
+        console.error('Error fetching products for menu:', error);
+        // Keep static menu as fallback
+      }
+    }
+
+    // Function to create dynamic menu from API data
+    function updateDynamicMenu(products) {
+      const menuContainer = document.querySelector('.slide-bar .grid-box-container');
+      if (!menuContainer) return;
+
+      menuContainer.innerHTML = products.map(product => {
+        const categoryClass = getCategoryClass(product.category);
+
+        return `
             <div class="box ${categoryClass}" data-product-id="${product._id}">
                 <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
                 <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
@@ -1190,187 +1334,187 @@
                 </div>
             </div>
         `;
-    }).join('');
+      }).join('');
 
-    // Setup click handlers for dynamic menu
-    setupDynamicMenuNavigation(products);
-  }
-
-  // Setup navigation for dynamically generated menu
-  function setupDynamicMenuNavigation(products) {
-    const menuBoxes = document.querySelectorAll('.slide-bar .box[data-product-id]');
-
-    menuBoxes.forEach(box => {
-      box.style.cursor = 'pointer';
-      box.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const productId = box.dataset.productId;
-        const product = products.find(p => p._id === productId);
-
-        if (product) {
-          const productSlug = product.title.toLowerCase().replace(/\s+/g, '-');
-          navigateToProductById(productId, product.title, productSlug);
-        }
-      });
-    });
-  }
-
-  // Navigate to product by ID (for API products)
-  function navigateToProductById(productId, productName, productSlug) {
-    const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
-    window.location.href = url;
-  }
-
-  // Helper functions
-  function getCategoryClass(category) {
-    switch (category?.toLowerCase()) {
-      case 'strawberry flavour':
-        return 'straw-bg';
-      case 'dark desire':
-        return ''; // default
-      case 'vanilla lust':
-        return 'vanilla-bg';
-      default:
-        return '';
+      // Setup click handlers for dynamic menu
+      setupDynamicMenuNavigation(products);
     }
-  }
 
-  function getImageUrl(image) {
-    if (!image) return './assets/images/ABout-pic.png';
-    const imageUrl = typeof image === 'string' ? image : image.url;
-    return imageUrl ? `${CONFIG.BACKEND_URL}${imageUrl}` : './assets/images/ABout-pic.png';
-  }
+    // Setup navigation for dynamically generated menu
+    function setupDynamicMenuNavigation(products) {
+      const menuBoxes = document.querySelectorAll('.slide-bar .box[data-product-id]');
 
-  // ====================
-  // 2. INITIALIZE HOME PAGE NAVIGATION
-  // ====================
-  document.addEventListener('DOMContentLoaded', () => {
-    // Setup static menu first
-    setupMenuProductNavigation();
+      menuBoxes.forEach(box => {
+        box.style.cursor = 'pointer';
+        box.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
 
-    // Try to load dynamic menu from API
-    updateMenuWithAPIProducts();
+          const productId = box.dataset.productId;
+          const product = products.find(p => p._id === productId);
 
-    // Keep existing product-page functionality for other elements
-    const otherProductLinks = document.querySelectorAll("#product-page:not(.slide-bar .box)");
-    otherProductLinks.forEach(element => {
-      element.style.cursor = "pointer";
-      element.addEventListener("click", () => {
-        window.location.href = "./product-page.html";
+          if (product) {
+            const productSlug = product.title.toLowerCase().replace(/\s+/g, '-');
+            navigateToProductById(productId, product.title, productSlug);
+          }
+        });
       });
-    });
-  });
+    }
 
-  // ====================
-  // 3. PRODUCT PAGE UPDATES (product-page.html)
-  // ====================
+    // Navigate to product by ID (for API products)
+    function navigateToProductById(productId, productName, productSlug) {
+      const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
+      window.location.href = url;
+    }
 
-  // Add this function to your existing product page script
-  function getURLParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return {
-      productId: urlParams.get('productId'),
-      productSlug: urlParams.get('product'),
-      productName: urlParams.get('name')
-    };
-  }
-
-  // Update your existing fetchProducts function to handle URL parameters
-  async function fetchProductsWithSelection() {
-    try {
-      const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
-      const data = await response.json();
-
-      if (data.success) {
-        productsData = data.products;
-        initializeProductPage();
-
-        // Check URL parameters for specific product selection
-        const urlParams = getURLParameters();
-        if (urlParams.productId || urlParams.productSlug) {
-          selectProductFromURL(urlParams);
-        }
-
-        // Dispatch event for other scripts
-        setTimeout(() => {
-          document.dispatchEvent(new CustomEvent('productDataLoaded', {
-            detail: { products: productsData }
-          }));
-        }, 100);
-      } else {
-        throw new Error(data.message || 'Failed to fetch products');
+    // Helper functions
+    function getCategoryClass(category) {
+      switch (category?.toLowerCase()) {
+        case 'strawberry flavour':
+          return 'straw-bg';
+        case 'dark desire':
+          return ''; // default
+        case 'vanilla lust':
+          return 'vanilla-bg';
+        default:
+          return '';
       }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      document.getElementById('product-name').textContent = 'Error loading products';
-      document.getElementById('product-description').textContent = error.message;
     }
-  }
 
-  // Function to select product based on URL parameters
-  function selectProductFromURL(urlParams) {
-    let selectedProduct = null;
+    function getImageUrl(image) {
+      if (!image) return './assets/images/ABout-pic.png';
+      const imageUrl = typeof image === 'string' ? image : image.url;
+      return imageUrl ? `${CONFIG.BACKEND_URL}${imageUrl}` : './assets/images/ABout-pic.png';
+    }
 
-    if (urlParams.productId) {
-      // Find by ID (most accurate)
-      selectedProduct = productsData.find(p => p._id === urlParams.productId);
-    } else if (urlParams.productSlug) {
-      // Find by slug matching
-      selectedProduct = productsData.find(p => {
-        const slug = p.title.toLowerCase().replace(/\s+/g, '-');
-        return slug === urlParams.productSlug;
+    // ====================
+    // 2. INITIALIZE HOME PAGE NAVIGATION
+    // ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      // Setup static menu first
+      setupMenuProductNavigation();
+
+      // Try to load dynamic menu from API
+      updateMenuWithAPIProducts();
+
+      // Keep existing product-page functionality for other elements
+      const otherProductLinks = document.querySelectorAll("#product-page:not(.slide-bar .box)");
+      otherProductLinks.forEach(element => {
+        element.style.cursor = "pointer";
+        element.addEventListener("click", () => {
+          window.location.href = "./product-page.html";
+        });
       });
+    });
+
+    // ====================
+    // 3. PRODUCT PAGE UPDATES (product-page.html)
+    // ====================
+
+    // Add this function to your existing product page script
+    function getURLParameters() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        productId: urlParams.get('productId'),
+        productSlug: urlParams.get('product'),
+        productName: urlParams.get('name')
+      };
     }
 
-    if (selectedProduct) {
-      // Update active state in category buttons
-      setTimeout(() => {
-        updateActiveCategory(selectedProduct._id);
-        selectProduct(selectedProduct);
-      }, 200);
-    } else if (urlParams.productName) {
-      // Fallback: try to match by name
-      selectedProduct = productsData.find(p =>
-        p.title.toLowerCase() === urlParams.productName.toLowerCase()
-      );
+    // Update your existing fetchProducts function to handle URL parameters
+    async function fetchProductsWithSelection() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/GetAllProducts`);
+        const data = await response.json();
+
+        if (data.success) {
+          productsData = data.products;
+          initializeProductPage();
+
+          // Check URL parameters for specific product selection
+          const urlParams = getURLParameters();
+          if (urlParams.productId || urlParams.productSlug) {
+            selectProductFromURL(urlParams);
+          }
+
+          // Dispatch event for other scripts
+          setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('productDataLoaded', {
+              detail: { products: productsData }
+            }));
+          }, 100);
+        } else {
+          throw new Error(data.message || 'Failed to fetch products');
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        document.getElementById('product-name').textContent = 'Error loading products';
+        document.getElementById('product-description').textContent = error.message;
+      }
+    }
+
+    // Function to select product based on URL parameters
+    function selectProductFromURL(urlParams) {
+      let selectedProduct = null;
+
+      if (urlParams.productId) {
+        // Find by ID (most accurate)
+        selectedProduct = productsData.find(p => p._id === urlParams.productId);
+      } else if (urlParams.productSlug) {
+        // Find by slug matching
+        selectedProduct = productsData.find(p => {
+          const slug = p.title.toLowerCase().replace(/\s+/g, '-');
+          return slug === urlParams.productSlug;
+        });
+      }
 
       if (selectedProduct) {
+        // Update active state in category buttons
         setTimeout(() => {
           updateActiveCategory(selectedProduct._id);
           selectProduct(selectedProduct);
         }, 200);
+      } else if (urlParams.productName) {
+        // Fallback: try to match by name
+        selectedProduct = productsData.find(p =>
+          p.title.toLowerCase() === urlParams.productName.toLowerCase()
+        );
+
+        if (selectedProduct) {
+          setTimeout(() => {
+            updateActiveCategory(selectedProduct._id);
+            selectProduct(selectedProduct);
+          }, 200);
+        }
       }
     }
-  }
 
-  // Function to update active category button
-  function updateActiveCategory(productId) {
-    const categoryButtons = document.querySelectorAll('.btn-s');
-    categoryButtons.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.productId === productId) {
-        btn.classList.add('active');
-      }
+    // Function to update active category button
+    function updateActiveCategory(productId) {
+      const categoryButtons = document.querySelectorAll('.btn-s');
+      categoryButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.productId === productId) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // Update your DOMContentLoaded event in product page
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Product page DOM loaded');
+
+      // Wait for cart manager, then fetch products with selection
+      setTimeout(() => {
+        fetchProductsWithSelection(); // Use updated function
+      }, 200);
     });
-  }
 
-  // Update your DOMContentLoaded event in product page
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Product page DOM loaded');
-
-    // Wait for cart manager, then fetch products with selection
-    setTimeout(() => {
-      fetchProductsWithSelection(); // Use updated function
-    }, 200);
-  });
-
-  // ====================
-  // 4. OPTIONAL: Add breadcrumb navigation
-  // ====================
-  function addBreadcrumb(productName) {
-    const breadcrumbHtml = `
+    // ====================
+    // 4. OPTIONAL: Add breadcrumb navigation
+    // ====================
+    function addBreadcrumb(productName) {
+      const breadcrumbHtml = `
         <div class="breadcrumb-nav" style="padding: 20px 0; font-size: 14px; color: #666;">
             <a href="./index.html" style="color: #667eea; text-decoration: none;">Home</a> 
             <span style="margin: 0 8px;">/</span> 
@@ -1380,15 +1524,15 @@
         </div>
     `;
 
-    const nav = document.querySelector('nav');
-    if (nav) {
-      nav.insertAdjacentHTML('afterend', breadcrumbHtml);
+      const nav = document.querySelector('nav');
+      if (nav) {
+        nav.insertAdjacentHTML('afterend', breadcrumbHtml);
+      }
     }
-  }
 
-  // Call this in selectProduct function if you want breadcrumbs
-  // addBreadcrumb(product.title);
-</script>
+    // Call this in selectProduct function if you want breadcrumbs
+    // addBreadcrumb(product.title);
+  </script>
 
 </body>
 <!-- Load scripts in correct order - CART MANAGER MUST BE LOADED FIRST -->
@@ -1415,6 +1559,16 @@
   });
 
 </script>
-
+<script>
+document.querySelectorAll(".product-card").forEach(card => {
+  card.addEventListener("click", () => {
+    // remove active from all (if you want only one active at a time)
+    document.querySelectorAll(".p-box-1").forEach(c => c.classList.remove("active"));
+    
+    // add active to clicked one
+    card.classList.add("active");
+  });
+});
+</script>
 
 </html>
