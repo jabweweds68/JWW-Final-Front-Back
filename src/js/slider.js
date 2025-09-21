@@ -1,4 +1,7 @@
 const slider = document.getElementById("dynamic-products-container");
+const leftArrow = document.querySelector(".left-slide");
+const rightArrow = document.querySelector(".right-slide");
+
 let isDown = false;
 let startX, startY;
 let currentX = 0;
@@ -86,12 +89,12 @@ slider.addEventListener("touchmove", (e) => {
       isScrolling = true; // let page scroll
       return;
     } else {
-      isDragging = true; // enable horizontal drag
+      isDragging = true; // horizontal drag
     }
   }
 
   if (isDragging) {
-    e.preventDefault(); // stop vertical scroll ONLY while dragging horizontally
+    e.preventDefault(); // block vertical scroll only while dragging horizontally
     currentX = prevX + deltaX;
     velocity = deltaX - (currentX - prevX);
     slider.style.transform = `translateX(${currentX}px)`;
@@ -105,4 +108,33 @@ slider.addEventListener("touchend", () => {
   isDown = false;
   isDragging = false;
   isScrolling = false;
+});
+
+/* -----------------------
+   ⬅️➡️ ARROW BUTTONS
+----------------------- */
+function slideBy(amount) {
+  cancelAnimationFrame(animationFrame);
+  currentX += amount;
+
+  const maxTranslate = 0;
+  const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
+
+  if (currentX > maxTranslate) currentX = maxTranslate;
+  if (currentX < minTranslate) currentX = minTranslate;
+
+  slider.style.transition = "transform 0.4s ease";
+  slider.style.transform = `translateX(${currentX}px)`;
+  setTimeout(() => slider.style.transition = "none", 400);
+}
+
+const card = slider.querySelector(".card-products-home");
+const cardWidth = card ? card.offsetWidth + 48 : 360; // 48px gap, adjust to your CSS
+
+leftArrow.addEventListener("click", () => {
+  slideBy(cardWidth); // move right
+});
+
+rightArrow.addEventListener("click", () => {
+  slideBy(-cardWidth); // move left
 });

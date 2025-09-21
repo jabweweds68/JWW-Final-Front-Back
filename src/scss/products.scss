@@ -102,17 +102,17 @@
 }
 .arrow-slider{
   width: 100%;
-  height: 100vh;
+
     position: absolute;
     display: flex;
  
     justify-content: center;
     align-items: center;
-  top: 40%;
+  top: 90%;
     gap: 40rem;
     @media (max-width: 768px) {
         gap: 70rem;
-         top: 45%;
+         top: 90%;
         
     }
     
