@@ -194,6 +194,10 @@ justify-content: space-between;
   padding-left: 2rem;
     padding-right: 2rem;
     width: 100%;
+    @media (max-width: 768px) {
+       top: 6%;
+      
+    }
    .logo{
      width: 10vw;
      padding: 1rem;
@@ -2133,6 +2137,11 @@ align-items: center;
   font-weight: 100 !important;
   font-size: 2rem !important;
    color: #FFF7DD !important;
+   @media (max-width: 800px) {
+    font-size: 6rem !important;
+    letter-spacing: 0.1rem;
+    
+   }
   img{
     width: 80% !important;
     height: 80% !important;
@@ -2147,12 +2156,18 @@ align-items: center;
   transform: rotate(-90deg);
   z-index: 100;
   cursor: pointer;
+  @media (max-width: 800px) {
+    scale: 0.5 !important;
+     top: 30%;
+       right: -5% !important;
+    
+  }
 }
 .whatsapp-direct-chat{
   position: fixed;
 bottom: 15%;
   border-radius: 70rem;
   right: 2%;
-  z-index: 100;
+  z-index: 300;
 
 }
