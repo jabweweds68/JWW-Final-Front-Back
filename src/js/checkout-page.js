@@ -1,7 +1,9 @@
 // EmailJS checkout-page.js - With Backend Integration
 import "../scss/Main.scss";
 import "./side-bar";
+import "./cart-manager"
 import "./marquee";
+
 
 // ===== SINGLE CONFIGURATION =====
 const CHECKOUT_CONFIG = {
