@@ -235,7 +235,7 @@
             content: "POPULAR DEAL";
             position: absolute;
             width: 90px;
-            z-index: 50;
+            z-index: 90 !important;
             color: #fff;
             font-weight: lighter;
                  font-size: 1.2rem;
@@ -265,6 +265,7 @@
             position: absolute;
             width: 90px;
             color: #fff;
+              z-index: 90 !important;
             font-size: 1.2rem;
             font-weight: lighter;
             height: 30px;
