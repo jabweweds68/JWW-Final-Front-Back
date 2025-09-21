@@ -464,6 +464,10 @@ align-items: center;
 color: #fff;
 font-size: 1.3rem;
 font-family: "Roboto", sans-serif;
+@media (max-width: 800px) {
+  font-size: 4rem;
+  
+}
         }
 .btns-next-prev-setion{
     display: flex;
@@ -869,9 +873,9 @@ text-align: center;
     cursor: pointer;
     transition: 0.5s;
     @media (max-width: 768px) {
-        width: 12rem;
-        height: 12rem;
-        bottom: 4rem;
+        width: 20rem;
+        height: 20rem;
+        bottom: 6rem;
         right: 4rem;
         
     }
