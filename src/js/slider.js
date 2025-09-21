@@ -6,46 +6,42 @@ let isDown = false;
 let startX, startY;
 let currentX = 0;
 let prevX = 0;
+let targetX = 0; // where we want to go
 let velocity = 0;
 let animationFrame;
 
-function animate() {
-  currentX += velocity;
-  velocity *= 0.95; // friction
+/* -----------------------
+   ⚡ Smooth Animation Loop
+----------------------- */
+function render() {
+  // interpolate (lerp) for smoothness
+  currentX += (targetX - currentX) * 0.15;
 
+  // clamp
   const maxTranslate = 0;
   const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
-
-  if (currentX > maxTranslate) {
-    currentX = maxTranslate;
-    velocity = 0;
-  }
-  if (currentX < minTranslate) {
-    currentX = minTranslate;
-    velocity = 0;
-  }
+  if (currentX > maxTranslate) currentX = maxTranslate;
+  if (currentX < minTranslate) currentX = minTranslate;
 
   slider.style.transform = `translateX(${currentX}px)`;
 
-  if (Math.abs(velocity) > 0.1) {
-    animationFrame = requestAnimationFrame(animate);
-  }
+  animationFrame = requestAnimationFrame(render);
 }
+render(); // start loop
 
 /* -----------------------
-   🖥 DESKTOP EVENTS
+   🖥 DESKTOP DRAG
 ----------------------- */
 slider.addEventListener("mousedown", (e) => {
   isDown = true;
   startX = e.pageX;
-  prevX = currentX;
-  velocity = 0;
+  prevX = targetX;
   cancelAnimationFrame(animationFrame);
+  render();
 });
 
 slider.addEventListener("mouseup", () => {
   isDown = false;
-  requestAnimationFrame(animate);
 });
 
 slider.addEventListener("mouseleave", () => {
@@ -56,13 +52,11 @@ slider.addEventListener("mousemove", (e) => {
   if (!isDown) return;
   e.preventDefault();
   const delta = e.pageX - startX;
-  currentX = prevX + delta;
-  velocity = delta - (currentX - prevX);
-  slider.style.transform = `translateX(${currentX}px)`;
+  targetX = prevX + delta;
 });
 
 /* -----------------------
-   📱 MOBILE EVENTS
+   📱 MOBILE DRAG
 ----------------------- */
 let isDragging = false;
 let isScrolling = false;
@@ -71,11 +65,9 @@ slider.addEventListener("touchstart", (e) => {
   isDown = true;
   startX = e.touches[0].pageX;
   startY = e.touches[0].pageY;
-  prevX = currentX;
-  velocity = 0;
+  prevX = targetX;
   isDragging = false;
   isScrolling = false;
-  cancelAnimationFrame(animationFrame);
 }, { passive: true });
 
 slider.addEventListener("touchmove", (e) => {
@@ -94,17 +86,12 @@ slider.addEventListener("touchmove", (e) => {
   }
 
   if (isDragging) {
-    e.preventDefault(); // block vertical scroll only while dragging horizontally
-    currentX = prevX + deltaX;
-    velocity = deltaX - (currentX - prevX);
-    slider.style.transform = `translateX(${currentX}px)`;
+    e.preventDefault();
+    targetX = prevX + deltaX;
   }
 }, { passive: false });
 
 slider.addEventListener("touchend", () => {
-  if (isDragging) {
-    requestAnimationFrame(animate);
-  }
   isDown = false;
   isDragging = false;
   isScrolling = false;
@@ -114,27 +101,22 @@ slider.addEventListener("touchend", () => {
    ⬅️➡️ ARROW BUTTONS
 ----------------------- */
 function slideBy(amount) {
-  cancelAnimationFrame(animationFrame);
-  currentX += amount;
-
   const maxTranslate = 0;
   const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
 
-  if (currentX > maxTranslate) currentX = maxTranslate;
-  if (currentX < minTranslate) currentX = minTranslate;
+  targetX += amount;
 
-  slider.style.transition = "transform 0.4s ease";
-  slider.style.transform = `translateX(${currentX}px)`;
-  setTimeout(() => slider.style.transition = "none", 400);
+  if (targetX > maxTranslate) targetX = maxTranslate;
+  if (targetX < minTranslate) targetX = minTranslate;
 }
 
 const card = slider.querySelector(".card-products-home");
-const cardWidth = card ? card.offsetWidth + 48 : 433; // 48px gap, adjust to your CSS
+const cardWidth = card ? card.offsetWidth + 48 : 433;
 
 leftArrow.addEventListener("click", () => {
-  slideBy(cardWidth); // move right
+  slideBy(cardWidth);
 });
 
 rightArrow.addEventListener("click", () => {
-  slideBy(-cardWidth); // move left
+  slideBy(-cardWidth);
 });
