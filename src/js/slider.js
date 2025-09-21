@@ -6,117 +6,144 @@ let isDown = false;
 let startX, startY;
 let currentX = 0;
 let prevX = 0;
-let targetX = 0; // where we want to go
 let velocity = 0;
 let animationFrame;
 
-/* -----------------------
-   ⚡ Smooth Animation Loop
------------------------ */
-function render() {
-  // interpolate (lerp) for smoothness
-  currentX += (targetX - currentX) * 0.15;
-
-  // clamp
-  const maxTranslate = 0;
-  const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
-  if (currentX > maxTranslate) currentX = maxTranslate;
-  if (currentX < minTranslate) currentX = minTranslate;
-
-  slider.style.transform = `translateX(${currentX}px)`;
-
-  animationFrame = requestAnimationFrame(render);
-}
-render(); // start loop
+const isMobile = window.innerWidth <= 768; // 📱 change breakpoint if needed
 
 /* -----------------------
-   🖥 DESKTOP DRAG
+   🖥 DESKTOP (inertia physics)
 ----------------------- */
-slider.addEventListener("mousedown", (e) => {
-  isDown = true;
-  startX = e.pageX;
-  prevX = targetX;
-  cancelAnimationFrame(animationFrame);
-  render();
-});
+if (!isMobile) {
+  function animate() {
+    currentX += velocity;
+    velocity *= 0.95; // friction
 
-slider.addEventListener("mouseup", () => {
-  isDown = false;
-});
+    const maxTranslate = 0;
+    const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
 
-slider.addEventListener("mouseleave", () => {
-  isDown = false;
-});
+    if (currentX > maxTranslate) {
+      currentX = maxTranslate;
+      velocity = 0;
+    }
+    if (currentX < minTranslate) {
+      currentX = minTranslate;
+      velocity = 0;
+    }
 
-slider.addEventListener("mousemove", (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const delta = e.pageX - startX;
-  targetX = prevX + delta;
-});
+    slider.style.transform = `translateX(${currentX}px)`;
 
-/* -----------------------
-   📱 MOBILE DRAG
------------------------ */
-let isDragging = false;
-let isScrolling = false;
-
-slider.addEventListener("touchstart", (e) => {
-  isDown = true;
-  startX = e.touches[0].pageX;
-  startY = e.touches[0].pageY;
-  prevX = targetX;
-  isDragging = false;
-  isScrolling = false;
-}, { passive: true });
-
-slider.addEventListener("touchmove", (e) => {
-  if (!isDown) return;
-
-  const deltaX = e.touches[0].pageX - startX;
-  const deltaY = e.touches[0].pageY - startY;
-
-  if (!isDragging && !isScrolling) {
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-      isScrolling = true; // let page scroll
-      return;
-    } else {
-      isDragging = true; // horizontal drag
+    if (Math.abs(velocity) > 0.1) {
+      animationFrame = requestAnimationFrame(animate);
     }
   }
 
-  if (isDragging) {
+  // Desktop events
+  slider.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX;
+    prevX = currentX;
+    velocity = 0;
+    cancelAnimationFrame(animationFrame);
+  });
+
+  slider.addEventListener("mouseup", () => {
+    isDown = false;
+    requestAnimationFrame(animate);
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    isDown = false;
+  });
+
+  slider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
     e.preventDefault();
-    targetX = prevX + deltaX;
-  }
-}, { passive: false });
-
-slider.addEventListener("touchend", () => {
-  isDown = false;
-  isDragging = false;
-  isScrolling = false;
-});
-
-/* -----------------------
-   ⬅️➡️ ARROW BUTTONS
------------------------ */
-function slideBy(amount) {
-  const maxTranslate = 0;
-  const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
-
-  targetX += amount;
-
-  if (targetX > maxTranslate) targetX = maxTranslate;
-  if (targetX < minTranslate) targetX = minTranslate;
+    const delta = e.pageX - startX;
+    currentX = prevX + delta;
+    velocity = delta - (currentX - prevX);
+    slider.style.transform = `translateX(${currentX}px)`;
+  });
 }
 
-const card = slider.querySelector(".card-products-home");
-const cardWidth = card ? card.offsetWidth + 48 : 433;
+/* -----------------------
+   📱 MOBILE (snap per card)
+----------------------- */
+if (isMobile) {
+  let isDragging = false;
+  let isScrolling = false;
+  let targetX = 0;
 
-leftArrow.addEventListener("click", () => {
-  slideBy(cardWidth);
-});
+  const card = slider.querySelector(".card-products-home");
+  const cardWidth = card ? card.offsetWidth + 48 : 433; // adjust gap
 
-rightArrow.addEventListener("click", () => {
-  slideBy(-cardWidth);
-});
+  function updateSlider() {
+    slider.style.transition = "transform 0.4s ease";
+    slider.style.transform = `translateX(${targetX}px)`;
+    setTimeout(() => slider.style.transition = "none", 400);
+  }
+
+  slider.addEventListener("touchstart", (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX;
+    startY = e.touches[0].pageY;
+    prevX = targetX;
+    isDragging = false;
+    isScrolling = false;
+  }, { passive: true });
+
+  slider.addEventListener("touchmove", (e) => {
+    if (!isDown) return;
+
+    const deltaX = e.touches[0].pageX - startX;
+    const deltaY = e.touches[0].pageY - startY;
+
+    if (!isDragging && !isScrolling) {
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        isScrolling = true;
+        return;
+      } else {
+        isDragging = true;
+      }
+    }
+
+    if (isDragging) {
+      e.preventDefault();
+      targetX = prevX + deltaX;
+      slider.style.transform = `translateX(${targetX}px)`;
+    }
+  }, { passive: false });
+
+  slider.addEventListener("touchend", () => {
+    if (isDragging) {
+      // Snap to nearest card
+      const index = Math.round(Math.abs(targetX) / cardWidth);
+      targetX = -index * cardWidth;
+
+      const maxTranslate = 0;
+      const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
+
+      if (targetX > maxTranslate) targetX = maxTranslate;
+      if (targetX < minTranslate) targetX = minTranslate;
+
+      updateSlider();
+    }
+    isDown = false;
+    isDragging = false;
+    isScrolling = false;
+  });
+
+  // Arrows for mobile
+  leftArrow.addEventListener("click", () => {
+    targetX += cardWidth;
+    if (targetX > 0) targetX = 0;
+    updateSlider();
+  });
+
+  rightArrow.addEventListener("click", () => {
+    targetX -= cardWidth;
+    const minTranslate = -(slider.scrollWidth - slider.parentElement.offsetWidth);
+    if (targetX < minTranslate) targetX = minTranslate;
+    updateSlider();
+  });
+}

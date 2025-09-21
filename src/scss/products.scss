@@ -110,6 +110,10 @@
     align-items: center;
   top: 90%;
     gap: 40rem;
+    @media (min-width: 800px) {
+display: none;
+        
+    }
     @media (max-width: 768px) {
         gap: 70rem;
          top: 90%;

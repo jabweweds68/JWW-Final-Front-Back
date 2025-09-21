@@ -1887,7 +1887,7 @@ scale: 0.8;
 .product-cards-container{
   position: relative;
   width: 100vw;
-height: 180vh;
+height: 140vh;
 
 
 
@@ -1895,9 +1895,9 @@ height: 180vh;
   overflow-y: hidden; /* Prevent vertical scroll */
   display: flex;
   
-  align-items: center;
+ 
   @media (max-width: 768px) {
-    height: 150vh;
+    height: 100vh;
     
   }
   .inner-product-cards-container{
@@ -2014,8 +2014,8 @@ height: 180vh;
      justify-content: center;
      align-items: center;
      @media (max-width: 800px) {
-width: 100%;
     max-height: 70vh !important;
+    width: 70%;
      }
     img{
       width: 85%;
