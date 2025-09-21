@@ -90,7 +90,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .price-container {
-        flex-direction: column;
+    
         align-items: flex-start;
         gap: 4px;
     }
@@ -2169,5 +2169,4 @@ bottom: 15%;
   border-radius: 70rem;
   right: 2%;
   z-index: 300;
-
 }

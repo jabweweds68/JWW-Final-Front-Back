@@ -7,7 +7,7 @@
     margin-top: 7rem;
     @media (max-width: 800px) {
       flex-direction: column;
-       margin-top: 25rem;
+       margin-top: 30rem;
        overflow-x: hidden;
         
     }
@@ -31,7 +31,7 @@
             overflow: hidden;
             @media (max-width: 768px) {
                 width: 90%;
-                height: 50vh;
+                height: 40vh;
                 
             }
           
@@ -204,12 +204,23 @@
               font-weight: lighter !important;
               letter-spacing: 0.1rem;
               font-size: 1.5rem;
+              @media (max-width: 800px) {
+                font-size: 3rem;
+                  letter-spacing: 0.2rem;
+                
+              }
             }
             .discounted-price{
               color: #552716 ;
               font-weight: lighter !important;
               letter-spacing: 0.1rem;
               font-size: 1.9rem;
+                @media (max-width: 800px) {
+                font-size: 5rem;
+                  letter-spacing: 0.2rem;
+                
+              }
+
             }
             .discount-badge{
           bottom: -14% !important;
@@ -217,6 +228,11 @@
           font-weight: 400 !important;
           width: fit-content;
           font-family: "Roboto", sans-serif;
+              @media (max-width: 800px) {
+                font-size: 4rem;
+                 
+                
+              }
 
             }
           }
@@ -358,18 +374,28 @@
     border-bottom: 1px solid #5527165c;
     justify-content: space-between;
     margin-top: 6rem;
+  
      .price-container{
+    
           .discounted-price{
             color: #552716  !important;
             font-weight: lighter !important;
             letter-spacing: 0.1rem;
             font-size: 3rem;
+           @media (max-width: 800px) {
+                font-size: 6rem;
+              
+            }
           }
           .original-price{
             color: #934919;
             font-weight: lighter !important;
             letter-spacing: 0.1rem;
             font-size: 2rem;
+            @media (max-width: 800px) {
+                font-size: 4.4rem;
+              
+            }
           }
         }
     .total{
@@ -378,6 +404,7 @@
         font-weight: lighter;
         @media (max-width: 800px) {
         font-size: 8rem;
+        display: flex;
             
         }
        
