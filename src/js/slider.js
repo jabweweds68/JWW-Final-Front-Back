@@ -129,7 +129,7 @@ function slideBy(amount) {
 }
 
 const card = slider.querySelector(".card-products-home");
-const cardWidth = card ? card.offsetWidth + 48 : 360; // 48px gap, adjust to your CSS
+const cardWidth = card ? card.offsetWidth + 48 : 400; // 48px gap, adjust to your CSS
 
 leftArrow.addEventListener("click", () => {
   slideBy(cardWidth); // move right
