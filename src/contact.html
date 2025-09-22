@@ -69,7 +69,7 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
         <span id="subtotal">250</span>
        </div>
        <div class="cta-check">
-       <div class="cta checkout">CHECK OUT</div>
+       <div class="cta checkout" id="Navigate-to-checkout">CHECK OUT</div>
        <div class="del" id="clear-cart"><img src="./assets/images/del.svg" alt=""></div>
        </div>
     </div>
@@ -643,5 +643,15 @@ Take 1 piece each (Him & Her) about 30–45 minutes before intimacy — preferab
   // addBreadcrumb(product.title);
 </script>
 <script src="./js/contact.js" type="module"></script>
+<script>
+ const productPageLinkss = document.querySelectorAll("#Navigate-to-checkout");
+
+    productPageLinkss.forEach(element => {
+      element.style.cursor = "pointer"; // make it clickable
+      element.addEventListener("click", () => {
+        window.location.href = "./checkout.html";
+      });
+    });
+    </script>
 <script type="module" src="./js/cart-manager.js"></script>
 </html>
