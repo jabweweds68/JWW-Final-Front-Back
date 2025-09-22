@@ -238,7 +238,7 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
           <span id="checkout-subtotal">250</span>
         </div>
         <div class="cta-check">
-          <div class="cta checkout thankyou-page-navigate" id="place-order-btn ">Place Order</div>
+          <div class="cta checkout thankyou-page-navigate" id="place-order-btn">Place Order</div>
         </div>
       </div>
     </div>
@@ -330,16 +330,6 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
   <!-- Only load the JS module - all logic is there -->
   <script type="module" src="./js/cart-manager.js"></script>
   <script type="module" src="./js/checkout-page.js"></script>
-  <script>
-    document.querySelectorAll(".thankyou-page-navigate").forEach(btn => {
-  btn.addEventListener("click", () => {
-    setTimeout(() => {
-      window.location.href = "./thankyou.html";
-    }, 4000); // 2 seconds
-  });
-});
-
-  </script>
 </body>
 
 </html>
