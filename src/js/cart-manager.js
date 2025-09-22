@@ -327,7 +327,7 @@ class CartManager {
         if (addToCartButton) {
             const originalText = addToCartButton.textContent;
             addToCartButton.textContent = 'ADDED!';
-            addToCartButton.style.backgroundColor = '#4CAF50';
+            addToCartButton.style.backgroundColor = '#e74c3c';
 
             setTimeout(() => {
                 addToCartButton.textContent = originalText;
@@ -350,12 +350,13 @@ class CartManager {
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: #4CAF50;
+                font-size: 20px;
+                background: #e74c3c;
                 color: white;
                 padding: 15px 20px;
                 border-radius: 5px;
                 z-index: 10000;
-                font-weight: bold;
+                font-weight: lighter;
                 opacity: 0;
                 transition: opacity 0.3s ease;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.2);
