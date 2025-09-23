@@ -7,7 +7,7 @@ import "./marquee";
 
 // ===== SINGLE CONFIGURATION =====
 const CHECKOUT_CONFIG = {
-    adminWhatsApp: '+923111246705',
+    adminWhatsApp: '+923390117465',
     companyName: 'JWW Chocolates',
     currency: 'PKR',
     deliveryCharge: 250,
