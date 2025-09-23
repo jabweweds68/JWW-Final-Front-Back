@@ -1953,7 +1953,7 @@ height: 140vh;
        user-select: none; /* 🚀 Prevent text/images from being selected */
        @media (max-width: 800px) {
         width: 95vw;
-         padding: 3.4rem !important;
+         padding: 2.5rem !important;
         
        }
        .original-price{
@@ -2013,6 +2013,8 @@ height: 140vh;
            user-select: none; /* 🚀 Prevent text/images from being selected */
         color: #552716;
         font-weight: 400;
+        text-align: center;
+        padding-bottom: 3rem;
         @media (max-width: 800px) {
             font-size: 2.8rem !important;
           
