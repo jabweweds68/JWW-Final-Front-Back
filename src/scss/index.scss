@@ -1948,13 +1948,12 @@ height: 140vh;
       justify-content: center;
       align-items: center;
       gap: 1rem;
-    
       padding: 1.5rem;
       flex-direction: column;
        user-select: none; /* 🚀 Prevent text/images from being selected */
        @media (max-width: 800px) {
         width: 95vw;
-         padding: 2.5rem !important;
+         padding: 3.4rem !important;
         
        }
        .original-price{

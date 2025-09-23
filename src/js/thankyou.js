@@ -35,22 +35,13 @@ const PRODUCT_MAPPING = {
 
 // ===== WHATSAPP AUTO-REDIRECT FUNCTIONALITY =====
 function initializeWhatsAppRedirect() {
-    // Get the WhatsApp URL from localStorage (set during checkout)
     const whatsappUrl = localStorage.getItem('jww_whatsapp_url');
     
     if (whatsappUrl) {
-        console.log('WhatsApp URL found, setting up 5-second delay...');
-        
-        // Set up 3-second delay - no visual countdown
         setTimeout(() => {
-            console.log('Opening WhatsApp window...');
-            window.open(whatsappUrl, '_blank');
-            
-            // Clean up the stored URL
+            window.location.href = whatsappUrl;  
             localStorage.removeItem('jww_whatsapp_url');
-        }, 3000);
-    } else {
-        console.log('No WhatsApp URL found in localStorage');
+        }, 4000);
     }
 }
 
