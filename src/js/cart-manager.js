@@ -431,7 +431,7 @@ class CartManager {
         }
 
         const total = this.getCartTotal() + 250; // Including delivery charges
-        alert(`Proceeding to checkout with total: PKR ${total}`);
+        // alert(`Proceeding to checkout with total: PKR ${total}`);
         
         // Here you would typically redirect to a checkout page or integrate with a payment gateway
         // For now, we'll just log the cart contents

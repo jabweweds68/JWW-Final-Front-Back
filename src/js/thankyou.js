@@ -23,6 +23,7 @@ document.querySelectorAll(".float-el-img").forEach((el, i) => {
 // Configuration
 const CONFIG = {
     BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
+    // BACKEND_URL: 'http://localhost:8000'
 };
 
 // Product mapping for navigation
@@ -34,16 +35,35 @@ const PRODUCT_MAPPING = {
 };
 
 // ===== WHATSAPP AUTO-REDIRECT FUNCTIONALITY =====
-function initializeWhatsAppRedirect() {
-    const whatsappUrl = localStorage.getItem('jww_whatsapp_url');
+// function initializeWhatsAppRedirect() {
+//     // Get the WhatsApp URL from localStorage (set during checkout)
+//     const whatsappUrl = localStorage.getItem('jww_whatsapp_url');
     
-    if (whatsappUrl) {
-        setTimeout(() => {
-            window.location.href = whatsappUrl;  
-            localStorage.removeItem('jww_whatsapp_url');
-        }, 4000);
-    }
-}
+//     if (whatsappUrl) {
+//         // console.log('WhatsApp URL found, setting up 5-second delay...');
+        
+//         // Set up 3-second delay - no visual countdown
+//         setTimeout(() => {
+//             // console.log('Opening WhatsApp window...');
+//             window.location.href=(whatsappUrl, '_blank');
+            
+//             // Clean up the stored URL
+//             localStorage.removeItem('jww_whatsapp_url');
+//         }, 3000);
+//     } else {
+//         // console.log('No WhatsApp URL found in localStorage');
+//     }
+// }
+// function initializeWhatsAppRedirect() {
+//     const whatsappUrl = localStorage.getItem('jww_whatsapp_url');
+    
+//     if (whatsappUrl) {
+//         setTimeout(() => {
+//             window.location.href = whatsappUrl;  
+//             localStorage.removeItem('jww_whatsapp_url');
+//         }, 3000);
+//     }
+// }
 
 // ===== NAVIGATION FUNCTIONS =====
 function setupMenuProductNavigation() {
@@ -155,7 +175,7 @@ function getImageUrl(image) {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Thank you page loaded, initializing...');
+    // console.log('Thank you page loaded, initializing...');
     
     // Initialize WhatsApp redirect with 5-second delay
     initializeWhatsAppRedirect();
@@ -173,5 +193,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    console.log('Thank you page initialization complete');
+    // console.log('Thank you page initialization complete');
 });

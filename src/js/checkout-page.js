@@ -1,4 +1,4 @@
-
+// EmailJS checkout-page.js - With Proper Backend Integration + Web3Forms
 import "../scss/Main.scss";
 import "./side-bar";
 import "./cart-manager"
@@ -10,8 +10,8 @@ const CHECKOUT_CONFIG = {
     companyName: 'JWW Chocolates',
     currency: 'PKR',
     deliveryCharge: 250,
-    // Backend API Configuration
     apiBaseUrl: 'https://jww-backend-main-production.up.railway.app',
+    
     // EmailJS Configuration - Replace with your actual credentials
     emailJS: {
         publicKey: '1RkfeMikntWtXPQjS',
@@ -140,20 +140,34 @@ function validateForm() {
     return isValid;
 }
 
-// ===== BACKEND API INTEGRATION =====
-async function saveOrderToBackend(orderData) {
-    // console.log('=== SAVING ORDER TO BACKEND ===');
+// ===== CORRECTED BACKEND API INTEGRATION =====
+async function saveOrderToBackend(customerData) {
+    // console.log('=== SAVING ORDER WITH CUSTOMER DETAILS TO BACKEND ===');
     // console.log('API Endpoint:', `${CHECKOUT_CONFIG.apiBaseUrl}/Order`);
 
-    // Transform cart data to match your schema
+    // Transform data to match your controller's expected format exactly
     const backendOrderData = {
+        customer: {
+            firstName: customerData.firstName,
+            lastName: customerData.lastName,
+            email: customerData.email,
+            phone: customerData.phone,
+            address: customerData.address,
+            apartment: customerData.apartment || '',
+            city: customerData.city,
+            postalCode: customerData.postalCode,
+            orderUpdates: customerData.orderUpdates || false,
+            marketingUpdates: customerData.marketingUpdates || false
+        },
         items: checkoutCart.map(item => ({
             image: item.image || './assets/images/ABout-pic.png',
-            title: item.name, // Map 'name' to 'title'
+            title: item.name, // Map 'name' to 'title' as expected by controller
             quantity: item.quantity,
             size: item.size || 'Regular',
             price: item.totalPrice // This is the unit price
-        }))
+        })),
+        deliveryCharge: CHECKOUT_CONFIG.deliveryCharge,
+        notes: '' // You can add notes field to your form if needed
     };
 
     // console.log('Backend order data:', backendOrderData);
@@ -168,20 +182,22 @@ async function saveOrderToBackend(orderData) {
             body: JSON.stringify(backendOrderData)
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const result = await response.json();
         // console.log('Backend response:', result);
 
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${result.message || 'Unknown error'}`);
+        }
+
         if (result.success) {
-            // console.log('Order saved to backend successfully:', result.data._id);
+            // console.log('Order saved successfully:', result.data._id);
             return {
                 success: true,
                 orderId: result.data._id,
                 backendOrderId: result.data._id,
-                totalCartPrice: result.data.totalCartPrice
+                orderData: result.data,
+                totalCartPrice: result.data.totalCartPrice || result.data.items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                finalTotal: (result.data.totalCartPrice || result.data.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)) + result.data.deliveryCharge
             };
         } else {
             throw new Error(result.message || 'Failed to save order');
@@ -189,9 +205,20 @@ async function saveOrderToBackend(orderData) {
 
     } catch (error) {
         console.error('Backend API Error:', error);
+
+        // Provide more specific error messages
+        let errorMessage = 'Unknown error occurred';
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            errorMessage = 'Cannot connect to server. Please check if the backend server is running.';
+        } else if (error.message.includes('HTTP')) {
+            errorMessage = error.message;
+        } else {
+            errorMessage = error.message;
+        }
+
         return {
             success: false,
-            error: error.message
+            error: errorMessage
         };
     }
 }
@@ -207,31 +234,31 @@ async function sendAdminNotificationViaWeb3Forms(orderData) {
     // console.log('=== SENDING ADMIN NOTIFICATION VIA WEB3FORMS ===');
 
     const formData = new FormData();
-    
+
     // Required Web3Forms fields
     formData.append('access_key', CHECKOUT_CONFIG.web3Forms.accessKey);
     formData.append('subject', `🛒 New Order Received - ${orderData.orderId}`);
     formData.append('from_name', `${orderData.customer.firstName} ${orderData.customer.lastName}`);
     formData.append('email', orderData.customer.email); // Customer's email for reply-to
-    
+
     // Prepare the email content
     const emailContent = `
 🛒 NEW ORDER NOTIFICATION
 ═══════════════════════════════════
 
 📋 ORDER DETAILS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Order Date: ${new Date(orderData.timestamp).toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-})}
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    })}
 Order Time: ${new Date(orderData.timestamp).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-})}
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    })}
 
 👤 CUSTOMER INFORMATION:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -258,32 +285,16 @@ Delivery Charge: ${CHECKOUT_CONFIG.currency} ${orderData.totals.delivery}
 TOTAL AMOUNT: ${CHECKOUT_CONFIG.currency} ${orderData.totals.total}
 ═══════════════════════════════════
 
-
 💳 PAYMENT METHOD:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Cash on Delivery (COD)
 
-📱 QUICK ACTIONS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WhatsApp Customer: https://wa.me/${orderData.customer.phone.replace(/\D/g, '')}
-Call Customer: ${orderData.customer.phone}
 
-⚡ NEXT STEPS:
-1. Confirm order with customer
-2. Prepare the chocolates for packaging
-3. Schedule delivery within 2-3 working days
-4. Update order status in your system
-
-This order was automatically processed through ${CHECKOUT_CONFIG.companyName} website.
-Generated at: ${new Date().toLocaleString('en-US')}
     `;
 
     formData.append('message', emailContent);
-    
-    // Optional: Add redirect URL (will be ignored in API mode)
     formData.append('redirect', 'false');
-    
-    
+
     try {
         const response = await fetch(CHECKOUT_CONFIG.web3Forms.apiUrl, {
             method: 'POST',
@@ -291,7 +302,6 @@ Generated at: ${new Date().toLocaleString('en-US')}
         });
 
         const result = await response.json();
-        // console.log('Web3Forms Response:', result);
 
         if (result.success) {
             // console.log('✅ Admin notification sent successfully via Web3Forms');
@@ -318,7 +328,7 @@ function formatCartForAdminEmail(cart) {
         const boxes = item.boxCount > 1 ? ` - ${item.boxCount} Boxes` : '';
         const unitPrice = item.totalPrice;
         const totalPrice = item.totalPrice * item.quantity;
-        
+
         return `${index + 1}. ${item.name}${size}${boxes}
    Quantity: ${item.quantity}
    Unit Price: ${CHECKOUT_CONFIG.currency} ${unitPrice}
@@ -327,7 +337,8 @@ function formatCartForAdminEmail(cart) {
 }
 
 async function sendEmailConfirmation(orderData) {
-  
+    // console.log('=== SENDING EMAIL TO CUSTOMER VIA EMAILJS ===');
+
     if (typeof emailjs === 'undefined') {
         console.error('EmailJS library not loaded');
         return false;
@@ -344,7 +355,7 @@ async function sendEmailConfirmation(orderData) {
         customer_phone: orderData.customer.phone,
 
         order_id: orderData.orderId,
-        backend_order_id: orderData.backendOrderId, // Add backend order ID
+        backend_order_id: orderData.backendOrderId,
         order_date: new Date(orderData.timestamp).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -473,7 +484,7 @@ function hideLoadingOverlay(overlay) {
     }
 }
 
-// ===== MAIN FORM SUBMISSION WITH ALL INTEGRATIONS =====
+// ===== MAIN FORM SUBMISSION WITH PROPER BACKEND INTEGRATION =====
 async function handleFormSubmission(event) {
     if (event) event.preventDefault();
 
@@ -506,7 +517,7 @@ async function handleFormSubmission(event) {
         saveInfo: document.getElementById('save-info').checked
     };
 
-    // Generate frontend order ID
+    // Generate frontend order ID as fallback
     const frontendOrderId = generateOrderId();
     const cartTotal = checkoutCart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
 
@@ -518,9 +529,9 @@ async function handleFormSubmission(event) {
     placeOrderBtn.style.pointerEvents = 'none';
 
     try {
-        // Step 1: Save order to backend
+        // Step 1: Save order to backend FIRST (this is the main order creation)
         // console.log('Step 1: Saving to backend...');
-        const backendResult = await saveOrderToBackend();
+        const backendResult = await saveOrderToBackend(formData);
 
         if (!backendResult.success) {
             throw new Error(`Backend save failed: ${backendResult.error}`);
@@ -529,12 +540,12 @@ async function handleFormSubmission(event) {
         // console.log('Backend save successful:', backendResult);
 
         // Update loading message
-        loadingOverlay.querySelector('.loading-content div:last-child').textContent = 'Order Processing...';
+        loadingOverlay.querySelector('.loading-content div:last-child').textContent = 'Sending confirmations...';
 
-        // Step 2: Prepare order data with backend ID
+        // Step 2: Prepare order data with backend information
         const orderData = {
-            orderId: frontendOrderId,
-            backendOrderId: backendResult.backendOrderId,
+            orderId: frontendOrderId, // Frontend generated ID for display
+            backendOrderId: backendResult.backendOrderId, // Backend database ID
             customer: formData,
             cart: checkoutCart,
             totals: {
@@ -545,15 +556,23 @@ async function handleFormSubmission(event) {
             timestamp: new Date().toISOString()
         };
 
-        // Step 3: Send email to customer (EmailJS)
+        // Step 3: Send email to customer (EmailJS) - This can fail without affecting the order
         // console.log('Step 3: Sending email to customer...');
-        const emailResult = await sendEmailConfirmation(orderData);
-        // console.log('Customer email result:', emailResult ? 'Success' : 'Failed');
+        try {
+            const emailResult = await sendEmailConfirmation(orderData);
+            // console.log('Customer email result:', emailResult ? 'Success' : 'Failed');
+        } catch (emailError) {
+            console.warn('Email confirmation failed:', emailError);
+        }
 
-        // Step 4: Send admin notification via Web3Forms
+        // Step 4: Send admin notification via Web3Forms - This can fail without affecting the order
         // console.log('Step 4: Sending admin notification via Web3Forms...');
-        const web3FormsResult = await sendAdminNotificationViaWeb3Forms(orderData);
-        // console.log('Web3Forms result:', web3FormsResult);
+        try {
+            const web3FormsResult = await sendAdminNotificationViaWeb3Forms(orderData);
+            // console.log('Web3Forms result:', web3FormsResult);
+        } catch (web3Error) {
+            console.warn('Web3Forms notification failed:', web3Error);
+        }
 
         // Step 5: Save order locally for backup
         const orders = JSON.parse(localStorage.getItem('jww_orders') || '[]');
@@ -573,14 +592,8 @@ async function handleFormSubmission(event) {
         // Reset form
         document.getElementById('checkout-form').reset();
 
-        // Show success message with details
-        const successDetails = [];
-        successDetails.push('✅ Order saved to database');
-        if (emailResult) successDetails.push('✅ Customer confirmation email sent');
-        if (web3FormsResult.success) successDetails.push('✅ Admin notification sent');
-        
         // console.log('🎉 ORDER COMPLETED SUCCESSFULLY!');
-        // console.log('Success Details:', successDetails);
+        // console.log('Backend Order ID:', backendResult.backendOrderId);
 
         // Redirect to thank you page
         window.location.href = './thankyou.html';
@@ -593,22 +606,30 @@ async function handleFormSubmission(event) {
         placeOrderBtn.textContent = originalText;
         placeOrderBtn.style.pointerEvents = '';
 
+        // Show user-friendly error message
+        let userMessage = 'An error occurred while processing your order.';
+
+        if (error.message.includes('Cannot connect to server')) {
+            userMessage = 'Cannot connect to server. Please check your internet connection and try again.';
+        } else if (error.message.includes('ValidationError') || error.message.includes('required')) {
+            userMessage = 'Please check that all required fields are filled correctly.';
+        } else if (error.message.includes('HTTP 409')) {
+            userMessage = 'This order may have already been submitted. Please check your email or contact support.';
+        }
+
         alert(`❌ ORDER PROCESSING FAILED
 
-Error: ${error.message}
+${userMessage}
 
-Please check:
-- Your internet connection
-- Backend server is running on ${CHECKOUT_CONFIG.apiBaseUrl}
-- EmailJS and Web3Forms configuration
+Technical Details: ${error.message}
 
-Try again or contact support via WhatsApp: ${CHECKOUT_CONFIG.adminWhatsApp}`);
+Please try again or contact support via WhatsApp: ${CHECKOUT_CONFIG.adminWhatsApp}`);
     }
 }
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function () {
-    // console.log('=== INITIALIZING CHECKOUT WITH ALL INTEGRATIONS ===');
+    // console.log('=== INITIALIZING CHECKOUT WITH PROPER BACKEND INTEGRATION ===');
     // console.log('Config:', CHECKOUT_CONFIG);
 
     // Initialize EmailJS
@@ -658,4 +679,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // console.log('✅ Checkout initialization complete');
 });
