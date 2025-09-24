@@ -123,6 +123,7 @@ display: none;
 
    
 }
+
 .right-slide,
 .left-slide{
     width: 5rem;
@@ -143,6 +144,9 @@ display: none;
 
 }
 .right-slide{
+    transform: rotate(0deg);
+}
+.left-slide{
     transform: rotate(180deg);
 }
 .elements-slider-1{
