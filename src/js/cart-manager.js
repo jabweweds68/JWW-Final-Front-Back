@@ -144,9 +144,9 @@ class CartManager {
             this.cartCountElement.textContent = count;
             
             // Show/hide the cart button based on count
-            if (this.openCartButton) {
-                this.openCartButton.style.display = count > 0 ? 'flex' : 'none';
-            }
+            // if (this.openCartButton) {
+            //     this.openCartButton.style.display = count > 0 ? 'flex' : 'none';
+            // }
         }
 
         // Update any other cart count displays on the page
