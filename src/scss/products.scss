@@ -108,7 +108,7 @@
  
     justify-content: center;
     align-items: center;
-  top: 90%;
+  top: 50%;
     gap: 40rem;
     @media (min-width: 800px) {
 display: none;
@@ -116,7 +116,7 @@ display: none;
     }
     @media (max-width: 768px) {
         gap: 70rem;
-         top: 90%;
+         top: 50%;
         
     }
     

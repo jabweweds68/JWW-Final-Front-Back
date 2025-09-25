@@ -43,8 +43,8 @@ function initializeProductSlider() {
     gsap.set(sliderChImages[0], { opacity: 1 });
 
     function sliderChShowImage(index) {
-      gsap.to(sliderChImages, { opacity: 0, duration: 0.8 });
-      gsap.to(sliderChImages[index], { opacity: 1, duration: 0.8 });
+      gsap.to(sliderChImages, { opacity: 0, duration: 0 });
+      gsap.to(sliderChImages[index], { opacity: 1, duration: 0 });
     }
 
     function sliderChStartAuto() {
