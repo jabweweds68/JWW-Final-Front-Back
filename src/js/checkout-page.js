@@ -492,7 +492,7 @@ async function handleFormSubmission(event) {
 
     // Check cart
     if (checkoutCart.length === 0) {
-        // alert('Your cart is empty. Please add items before placing an order.');
+        alert('Your cart is empty. Please add items before placing an order.');
         return;
     }
 
