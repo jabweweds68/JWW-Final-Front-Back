@@ -2029,12 +2029,12 @@ height: 140vh;
   
   
    max-height: 60vh;
-      pointer-events: none;
+   
      transition: 0.5s;
     
      overflow: hidden;
-      user-select: none; /* 🚀 Prevent text/images from being selected */
-     cursor: none;
+   
+  cursor: pointer;
      display: flex;
    
      justify-content: center;
@@ -2190,11 +2190,11 @@ align-items: center;
  }
 }
 .arrow-top-sect{
-  position: absolute;
+ position: fixed;
   right: 2%;
-  top: 50%;
-  scale: 0.8;
-  transform: rotate(-90deg);
+  top: 64%;
+  scale: 0.9;
+
   z-index: 100;
   cursor: pointer;
   @media (max-width: 800px) {

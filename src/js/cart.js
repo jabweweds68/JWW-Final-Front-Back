@@ -9,3 +9,7 @@ openCartBtn.addEventListener('click', () => {
 closeCartBtn.addEventListener('click', () => {
   cart.classList.remove('active');
 });
+
+
+
+

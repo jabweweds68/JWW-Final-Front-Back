@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JABWEWEDS 🍫</title>
+  <title>JabWeWeds🍫</title>
 
   <link rel="icon" type="image/png" href="./assets/images/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg" />
@@ -959,7 +959,7 @@ Pop it, taste it, and let the magic take over.💦</p>
 
     </div>
     <div class="arrow-top-sect">
-      <img src="./assets/images/arrow-slider.png" alt="">
+      <img src="./assets/images/arrow-to-top.svg" alt="">
     </div>
     <div class="privacy-policy">
      
@@ -1196,9 +1196,16 @@ Pop it, taste it, and let the magic take over.💦</p>
       }
 
       // View product functionality
-      if (e.target.classList.contains('view-product')) {
-        handleViewProduct(e.target);
-      }
+   if (
+  e.target.classList.contains('view-product') ||
+  e.target.closest('.product-images-card')
+) {
+  const card = e.target.closest('.card-products-home');
+  if (card) {
+    const viewBtn = card.querySelector('.view-product');
+    handleViewProduct(viewBtn); // reuse the same function
+  }
+}
     });
   }
   function handleAddToCartHome(button) {
@@ -1447,6 +1454,10 @@ Pop it, taste it, and let the magic take over.💦</p>
         window.location.href = "./checkout.html";
       });
     });
+
+
+
+    
     </script>
     
 

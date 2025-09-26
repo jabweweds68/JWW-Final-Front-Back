@@ -578,3 +578,26 @@ color: #FFF7DD !important;
         
     }
 }
+
+
+.add-to-cart-message {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  font-size: 20px;
+  background: #e74c3c;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  z-index: 10000;
+  font-weight: lighter;
+  display: none;
+
+  width: fit-content;
+   
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+}

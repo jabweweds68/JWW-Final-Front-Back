@@ -517,3 +517,4 @@ document.addEventListener('keydown', function(e) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CartManager;
 }
+

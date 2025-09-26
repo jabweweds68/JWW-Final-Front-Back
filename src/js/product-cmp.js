@@ -258,3 +258,38 @@ window.productComponentsInit = {
   adjustCartHeight,
   cleanup
 };
+
+
+function showCartToast(message) {
+  const toast = document.getElementById('cart-toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2000); // hides after 2 seconds
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartBtns = document.querySelectorAll(".add-to-cart-pop");
+  const cartMessage = document.querySelector(".add-to-cart-message");
+
+  addToCartBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (cartMessage) {
+        cartMessage.style.display = "block";   // show
+        cartMessage.style.opacity = "1";
+
+        // Hide again after 3s
+        setTimeout(() => {
+          cartMessage.style.opacity = "0";
+          setTimeout(() => {
+            cartMessage.style.display = "none";
+          }, 300); // wait for fade-out
+        }, 3000);
+      }
+    });
+  });
+});

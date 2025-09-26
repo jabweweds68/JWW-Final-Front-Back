@@ -58,6 +58,14 @@
             text-align: center;
             
         }
+        a{
+            text-decoration: none;
+            color: #F27B75;
+            font-weight: 500;
+            &:hover{
+                color: #934919;
+            }
+        }
     }
  }
 }
