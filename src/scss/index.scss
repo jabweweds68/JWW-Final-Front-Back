@@ -2192,15 +2192,15 @@ align-items: center;
 .arrow-top-sect{
  position: fixed;
   right: 2%;
-  top: 64%;
+bottom: 25%;
   scale: 0.9;
 
   z-index: 100;
   cursor: pointer;
   @media (max-width: 800px) {
-    scale: 0.5 !important;
-     top: 30%;
-       right: -5% !important;
+    scale: 0.8 !important;
+    bottom: 20% !important;
+       right: 2% !important;
     
   }
 }
@@ -2210,4 +2210,9 @@ bottom: 15%;
   border-radius: 70rem;
   right: 2%;
   z-index: 300;
+  @media (max-width: 800px) {
+    bottom: 12%;
+   
+    
+  }
 }
