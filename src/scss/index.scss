@@ -2191,8 +2191,8 @@ align-items: center;
 }
 .arrow-top-sect{
  position: fixed;
-  right: 2%;
-bottom: 25%;
+  left: 1%;
+bottom: 3%;
   scale: 0.9;
 
   z-index: 100;
@@ -2200,7 +2200,7 @@ bottom: 25%;
   @media (max-width: 800px) {
     scale: 0.8 !important;
     bottom: 20% !important;
-       right: 2% !important;
+       left: -8% !important;
     
   }
 }
