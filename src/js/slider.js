@@ -75,7 +75,7 @@ if (isMobile) {
   let targetX = 0;
 
   const card = slider.querySelector(".card-products-home");
-  const cardWidth = card ? card.offsetWidth + 48 : 433; // adjust gap
+  const cardWidth = card ? card.offsetWidth + 48 : 415; // adjust gap
 
   function updateSlider() {
     slider.style.transition = "transform 0.4s ease";
