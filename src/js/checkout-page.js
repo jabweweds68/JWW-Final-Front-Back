@@ -9,7 +9,7 @@ const CHECKOUT_CONFIG = {
     adminWhatsApp: '+923390117465',
     companyName: 'JWW Chocolates',
     currency: 'PKR',
-    deliveryCharge: 250,
+    deliveryCharge: 0,
     apiBaseUrl: 'https://jww-backend-main-production.up.railway.app',
     
     // EmailJS Configuration - Replace with your actual credentials
