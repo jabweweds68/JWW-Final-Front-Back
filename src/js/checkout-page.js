@@ -1,7 +1,7 @@
 // EmailJS checkout-page.js - With Proper Backend Integration + Web3Forms
 import "../scss/Main.scss";
 import "./side-bar";
-import "./cart-manager"
+import "./cart-manager";
 import "./marquee";
 
 // ===== SINGLE CONFIGURATION =====

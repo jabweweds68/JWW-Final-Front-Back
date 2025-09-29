@@ -481,16 +481,20 @@ width: 50%;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 21vh;
+        height: fit-content;
         position: relative;
     
    
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         @media (max-width: 768px) {
-            width: 25vw;
-            height: 15vh;
-            font-size: 5rem;
+          width: 29vw;
+        height: fit-content;
+        font-size: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         }
       .bg-btn{
           width: 100%;
@@ -1394,11 +1398,13 @@ background-color: transparent !important;
 .faq-content{
 
   will-change: transform, opacity, height;
+ 
 }
 .faq p{
 padding: 1rem;
 font-family: "Roboto";
   font-size: 1.5rem;
+  
  
   @media (max-width: 1400px) {
     font-size: 2rem;
@@ -1908,7 +1914,7 @@ scale: 0.8;
 .product-cards-container{
   position: relative;
   width: 100vw;
-height: 140vh;
+height: 170vh;
 
 
 
@@ -1918,7 +1924,7 @@ height: 140vh;
   
  
   @media (max-width: 768px) {
-    height: 100vh;
+    height: 110vh;
     
   }
   .inner-product-cards-container{
@@ -1999,11 +2005,12 @@ height: 140vh;
       align-items: center;
       gap: 0.5rem;
       h1{
-      font-size: 5rem;
+      font-size: 3rem;
       color: #552716;
        user-select: none; /* 🚀 Prevent text/images from being selected */
       font-weight: lighter;
       pointer-events: none;
+      text-align: center;
       font-family: "font-anton";
       @media (max-width: 768px) {
         font-size: 12rem;
