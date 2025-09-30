@@ -278,9 +278,7 @@ class CartManager {
                         <div class="quantity">${item.quantity.toString().padStart(2, '0')}</div>
                         <div class="dec" onclick="cartManager.changeQuantity(${index}, -1)">-</div>
                     </div>
-                    <div class="remove-item-btn" onclick="cartManager.removeItem(${index})" style="color: #e74c3c; cursor: pointer; margin-left: 10px;" title="Remove item">
-                        ×
-                    </div>
+                  
                 </div>
             `;
         }).join('');
