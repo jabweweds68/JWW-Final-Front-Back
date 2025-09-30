@@ -863,10 +863,9 @@ text-align: center;
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 100%;
-    background-color: #552716;
+  
+    
+  
     display: flex;
 
     justify-content: center;
@@ -875,8 +874,7 @@ text-align: center;
     cursor: pointer;
     transition: 0.5s;
     @media (max-width: 768px) {
-        width: 20rem;
-        height: 20rem;
+      
         bottom: 6rem;
         right: 4rem;
         
@@ -885,12 +883,7 @@ text-align: center;
     transition: 0.5s;
     background-color: #3e1b00;
    }
-    img{
-        width: 80%;
-        height: 80%;
-        object-fit: cover;
-        
-    }
+   
 }
 .faqs-product{
     display: flex;
