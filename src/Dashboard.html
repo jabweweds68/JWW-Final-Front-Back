@@ -5,1139 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JWW Dashboard</title>
-      <link rel="icon" type="image/png" href="./assets/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg" />
-  <link rel="shortcut icon" href="./assets/images/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png" />
-  <link rel="manifest" href="./assets/images/site.webmanifest" />
+    <link rel="icon" type="image/png" href="./assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png" />
+    <link rel="manifest" href="./assets/images/site.webmanifest" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/src/Dashboard.css">
+    <link rel="stylesheet" href="Dashboard.css">
     <script type="module" src="./js/routeProtection.js"></script>
 </head>
+<style></style>
 
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-    :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --primary-light: #a5b4fc;
-        --secondary: #f1f5f9;
-        --accent: #06b6d4;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --error: #ef4444;
-        --text-primary: #0f172a;
-        --text-secondary: #64748b;
-        --text-muted: #94a3b8;
-        --bg-primary: #ffffff;
-        --bg-secondary: #f8fafc;
-        --bg-tertiary: #f1f5f9;
-        --border: #e2e8f0;
-        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        --radius: 12px;
-        --radius-sm: 8px;
-        --radius-lg: 16px;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: var(--text-primary);
-        line-height: 1.6;
-        min-height: 100vh;
-        padding-top: 70px;
-        visibility: hidden;
-    }
-
-    /* Navigation Styles */
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-        z-index: 1000;
-        height: 70px;
-    }
-
-    .nav-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 24px;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--primary);
-    }
-
-    .nav-brand i {
-        font-size: 1.5rem;
-    }
-
-    .nav-menu {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 16px;
-        color: var(--text-secondary);
-        text-decoration: none;
-        border-radius: var(--radius);
-        transition: all 0.2s ease;
-        font-weight: 500;
-        font-size: 0.95rem;
-    }
-
-    .nav-link:hover {
-        background: var(--bg-secondary);
-        color: var(--text-primary);
-    }
-
-    .nav-link.active {
-        background: var(--primary);
-        color: white;
-    }
-
-    .nav-link i {
-        font-size: 1.1rem;
-    }
-
-    .nav-toggle {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        width: 30px;
-        height: 24px;
-        justify-content: space-between;
-    }
-
-    .nav-toggle span {
-        display: block;
-        height: 3px;
-        width: 100%;
-        background: var(--text-primary);
-        border-radius: 1px;
-        transition: all 0.3s ease;
-        transform-origin: center;
-    }
-
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    .dashboard {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 24px;
-        min-height: calc(100vh - 70px);
-    }
-
-    .header {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: var(--text-primary);
-        padding: 32px 40px;
-        border-radius: var(--radius-lg);
-        margin-bottom: 32px;
-        box-shadow: var(--shadow-xl);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary), var(--accent), var(--success));
-    }
-
-    .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .header-left h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-        background: linear-gradient(135deg, var(--primary), var(--accent));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .header-left p {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        font-weight: 400;
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 24px;
-        margin-top: 24px;
-    }
-
-    .stat-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 20px;
-        border-radius: var(--radius);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        text-align: center;
-    }
-
-    .stat-card h3 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-
-    .stat-card p {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .main-content {
-        background: var(--bg-primary);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-xl);
-        overflow: hidden;
-        border: 1px solid var(--border);
-    }
-
-    .content-header {
-        background: var(--bg-secondary);
-        padding: 24px 32px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .content-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-primary);
-    }
-
-    .content-title i {
-        color: var(--primary);
-    }
-
-    .add-btn {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: var(--radius);
-        cursor: pointer;
-        font-size: 0.95rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: var(--shadow);
-    }
-
-    .add-btn:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .table-container {
-        overflow-x: auto;
-    }
-
-    .product-table {
-        width: 100%;
-        border-collapse: collapse;
-        background: var(--bg-primary);
-    }
-
-    .product-table th {
-        background: var(--bg-tertiary);
-        padding: 16px 20px;
-        text-align: left;
-        font-weight: 600;
-        color: var(--text-primary);
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border-bottom: 2px solid var(--border);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-
-    .product-table td {
-        padding: 20px;
-        border-bottom: 1px solid var(--border);
-        vertical-align: middle;
-    }
-
-    .product-table tr {
-        transition: all 0.2s ease;
-    }
-
-    .product-table tr:hover {
-        background: var(--bg-secondary);
-    }
-
-    .product-image {
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        border: 2px solid white;
-    }
-
-    .product-title {
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 4px;
-        font-size: 1rem;
-    }
-
-    .product-description {
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        line-height: 1.4;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-
-    .category-badge {
-        background: var(--primary-light);
-        color: var(--primary-dark);
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .size-variants {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        max-width: 180px;
-    }
-
-    .size-variant {
-        background: var(--bg-tertiary);
-        padding: 8px 12px;
-        border-radius: var(--radius-sm);
-        font-size: 0.8rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid var(--border);
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .variant-price {
-        font-weight: 600;
-        color: var(--text-primary);
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .variant-price .original-price {
-        color: var(--text-secondary);
-        text-decoration: line-through;
-        font-size: 0.75rem;
-    }
-
-    .variant-price .discounted-price {
-        color: var(--success);
-        font-weight: 700;
-    }
-
-    .status-available {
-        color: var(--success);
-        font-weight: 500;
-    }
-
-    .status-unavailable {
-        color: var(--error);
-        font-weight: 500;
-    }
-
-    .actions {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-    }
-
-    .action-btn {
-        padding: 8px;
-        border: none;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-size: 0.875rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--shadow);
-    }
-
-    .action-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .view-btn {
-        background: var(--accent);
-        color: white;
-    }
-
-    .view-btn:hover {
-        background: #0891b2;
-    }
-
-    .edit-btn {
-        background: var(--warning);
-        color: white;
-    }
-
-    .edit-btn:hover {
-        background: #d97706;
-    }
-
-    .delete-btn {
-        background: var(--error);
-        color: white;
-    }
-
-    .delete-btn:hover {
-        background: #dc2626;
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(8px);
-    }
-
-    .modal-content {
-        background: var(--bg-primary);
-        margin: 2% auto;
-        border-radius: var(--radius-lg);
-        width: 90%;
-        max-width: 800px;
-        max-height: 90vh;
-        overflow: hidden;
-        box-shadow: var(--shadow-xl);
-        border: 1px solid var(--border);
-        animation: modalSlideIn 0.3s ease-out;
-    }
-
-    @keyframes modalSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-30px) scale(0.95);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-
-    .modal-header {
-        background: var(--bg-secondary);
-        padding: 24px 32px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .modal-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .modal-title i {
-        color: var(--primary);
-    }
-
-    .close {
-        color: var(--text-muted);
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-        padding: 4px;
-        border-radius: var(--radius-sm);
-        transition: all 0.2s ease;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .close:hover {
-        background: var(--bg-tertiary);
-        color: var(--text-primary);
-    }
-
-    .modal-body {
-        padding: 32px;
-        max-height: calc(90vh - 200px);
-        overflow-y: auto;
-    }
-
-    .form-group {
-        margin-bottom: 24px;
-    }
-
-    .form-label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: var(--text-primary);
-        font-size: 0.95rem;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid var(--border);
-        border-radius: var(--radius);
-        font-size: 0.95rem;
-        transition: all 0.2s ease;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-    }
-
-    .form-input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-    }
-
-    .size-variants-container {
-        border: 2px solid var(--border);
-        border-radius: var(--radius);
-        padding: 20px;
-        background: var(--bg-secondary);
-    }
-
-    .size-variant-item {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr auto auto;
-        gap: 12px;
-        align-items: center;
-        margin-bottom: 12px;
-        padding: 16px;
-        background: var(--bg-primary);
-        border-radius: var(--radius);
-        border: 1px solid var(--border);
-    }
-
-    .size-variant-item input[type="text"],
-    .size-variant-item input[type="number"],
-    .size-variant-item select {
-        padding: 8px 12px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        font-size: 0.9rem;
-    }
-
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.9rem;
-    }
-
-    .remove-variant-btn {
-        background: var(--error);
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-size: 0.8rem;
-        transition: all 0.2s ease;
-    }
-
-    .add-variant-btn {
-        background: var(--success);
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: var(--radius);
-        cursor: pointer;
-        margin-top: 12px;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-weight: 500;
-    }
-
-    .add-variant-btn:hover,
-    .remove-variant-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .modal-footer {
-        background: var(--bg-secondary);
-        padding: 24px 32px;
-        border-top: 1px solid var(--border);
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
-    }
-
-    .btn-secondary {
-        background: var(--bg-primary);
-        color: var(--text-secondary);
-        border: 2px solid var(--border);
-        padding: 10px 20px;
-        border-radius: var(--radius);
-        cursor: pointer;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-        background: var(--bg-tertiary);
-        border-color: var(--text-muted);
-    }
-
-    .btn-primary {
-        background: var(--primary);
-        color: white;
-        border: 2px solid var(--primary);
-        padding: 10px 20px;
-        border-radius: var(--radius);
-        cursor: pointer;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 80px 32px;
-        color: var(--text-muted);
-    }
-
-    .empty-state i {
-        font-size: 4rem;
-        color: var(--text-muted);
-        margin-bottom: 24px;
-        opacity: 0.5;
-    }
-
-    .empty-state h3 {
-        margin-bottom: 12px;
-        font-size: 1.5rem;
-        color: var(--text-secondary);
-        font-weight: 600;
-    }
-
-    .empty-state p {
-        font-size: 1rem;
-    }
-
-    /* Image upload styles */
-    .image-upload-section {
-        border: 2px solid var(--border);
-        border-radius: var(--radius);
-        padding: 24px;
-        background: var(--bg-secondary);
-        margin-bottom: 24px;
-    }
-
-    .image-section-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 16px;
-        font-weight: 600;
-        color: var(--primary);
-        font-size: 1.1rem;
-    }
-
-    .image-upload-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 16px;
-        margin-bottom: 16px;
-    }
-
-    .image-upload-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .image-upload-label {
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        text-align: center;
-    }
-
-    .image-preview {
-        width: 120px;
-        height: 120px;
-        border: 2px dashed var(--border);
-        border-radius: var(--radius);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: var(--bg-primary);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .image-preview:hover {
-        border-color: var(--primary);
-        background: var(--bg-secondary);
-    }
-
-    .image-preview.filled {
-        border-color: var(--success);
-        border-style: solid;
-    }
-
-    .image-preview img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: calc(var(--radius) - 2px);
-    }
-
-    .image-preview.empty i {
-        font-size: 2rem;
-        color: var(--text-muted);
-        margin-bottom: 8px;
-    }
-
-    .image-preview.empty span {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        text-align: center;
-    }
-
-    .image-remove-btn {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        background: var(--error);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        font-size: 0.7rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-    }
-
-    .image-preview.filled:hover .image-remove-btn {
-        opacity: 1;
-    }
-
-    .additional-images-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-    }
-
-    .additional-images-grid .image-preview {
-        width: 100px;
-        height: 100px;
-    }
-
-    .form-help {
-        display: block;
-        margin-top: 8px;
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-    }
-
-    .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    .loading-spinner {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    .loading-spinner i {
-        font-size: 2rem;
-        color: #2563eb;
-        margin-bottom: 1rem;
-    }
-
-    .notification-toast {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 1rem;
-        min-width: 300px;
-        transform: translateX(400px);
-        transition: transform 0.3s ease;
-        z-index: 10000;
-        cursor: pointer;
-    }
-
-    .notification-toast.show {
-        transform: translateX(0);
-    }
-
-    .notification-toast.success {
-        border-left: 4px solid #10b981;
-    }
-
-    .notification-toast.error {
-        border-left: 4px solid #ef4444;
-    }
-
-    .notification-toast.warning {
-        border-left: 4px solid #f59e0b;
-    }
-
-    .toast-content {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .toast-content i {
-        font-size: 1.2rem;
-    }
-
-    .notification-toast.success i {
-        color: #10b981;
-    }
-
-    .notification-toast.error i {
-        color: #ef4444;
-    }
-
-    .notification-toast.warning i {
-        color: #f59e0b;
-    }
-
-    /* View Product Modal Styles */
-    .detail-section {
-        margin-bottom: 32px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .detail-section:last-child {
-        border-bottom: none;
-    }
-
-    .detail-section h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .detail-section h5 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .detail-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
-    }
-
-    .detail-item {
-        background: var(--bg-secondary);
-        padding: 16px;
-        border-radius: var(--radius);
-        border: 1px solid var(--border);
-    }
-
-    .detail-label {
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        margin-bottom: 4px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .detail-value {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        line-height: 1.4;
-    }
-
-    /* Image hover styles for edit/delete */
-    .editable-image-container {
-        position: relative;
-        display: inline-block;
-        border-radius: var(--radius);
-        overflow: hidden;
-    }
-
-    .editable-image-container .image-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        cursor: pointer;
-    }
-
-    .editable-image-container:hover .image-overlay {
-        opacity: 1;
-    }
-
-    .image-action-btn:hover {
-        transform: scale(1.1);
-        background: white;
-    }
-
-    .image-gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 16px;
-    }
-
-    .image-gallery-item {
-        text-align: center;
-    }
-
-    /* Hidden file input for image updates */
-    .hidden-file-input {
-        display: none;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        body {
-            padding-top: 70px;
-        }
-
-        .nav-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 70px);
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 2rem;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            gap: 1rem;
-        }
-
-        .nav-menu.active {
-            transform: translateX(0);
-        }
-
-        .nav-link {
-            width: 200px;
-            justify-content: center;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border-radius: var(--radius-lg);
-        }
-
-        .nav-toggle {
-            display: flex;
-        }
-
-        .dashboard {
-            padding: 16px;
-        }
-
-        .header {
-            padding: 24px;
-        }
-
-        .header-content {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .header-left h1 {
-            font-size: 2rem;
-        }
-
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .content-header {
-            padding: 20px;
-            flex-direction: column;
-        }
-
-        .size-variant-item {
-            grid-template-columns: 1fr;
-            gap: 8px;
-        }
-
-        .actions {
-            flex-direction: column;
-        }
-
-        .modal-content {
-            width: 95%;
-            margin: 5% auto;
-        }
-
-        .modal-body {
-            padding: 24px;
-        }
-
-        .image-upload-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .additional-images-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .image-gallery-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .nav-link {
-            width: 180px;
-            font-size: 1rem;
-        }
-    }
-</style>
 
 <body>
     <!-- Navigation Bar -->
@@ -1272,56 +151,44 @@
                     <div class="form-group" id="imageUploadSection">
                         <label class="form-label">Product Images</label>
 
-                        <!-- Cover Photo and Small Variant Image -->
+                        <!-- Small Size Images -->
                         <div class="image-upload-section">
                             <div class="image-section-title">
                                 <i class="fas fa-images"></i>
-                                Main Product Images
+                                Small Size Images (Max 8: 1 Cover + 7 Body)
                             </div>
-                            <div class="image-upload-grid">
-                                <div class="image-upload-item">
-                                    <div class="image-upload-label">Cover Photo (Large Size)</div>
-                                    <div class="image-preview empty" id="coverPreview"
-                                        onclick="document.getElementById('coverPhotoInput').click()">
-                                        <i class="fas fa-image"></i>
-                                        <span>Cover Photo</span>
-                                    </div>
-                                    <input type="file" id="coverPhotoInput" accept="image/*" style="display: none;"
-                                        onchange="handleCoverPhoto(event)">
-                                </div>
-
-                                <div class="image-upload-item">
-                                    <div class="image-upload-label">Small Variant Image</div>
-                                    <div class="image-preview empty" id="smallVariantPreview"
-                                        onclick="document.getElementById('smallVariantInput').click()">
-                                        <i class="fas fa-image"></i>
-                                        <span>Small Size</span>
-                                    </div>
-                                    <input type="file" id="smallVariantInput" accept="image/*" style="display: none;"
-                                        onchange="handleSmallVariantPhoto(event)">
-                                </div>
+                            <div class="additional-images-grid" id="smallSizeImagesGrid">
+                                <!-- 8 slots will be generated by JS -->
                             </div>
-                            <small class="form-help">Cover photo will be used for Large size. Small variant image will
-                                be shown when Small size is selected.</small>
+                            <input type="file" id="smallSizeImagesInput" accept="image/*" multiple
+                                style="display: none;" onchange="handleSmallSizeImages(event)">
+                            <button type="button" class="btn-secondary"
+                                onclick="document.getElementById('smallSizeImagesInput').click()">
+                                <i class="fas fa-upload"></i>
+                                Upload Small Size Images
+                            </button>
+                            <small class="form-help">First image will be the cover photo for Small size. You can upload
+                                up to 8 images.</small>
                         </div>
 
-                        <!-- Additional Images -->
+                        <!-- Large Size Images -->
                         <div class="image-upload-section">
                             <div class="image-section-title">
-                                <i class="fas fa-plus-circle"></i>
-                                Additional Images (Up to 6)
+                                <i class="fas fa-images"></i>
+                                Large Size Images (Max 8: 1 Cover + 7 Body)
                             </div>
-                            <div class="additional-images-grid" id="additionalImagesGrid">
-                                <!-- Additional image slots will be generated by JavaScript -->
+                            <div class="additional-images-grid" id="largeSizeImagesGrid">
+                                <!-- 8 slots will be generated by JS -->
                             </div>
-                            <input type="file" id="additionalImagesInput" accept="image/*" multiple
-                                style="display: none;" onchange="handleAdditionalImages(event)">
+                            <input type="file" id="largeSizeImagesInput" accept="image/*" multiple
+                                style="display: none;" onchange="handleLargeSizeImages(event)">
                             <button type="button" class="btn-secondary"
-                                onclick="document.getElementById('additionalImagesInput').click()">
+                                onclick="document.getElementById('largeSizeImagesInput').click()">
                                 <i class="fas fa-upload"></i>
-                                Add More Images
+                                Upload Large Size Images
                             </button>
-                            <small class="form-help">Additional product images for gallery display.</small>
+                            <small class="form-help">First image will be the cover photo for Large size. You can upload
+                                up to 8 images.</small>
                         </div>
                     </div>
 
@@ -1329,7 +196,6 @@
                         <label class="form-label">Size Variants & Pricing</label>
                         <div class="size-variants-container">
                             <div id="sizeVariantsContainer">
-                                <!-- Size variants will be added here -->
                             </div>
                             <button type="button" class="add-variant-btn" onclick="addSizeVariant()">
                                 <i class="fas fa-plus"></i>
@@ -1349,6 +215,7 @@
         </div>
     </div>
 
+
     <!-- View Product Modal -->
     <div id="viewModal" class="modal">
         <div class="modal-content">
@@ -1364,6 +231,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay" style="display: none;">
@@ -1387,20 +255,19 @@
 
     <script>
         const CONFIG = {
-            // BACKEND_URL:'http://localhost:8000'
+            // BACKEND_URL: 'http://localhost:8000'
             BACKEND_URL: 'https://jww-backend-main-production.up.railway.app'
         };
-    </script>
-    <script>
-        let products = [];
-        let editingProductId = null;
-        let coverPhotoFile = null;
-        let smallVariantFile = null;
-        let additionalImagesFiles = [];
-        let currentImageBeingUpdated = { productId: null, imageId: null };
+
         const API_BASE_URL = CONFIG.BACKEND_URL;
 
-        // Navigation functionality
+        let products = [];
+        let editingProductId = null;
+        let smallSizeImages = [];
+        let largeSizeImages = [];
+        let currentImageBeingUpdated = { productId: null, imageId: null };
+
+        // Navigation
         function switchPage(page) {
             if (page === 'orders') {
                 window.location.href = 'orders.html';
@@ -1414,85 +281,45 @@
             navToggle.classList.toggle('active');
         }
 
-        // Initialize dashboard
+        // Initialize
         async function initializeData() {
             await loadProducts();
         }
 
-        // Initialize additional images grid with 6 slots
-        function initializeAdditionalImagesGrid() {
-            const grid = document.getElementById('additionalImagesGrid');
-            if (!grid) return;
+        // Initialize image grids
+        function initializeImageUploadSections() {
+            const smallGrid = document.getElementById('smallSizeImagesGrid');
+            const largeGrid = document.getElementById('largeSizeImagesGrid');
 
-            grid.innerHTML = '';
-            for (let i = 0; i < 6; i++) {
+            if (!smallGrid || !largeGrid) return;
+
+            smallGrid.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'image-preview empty';
-                slot.id = `additionalSlot${i}`;
-                slot.onclick = () => document.getElementById('additionalImagesInput').click();
-                slot.innerHTML = `
-                    <i class="fas fa-plus"></i>
-                    <span>${i + 1}</span>
-                `;
-                grid.appendChild(slot);
+                slot.id = `smallSlot${i}`;
+                slot.innerHTML = `<i class="fas fa-${i === 0 ? 'image' : 'plus'}"></i><span>${i === 0 ? 'Cover' : i}</span>`;
+                smallGrid.appendChild(slot);
+            }
+
+            largeGrid.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'image-preview empty';
+                slot.id = `largeSlot${i}`;
+                slot.innerHTML = `<i class="fas fa-${i === 0 ? 'image' : 'plus'}"></i><span>${i === 0 ? 'Cover' : i}</span>`;
+                largeGrid.appendChild(slot);
             }
         }
 
-        // Handle cover photo selection
-        function handleCoverPhoto(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) {
-                    showNotification('Cover photo must be less than 5MB', 'error');
-                    return;
-                }
-
-                coverPhotoFile = file;
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('coverPreview');
-                    preview.innerHTML = `
-                        <img src="${e.target.result}" alt="Cover photo">
-                        <button type="button" class="image-remove-btn" onclick="removeCoverPhoto()">×</button>
-                    `;
-                    preview.classList.remove('empty');
-                    preview.classList.add('filled');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Handle small variant photo selection
-        function handleSmallVariantPhoto(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) {
-                    showNotification('Small variant image must be less than 5MB', 'error');
-                    return;
-                }
-
-                smallVariantFile = file;
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('smallVariantPreview');
-                    preview.innerHTML = `
-                        <img src="${e.target.result}" alt="Small variant image">
-                        <button type="button" class="image-remove-btn" onclick="removeSmallVariantPhoto()">×</button>
-                    `;
-                    preview.classList.remove('empty');
-                    preview.classList.add('filled');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Handle additional images selection
-        function handleAdditionalImages(event) {
+        // Handle image uploads
+        function handleSmallSizeImages(event) {
             const files = Array.from(event.target.files);
-            const remainingSlots = 6 - additionalImagesFiles.length;
+            const remainingSlots = 8 - smallSizeImages.length;
 
             if (files.length > remainingSlots) {
-                showNotification(`You can only add ${remainingSlots} more images`, 'error');
+                showNotification(`You can only add ${remainingSlots} more images for Small size`, 'error');
+                event.target.value = '';
                 return;
             }
 
@@ -1501,65 +328,78 @@
                     showNotification(`Image ${file.name} is larger than 5MB`, 'error');
                     continue;
                 }
-
-                if (additionalImagesFiles.length < 6) {
-                    additionalImagesFiles.push(file);
+                if (smallSizeImages.length < 8) {
+                    smallSizeImages.push(file);
                 }
             }
-            updateAdditionalImagesGrid();
+
+            updateImageGrid('small');
+            event.target.value = '';
         }
 
-        // Update additional images grid display
-        function updateAdditionalImagesGrid() {
-            for (let i = 0; i < 6; i++) {
-                const slot = document.getElementById(`additionalSlot${i}`);
+        function handleLargeSizeImages(event) {
+            const files = Array.from(event.target.files);
+            const remainingSlots = 8 - largeSizeImages.length;
+
+            if (files.length > remainingSlots) {
+                showNotification(`You can only add ${remainingSlots} more images for Large size`, 'error');
+                event.target.value = '';
+                return;
+            }
+
+            for (let file of files) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification(`Image ${file.name} is larger than 5MB`, 'error');
+                    continue;
+                }
+                if (largeSizeImages.length < 8) {
+                    largeSizeImages.push(file);
+                }
+            }
+
+            updateImageGrid('large');
+            event.target.value = '';
+        }
+
+        function updateImageGrid(sizeType) {
+            const images = sizeType === 'small' ? smallSizeImages : largeSizeImages;
+            const prefix = sizeType === 'small' ? 'smallSlot' : 'largeSlot';
+
+            for (let i = 0; i < 8; i++) {
+                const slot = document.getElementById(`${prefix}${i}`);
                 if (!slot) continue;
 
-                if (i < additionalImagesFiles.length) {
+                if (i < images.length) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         slot.innerHTML = `
-                            <img src="${e.target.result}" alt="Additional image ${i + 1}">
-                            <button type="button" class="image-remove-btn" onclick="removeAdditionalImage(${i})">×</button>
-                        `;
+                    <img src="${e.target.result}" alt="${sizeType} image ${i}">
+                    <button type="button" class="image-remove-btn" onclick="removeImage('${sizeType}', ${i})">×</button>
+                    ${i === 0 ? '<div class="cover-badge">Cover</div>' : ''}
+                `;
                         slot.classList.remove('empty');
                         slot.classList.add('filled');
                     };
-                    reader.readAsDataURL(additionalImagesFiles[i]);
+                    reader.readAsDataURL(images[i]);
                 } else {
-                    slot.innerHTML = `
-                        <i class="fas fa-plus"></i>
-                        <span>${i + 1}</span>
-                    `;
+                    slot.innerHTML = `<i class="fas fa-${i === 0 ? 'image' : 'plus'}"></i><span>${i === 0 ? 'Cover' : i}</span>`;
                     slot.classList.add('empty');
                     slot.classList.remove('filled');
                 }
             }
         }
 
-        // Remove functions
-        function removeCoverPhoto() {
-            coverPhotoFile = null;
-            const preview = document.getElementById('coverPreview');
-            preview.innerHTML = '<i class="fas fa-image"></i><span>Cover Photo</span>';
-            preview.classList.add('empty');
-            preview.classList.remove('filled');
+        function removeImage(sizeType, index) {
+            if (sizeType === 'small') {
+                smallSizeImages.splice(index, 1);
+                updateImageGrid('small');
+            } else {
+                largeSizeImages.splice(index, 1);
+                updateImageGrid('large');
+            }
         }
 
-        function removeSmallVariantPhoto() {
-            smallVariantFile = null;
-            const preview = document.getElementById('smallVariantPreview');
-            preview.innerHTML = '<i class="fas fa-image"></i><span>Small Size</span>';
-            preview.classList.add('empty');
-            preview.classList.remove('filled');
-        }
-
-        function removeAdditionalImage(index) {
-            additionalImagesFiles.splice(index, 1);
-            updateAdditionalImagesGrid();
-        }
-
-        // Load products from backend
+        // FIXED: Load products - Using correct endpoint
         async function loadProducts() {
             try {
                 showLoading(true);
@@ -1581,7 +421,6 @@
             }
         }
 
-        // Show loading state
         function showLoading(show) {
             const loadingDiv = document.getElementById('loadingState');
             const emptyState = document.getElementById('emptyState');
@@ -1596,21 +435,19 @@
             }
         }
 
-        // Show loading overlay
         function showLoadingOverlay(show) {
             const overlay = document.getElementById('loadingOverlay');
             overlay.style.display = show ? 'flex' : 'none';
         }
 
-        // Show notification toast
         function showNotification(message, type = 'success') {
             const toast = document.getElementById('notificationToast');
             const icon = document.getElementById('toastIcon');
             const messageEl = document.getElementById('toastMessage');
 
             messageEl.textContent = message;
-
             toast.className = 'notification-toast show';
+
             if (type === 'error') {
                 toast.classList.add('error');
                 icon.className = 'fas fa-times-circle';
@@ -1653,57 +490,60 @@
 
             emptyState.style.display = 'none';
 
-            tbody.innerHTML = products.map(product => `
-                <tr>
-                    <td>
-                        <img src="${API_BASE_URL + (product.images[0]?.url || '')}" 
-                             alt="${escapeHtml(product.title || 'Product')}" class="product-image"
-                             onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-                    </td>
-                    <td>
-                        <div class="product-title">${escapeHtml(product.title || 'Untitled')}</div>
-                        <div class="product-description">${escapeHtml(product.description || 'No description')}</div>
-                    </td>
-                    <td>
-                        <span class="category-badge">${escapeHtml(product.category || 'No category')}</span>
-                    </td>
-                    <td>
-                        <div class="size-variants">
-                            ${(product.sizeVariants || []).map(variant => `
-                                <div class="size-variant">
-                                    <span>${escapeHtml(variant.size || 'Unknown')}</span>
-                                    <div class="variant-price">
-                                        ${variant.discountedPrice ?
-                    `<span class="original-price">${(variant.price || 0).toFixed(2)}</span>
-                                             <span class="discounted-price">${(variant.discountedPrice || 0).toFixed(2)}</span>` :
-                    `<span>${(variant.price || 0).toFixed(2)}</span>`
-                }
-                                    </div>
-                                    <span class="${variant.isAvailable ? 'status-available' : 'status-unavailable'}">
-                                        <i class="fas ${variant.isAvailable ? 'fa-check' : 'fa-times'}"></i>
-                                    </span>
-                                </div>
-                            `).join('')}
+            tbody.innerHTML = products.map(product => {
+                const smallCover = product.images?.find(img => img.sizeType === 'Small' && img.isCover);
+                const imageUrl = smallCover?.url || product.images?.[0]?.url || '';
+
+                return `
+        <tr>
+            <td>
+                <img src="${API_BASE_URL + imageUrl}" 
+                     alt="${escapeHtml(product.title || 'Product')}" class="product-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
+            </td>
+            <td>
+                <div class="product-title">${escapeHtml(product.title || 'Untitled')}</div>
+                <div class="product-description">${escapeHtml(product.description || 'No description')}</div>
+            </td>
+            <td>
+                <span class="category-badge">${escapeHtml(product.category || 'No category')}</span>
+            </td>
+            <td>
+                <div class="size-variants">
+                    ${(product.sizeVariants || []).map(variant => `
+                        <div class="size-variant">
+                            <span>${escapeHtml(variant.size || 'Unknown')}</span>
+                            <div class="variant-price">
+                                ${variant.discountedPrice ?
+                        `<span class="original-price">${(variant.price || 0).toFixed(2)}</span>
+                                     <span class="discounted-price">${(variant.discountedPrice || 0).toFixed(2)}</span>` :
+                        `<span>${(variant.price || 0).toFixed(2)}</span>`
+                    }
+                            </div>
+                            <span class="${variant.isAvailable ? 'status-available' : 'status-unavailable'}">
+                                <i class="fas ${variant.isAvailable ? 'fa-check' : 'fa-times'}"></i>
+                            </span>
                         </div>
-                    </td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-btn view-btn" onclick="viewProduct('${product._id || product.id}')" title="View Details">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn edit-btn" onclick="editProduct('${product._id || product.id}')" title="Edit Product">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete-btn" onclick="deleteProduct('${product._id || product.id}')" title="Delete Product">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
+                    `).join('')}
+                </div>
+            </td>
+            <td>
+                <div class="actions">
+                    <button class="action-btn view-btn" onclick="viewProduct('${product._id || product.id}')" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn edit-btn" onclick="editProduct('${product._id || product.id}')" title="Edit Product">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteProduct('${product._id || product.id}')" title="Delete Product">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `}).join('');
         }
 
-        // Helper function to escape HTML
         function escapeHtml(unsafe) {
             return unsafe
                 .replace(/&/g, "&amp;")
@@ -1713,7 +553,6 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // Open Add Product Modal
         function openAddModal() {
             editingProductId = null;
             document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Add Product';
@@ -1721,53 +560,45 @@
             document.getElementById('sizeVariantsContainer').innerHTML = '';
             document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Save Product';
 
-            // Reset image uploads
-            coverPhotoFile = null;
-            smallVariantFile = null;
-            additionalImagesFiles = [];
+            smallSizeImages = [];
+            largeSizeImages = [];
+            initializeImageUploadSections();
 
-            // Reset image previews
-            removeCoverPhoto();
-            removeSmallVariantPhoto();
-            initializeAdditionalImagesGrid();
-
-            // Add default size variants
             addSizeVariant({ size: 'Small', price: '', discountedPrice: '', isAvailable: true });
             addSizeVariant({ size: 'Large', price: '', discountedPrice: '', isAvailable: true });
 
+            document.getElementById('imageUploadSection').style.display = 'block';
             document.getElementById('productModal').style.display = 'block';
         }
 
-        // Add size variant with discount price support
         function addSizeVariant(variant = null) {
             const container = document.getElementById('sizeVariantsContainer');
             const variantId = Date.now() + Math.random();
 
             const variantHtml = `
-                <div class="size-variant-item" id="variant-${variantId}">
-                    <select required>
-                        <option value="">Select Size</option>
-                        <option value="Small" ${variant && variant.size === 'Small' ? 'selected' : ''}>Small</option>
-                        <option value="Large" ${variant && variant.size === 'Large' ? 'selected' : ''}>Large</option>
-                    </select>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <input type="number" placeholder="Original Price" step="0.01" min="0" value="${variant ? variant.price || '' : ''}" required>
-                        <input type="number" placeholder="Discounted Price (Optional)" step="0.01" min="0" value="${variant ? variant.discountedPrice || '' : ''}">
-                    </div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" ${variant ? (variant.isAvailable !== false ? 'checked' : '') : 'checked'} id="available-${variantId}">
-                        <label for="available-${variantId}">Available</label>
-                    </div>
-                    <button type="button" class="remove-variant-btn" onclick="removeSizeVariant('${variantId}')" title="Remove variant">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
+        <div class="size-variant-item" id="variant-${variantId}">
+            <select required>
+                <option value="">Select Size</option>
+                <option value="Small" ${variant && variant.size === 'Small' ? 'selected' : ''}>Small</option>
+                <option value="Large" ${variant && variant.size === 'Large' ? 'selected' : ''}>Large</option>
+            </select>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <input type="number" placeholder="Original Price" step="0.01" min="0" value="${variant ? variant.price || '' : ''}" required>
+                <input type="number" placeholder="Discounted Price (Optional)" step="0.01" min="0" value="${variant ? variant.discountedPrice || '' : ''}">
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" ${variant ? (variant.isAvailable !== false ? 'checked' : '') : 'checked'} id="available-${variantId}">
+                <label for="available-${variantId}">Available</label>
+            </div>
+            <button type="button" class="remove-variant-btn" onclick="removeSizeVariant('${variantId}')" title="Remove variant">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
 
             container.insertAdjacentHTML('beforeend', variantHtml);
         }
 
-        // Remove size variant
         function removeSizeVariant(variantId) {
             const element = document.getElementById(`variant-${variantId}`);
             if (element && document.querySelectorAll('.size-variant-item').length > 1) {
@@ -1777,7 +608,7 @@
             }
         }
 
-        // Save product with new image structure
+        // FIXED: Save product - Updated to match backend routes
         async function saveProduct() {
             const title = document.getElementById('productTitle').value.trim();
             const description = document.getElementById('productDescription').value.trim();
@@ -1788,7 +619,6 @@
                 return;
             }
 
-            // Collect size variants with discount prices
             const variantElements = document.querySelectorAll('.size-variant-item');
             const sizeVariants = [];
 
@@ -1802,7 +632,6 @@
                 if (size && !isNaN(price) && price >= 0) {
                     const variant = { size, price, isAvailable };
 
-                    // Add discounted price if provided and valid
                     if (discountedPrice !== null && !isNaN(discountedPrice)) {
                         if (discountedPrice >= price) {
                             showNotification(`Discounted price must be less than original price for ${size}`, 'error');
@@ -1820,7 +649,6 @@
                 return;
             }
 
-            // Check for duplicate sizes
             const sizes = sizeVariants.map(v => v.size);
             const uniqueSizes = [...new Set(sizes)];
             if (sizes.length !== uniqueSizes.length) {
@@ -1839,39 +667,51 @@
 
                 let response;
                 let url;
-                let method = 'POST';
 
                 if (editingProductId) {
-                    // Update existing product (no image handling)
+                    // Update existing product
                     formData.append('id', editingProductId);
+
+                    // Debug: Log FormData contents
+                    console.log('Updating product with ID:', editingProductId);
+                    console.log('FormData contents:');
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}:`, value);
+                    }
+
                     url = `${API_BASE_URL}/UpdateProduct`;
+
+                    response = await fetch(url, {
+                        method: 'POST',
+                        body: formData
+                    });
                 } else {
                     // Create new product with images
                     url = `${API_BASE_URL}/CreateProduct`;
 
-                    // Handle image uploads in specific order for new products
-                    // 1. Cover photo (first in array)
-                    if (coverPhotoFile) {
-                        formData.append('images', coverPhotoFile);
+                    // Add images: Small first (8), then Large (8)
+                    for (let file of smallSizeImages) {
+                        formData.append('images', file);
                     }
-
-                    // 2. Additional images (middle of array)
-                    for (let file of additionalImagesFiles) {
+                    for (let file of largeSizeImages) {
                         formData.append('images', file);
                     }
 
-                    // 3. Small variant image (last in array)
-                    if (smallVariantFile) {
-                        formData.append('images', smallVariantFile);
+                    // Debug: Log FormData contents
+                    console.log('Creating new product');
+                    console.log('FormData contents:');
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}:`, value);
                     }
+
+                    response = await fetch(url, {
+                        method: 'POST',
+                        body: formData
+                    });
                 }
 
-                response = await fetch(url, {
-                    method: method,
-                    body: formData
-                });
-
                 const data = await response.json();
+                console.log('Server response:', data);
 
                 if (data.success) {
                     showNotification(editingProductId ? 'Product updated successfully' : 'Product created successfully', 'success');
@@ -1883,13 +723,12 @@
 
             } catch (error) {
                 console.error('Error saving product:', error);
-                showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product. Please check your connection and try again.`, 'error');
+                showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product. Please try again.`, 'error');
             } finally {
                 showLoadingOverlay(false);
             }
         }
-
-        // Edit product function (simplified - no image editing in this version)
+        // FIXED: Edit product - Using correct endpoint
         async function editProduct(id) {
             try {
                 showLoadingOverlay(true);
@@ -1910,10 +749,8 @@
                 document.getElementById('productDescription').value = product.description || '';
                 document.getElementById('productCategory').value = product.category || '';
 
-                // Hide image upload sections for edit mode
                 document.getElementById('imageUploadSection').style.display = 'none';
 
-                // Populate size variants
                 const container = document.getElementById('sizeVariantsContainer');
                 container.innerHTML = '';
 
@@ -1935,97 +772,7 @@
             }
         }
 
-        // Image update and delete functions
-        function triggerImageUpdate(productId, imageId) {
-            currentImageBeingUpdated = { productId, imageId };
-            document.getElementById('hiddenImageUpdateInput').click();
-        }
-
-        async function handleImageUpdate(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            if (file.size > 5 * 1024 * 1024) {
-                showNotification('Image must be less than 5MB', 'error');
-                return;
-            }
-
-            const { productId, imageId } = currentImageBeingUpdated;
-
-            try {
-                showLoadingOverlay(true);
-
-                const formData = new FormData();
-                formData.append('productId', productId);
-                formData.append('imageId', imageId);
-                formData.append('image', file);
-
-                const response = await fetch(`${API_BASE_URL}/UpdateImageInProduct`, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    showNotification('Image updated successfully', 'success');
-                    // Reload the view modal with updated data
-                    await viewProduct(productId);
-                    await loadProducts(); // Refresh the main table
-                } else {
-                    showNotification('Failed to update image: ' + (data.message || 'Unknown error'), 'error');
-                }
-
-            } catch (error) {
-                console.error('Error updating image:', error);
-                showNotification('Failed to update image. Please try again.', 'error');
-            } finally {
-                showLoadingOverlay(false);
-                // Reset the file input
-                event.target.value = '';
-                currentImageBeingUpdated = { productId: null, imageId: null };
-            }
-        }
-
-        async function deleteImage(productId, imageId) {
-            if (!confirm('Are you sure you want to delete this image?')) {
-                return;
-            }
-
-            try {
-                showLoadingOverlay(true);
-
-                const response = await fetch(`${API_BASE_URL}/DeleteImageFromProduct`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        productId: productId,
-                        imageId: imageId
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    showNotification('Image deleted successfully', 'success');
-                    // Reload the view modal with updated data
-                    await viewProduct(productId);
-                    await loadProducts(); // Refresh the main table
-                } else {
-                    showNotification('Failed to delete image: ' + (data.message || 'Unknown error'), 'error');
-                }
-
-            } catch (error) {
-                console.error('Error deleting image:', error);
-                showNotification('Failed to delete image. Please try again.', 'error');
-            } finally {
-                showLoadingOverlay(false);
-            }
-        }
-
-        // Complete viewProduct function with image edit/delete functionality
+        // FIXED: View product - Using correct endpoint
         async function viewProduct(id) {
             try {
                 showLoadingOverlay(true);
@@ -2041,10 +788,9 @@
                 const product = data.product;
                 const modalBody = document.getElementById('viewModalBody');
 
-                function getGalleryImageUrl(img, index) {
-                    if (typeof img === 'string') {
-                        return `${API_BASE_URL}${img}`;
-                    } else if (img && typeof img === 'object') {
+                function getImageUrl(img) {
+                    if (typeof img === 'string') return `${API_BASE_URL}${img}`;
+                    if (img && typeof img === 'object') {
                         if (img.url) return `${API_BASE_URL}${img.url}`;
                         if (img.path) return `${API_BASE_URL}/${img.path}`;
                         if (img.filename) return `${API_BASE_URL}/uploads/Products/${img.filename}`;
@@ -2052,21 +798,17 @@
                     return 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop';
                 }
 
-                function getImageId(img) {
-                    if (img && typeof img === 'object') {
-                        return img._id || img.id || null;
-                    }
-                    return null;
-                }
+                const smallImages = product.images?.filter(img => img.sizeType === 'Small') || [];
+                const largeImages = product.images?.filter(img => img.sizeType === 'Large') || [];
 
-                // Determine image structure based on your layout
-                const coverImage = product.images && product.images[0] ? product.images[0] : null;
-                const smallVariantImage = product.images && product.images.length > 1 ? product.images[product.images.length - 1] : null;
-                const additionalImages = product.images && product.images.length > 2 ? product.images.slice(1, -1) : [];
+                const smallCover = smallImages.find(img => img.isCover) || smallImages[0];
+                const smallBody = smallImages.filter(img => !img.isCover);
+
+                const largeCover = largeImages.find(img => img.isCover) || largeImages[0];
+                const largeBody = largeImages.filter(img => !img.isCover);
 
                 modalBody.innerHTML = `
             <div class="view-product-details">
-                <!-- Product Basic Info -->
                 <div class="detail-section">
                     <div class="detail-grid">
                         <div class="detail-item">
@@ -2088,7 +830,6 @@
                     </div>
                 </div>
                 
-                <!-- Description -->
                 <div class="detail-section">
                     <div class="detail-item">
                         <div class="detail-label">Description</div>
@@ -2096,7 +837,6 @@
                     </div>
                 </div>
                 
-                <!-- Size Variants & Pricing -->
                 <div class="detail-section">
                     <h4><i class="fas fa-tags"></i> Size Variants & Pricing</h4>
                     <div class="detail-grid">
@@ -2124,102 +864,116 @@
                     </div>
                 </div>
                 
-                <!-- Product Images -->
                 <div class="detail-section">
-                    <h4><i class="fas fa-images"></i> Product Images</h4>
-                    
-                    <!-- Cover Image (Large Size) -->
-                    ${coverImage ? `
+                    <h4><i class="fas fa-images"></i> Small Size Images (${smallImages.length}/8)</h4>
+                    ${smallCover ? `
                         <div style="margin-bottom: 24px;">
-                            <h5 style="color: var(--primary); margin-bottom: 12px;">
-                                <i class="fas fa-image"></i> Cover Photo (Large Size)
-                            </h5>
-                            <div style="text-align: center;">
-                                <div class="editable-image-container">
-                                    <img src="${getGalleryImageUrl(coverImage)}" 
-                                         alt="Cover Photo" 
-                                         style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--primary);"
-                                         onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-                                    ${getImageId(coverImage) ? `
-                                        <div class="image-overlay">
-                                            <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(coverImage)}')" title="Update Image">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(coverImage)}')" title="Delete Image">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    ` : ''}
+                            <h5 style="color: var(--success); margin-bottom: 12px;"><i class="fas fa-image"></i> Cover Photo</h5>
+                            <div style="text-align: center; position: relative; display: inline-block;">
+                                <img src="${getImageUrl(smallCover)}" alt="Small Cover" 
+                                     style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--success); cursor: pointer;"
+                                     class="editable-image"
+                                     data-image-id="${smallCover._id || smallCover.id}"
+                                     data-product-id="${product._id || product.id}"
+                                     data-size-type="Small"
+                                     data-is-cover="true">
+                                <div class="image-edit-overlay">
+                                    <button class="image-action-btn" onclick="updateProductImage('${product._id || product.id}', '${smallCover._id || smallCover.id}')" title="Replace Image">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                    <button class="image-action-btn" onclick="deleteProductImage('${product._id || product.id}', '${smallCover._id || smallCover.id}')" title="Delete Image">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    ` : ''}
+                    ` : '<p style="color: var(--text-muted); font-style: italic;">No cover photo for Small size</p>'}
                     
-                    <!-- Small Variant Image -->
-                    ${smallVariantImage && product.images.length > 1 ? `
-                        <div style="margin-bottom: 24px;">
-                            <h5 style="color: var(--success); margin-bottom: 12px;">
-                                <i class="fas fa-image"></i> Small Variant Image
-                            </h5>
-                            <div style="text-align: center;">
-                                <div class="editable-image-container">
-                                    <img src="${getGalleryImageUrl(smallVariantImage)}" 
-                                         alt="Small Variant Image" 
-                                         style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--success);"
-                                         onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-                                    ${getImageId(smallVariantImage) ? `
-                                        <div class="image-overlay">
-                                            <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(smallVariantImage)}')" title="Update Image">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(smallVariantImage)}')" title="Delete Image">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        </div>
-                    ` : ''}
-                    
-                    <!-- Additional Images -->
-                    ${additionalImages.length > 0 ? `
+                    ${smallBody.length > 0 ? `
                         <div>
-                            <h5 style="color: var(--accent); margin-bottom: 12px;">
-                                <i class="fas fa-images"></i> Additional Images (${additionalImages.length})
-                            </h5>
+                            <h5 style="color: var(--success); margin-bottom: 12px;"><i class="fas fa-images"></i> Body Images (${smallBody.length})</h5>
                             <div class="image-gallery-grid">
-                                ${additionalImages.map((img, index) => `
-                                    <div class="image-gallery-item">
-                                        <div class="editable-image-container">
-                                            <img src="${getGalleryImageUrl(img)}" 
-                                                 alt="Additional Image ${index + 1}" 
-                                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid var(--border);"
-                                                 onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop'">
-                                            ${getImageId(img) ? `
-                                                <div class="image-overlay">
-                                                    <button class="image-action-btn edit" onclick="triggerImageUpdate('${product._id || product.id}', '${getImageId(img)}')" title="Update Image">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="image-action-btn delete" onclick="deleteImage('${product._id || product.id}', '${getImageId(img)}')" title="Delete Image">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                        <div style="margin-top: 4px; font-size: 0.8rem; color: var(--text-muted);">
-                                            Image ${index + 1}
+                                ${smallBody.map((img, index) => `
+                                    <div class="image-gallery-item" style="position: relative;">
+                                        <img src="${getImageUrl(img)}" alt="Small Image ${index + 1}" 
+                                             style="width: 200px; height: 200px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); cursor: pointer;"
+                                             class="editable-image"
+                                             data-image-id="${img._id || img.id}"
+                                             data-product-id="${product._id || product.id}"
+                                             data-size-type="Small"
+                                             data-is-cover="false">
+                                        <div class="image-edit-overlay">
+                                            <button class="image-action-btn" onclick="setCoverImage('${product._id || product.id}', '${img._id || img.id}')" title="Set as Cover">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                            <button class="image-action-btn" onclick="updateProductImage('${product._id || product.id}', '${img._id || img.id}')" title="Replace Image">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </button>
+                                            <button class="image-action-btn" onclick="deleteProductImage('${product._id || product.id}', '${img._id || img.id}')" title="Delete Image">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
                     ` : ''}
+                </div>
+
+                <div class="detail-section">
+                    <h4><i class="fas fa-images"></i> Large Size Images (${largeImages.length}/8)</h4>
+                    ${largeCover ? `
+                        <div style="margin-bottom: 24px;">
+                            <h5 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-image"></i> Cover Photo</h5>
+                            <div style="text-align: center; position: relative; display: inline-block;">
+                                <img src="${getImageUrl(largeCover)}" alt="Large Cover" 
+                                     style="max-width: 300px; max-height: 300px; border-radius: var(--radius); box-shadow: var(--shadow-lg); border: 3px solid var(--primary); cursor: pointer;"
+                                     class="editable-image"
+                                     data-image-id="${largeCover._id || largeCover.id}"
+                                     data-product-id="${product._id || product.id}"
+                                     data-size-type="Large"
+                                     data-is-cover="true">
+                                <div class="image-edit-overlay">
+                                    <button class="image-action-btn" onclick="updateProductImage('${product._id || product.id}', '${largeCover._id || largeCover.id}')" title="Replace Image">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                    <button class="image-action-btn" onclick="deleteProductImage('${product._id || product.id}', '${largeCover._id || largeCover.id}')" title="Delete Image">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ` : '<p style="color: var(--text-muted); font-style: italic;">No cover photo for Large size</p>'}
                     
-                    ${!coverImage && !smallVariantImage && additionalImages.length === 0 ?
-                        '<p style="color: var(--text-muted); font-style: italic; text-align: center; padding: 40px;">No images available for this product</p>'
-                        : ''
-                    }
+                    ${largeBody.length > 0 ? `
+                        <div>
+                            <h5 style="color: var(--primary); margin-bottom: 12px;"><i class="fas fa-images"></i> Body Images (${largeBody.length})</h5>
+                            <div class="image-gallery-grid">
+                                ${largeBody.map((img, index) => `
+                                    <div class="image-gallery-item" style="position: relative;">
+                                        <img src="${getImageUrl(img)}" alt="Large Image ${index + 1}" 
+                                             style="width: 200px; height: 200px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); cursor: pointer;"
+                                             class="editable-image"
+                                             data-image-id="${img._id || img.id}"
+                                             data-product-id="${product._id || product.id}"
+                                             data-size-type="Large"
+                                             data-is-cover="false">
+                                        <div class="image-edit-overlay">
+                                            <button class="image-action-btn" onclick="setCoverImage('${product._id || product.id}', '${img._id || img.id}')" title="Set as Cover">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                            <button class="image-action-btn" onclick="updateProductImage('${product._id || product.id}', '${img._id || img.id}')" title="Replace Image">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </button>
+                                            <button class="image-action-btn" onclick="deleteProductImage('${product._id || product.id}', '${img._id || img.id}')" title="Delete Image">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
             </div>
         `;
@@ -2234,9 +988,119 @@
             }
         }
 
-        // Delete product function
+        async function updateProductImage(productId, imageId) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('Image size must be less than 5MB', 'error');
+                    return;
+                }
+
+                try {
+                    showLoadingOverlay(true);
+
+                    const formData = new FormData();
+                    formData.append('productId', productId);
+                    formData.append('imageId', imageId);
+                    formData.append('image', file);
+
+                    const response = await fetch(`${API_BASE_URL}/UpdateImageInProduct`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showNotification('Image updated successfully', 'success');
+                        await viewProduct(productId); // Refresh the view
+                    } else {
+                        showNotification('Failed to update image: ' + data.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error updating image:', error);
+                    showNotification('Failed to update image', 'error');
+                } finally {
+                    showLoadingOverlay(false);
+                }
+            };
+
+            input.click();
+        }
+        async function deleteProductImage(productId, imageId) {
+            if (!confirm('Are you sure you want to delete this image? This action cannot be undone.')) return;
+
+            try {
+                showLoadingOverlay(true);
+
+                const response = await fetch(`${API_BASE_URL}/DeleteImageFromProduct`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        imageId: imageId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification('Image deleted successfully', 'success');
+                    await viewProduct(productId); // Refresh the view
+                } else {
+                    showNotification('Failed to delete image: ' + data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting image:', error);
+                showNotification('Failed to delete image', 'error');
+            } finally {
+                showLoadingOverlay(false);
+            }
+        }
+        async function setCoverImage(productId, imageId) {
+            if (!confirm('Set this image as the cover photo for its size?')) return;
+
+            try {
+                showLoadingOverlay(true);
+
+                const response = await fetch(`${API_BASE_URL}/SetCoverImage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        imageId: imageId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification('Cover image updated successfully', 'success');
+                    await viewProduct(productId); // Refresh the view
+                } else {
+                    showNotification('Failed to update cover image: ' + data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error setting cover image:', error);
+                showNotification('Failed to update cover image', 'error');
+            } finally {
+                showLoadingOverlay(false);
+            }
+        }
+
+        // FIXED: Delete product - Using GET method as per backend
         async function deleteProduct(id) {
-            if (confirm('Are you sure you want to delete this product?')) {
+            if (confirm('Are you sure you want to delete this product? All associated images will also be deleted.')) {
                 try {
                     showLoadingOverlay(true);
                     const response = await fetch(`${API_BASE_URL}/DeleteProduct?id=${id}`, {
@@ -2260,30 +1124,20 @@
             }
         }
 
-        // Close modal function
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
             editingProductId = null;
             document.getElementById('productForm').reset();
-
-            // Reset image uploads
-            coverPhotoFile = null;
-            smallVariantFile = null;
-            additionalImagesFiles = [];
-
-            // Show image sections again for next use and reset previews
+            smallSizeImages = [];
+            largeSizeImages = [];
             document.getElementById('imageUploadSection').style.display = 'block';
-            removeCoverPhoto();
-            removeSmallVariantPhoto();
-            initializeAdditionalImagesGrid();
+            initializeImageUploadSections();
         }
 
-        // Close view modal
         function closeViewModal() {
             document.getElementById('viewModal').style.display = 'none';
         }
 
-        // Close modals when clicking outside
         window.onclick = function (event) {
             const productModal = document.getElementById('productModal');
             const viewModal = document.getElementById('viewModal');
@@ -2296,7 +1150,6 @@
             }
         }
 
-        // Handle escape key
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeModal();
@@ -2304,22 +1157,14 @@
             }
         });
 
-        // Close notification toast when clicked
         document.getElementById('notificationToast').addEventListener('click', function () {
             this.classList.remove('show');
         });
 
-        // Initialize the application
         document.addEventListener('DOMContentLoaded', function () {
             initializeData();
-            initializeAdditionalImagesGrid();
+            initializeImageUploadSections();
         });
-
-        // Additional initialization function
-        function initializePageContent() {
-            initializeData();
-            initializeAdditionalImagesGrid();
-        }
     </script>
 </body>
 
