@@ -5,6 +5,7 @@
 class CartManager {
     constructor() {
         this.cart = this.loadCartFromStorage();
+        // this.API_BASE_URL = "http://localhost:8000";
         this.API_BASE_URL = "https://jww-backend-main-production.up.railway.app";
         this.productsData = [];
 
@@ -55,11 +56,34 @@ class CartManager {
     }
 
     // Get image URL with fallback
-    getImageUrl(image) {
-        if (!image) return './assets/images/ABout-pic.png';
-        const imageUrl = typeof image === 'string' ? image : image.url;
-        return imageUrl ? `${this.API_BASE_URL}${imageUrl}` : './assets/images/ABout-pic.png';
+    // Get image URL with fallback
+getImageUrl(image) {
+    if (!image) return './assets/images/ABout-pic.png';
+    
+    // If it's already a full URL (starts with http), return as is
+    if (typeof image === 'string' && image.startsWith('http')) {
+        return image;
     }
+    
+    const imageUrl = typeof image === 'string' ? image : image.url;
+    
+    // If URL already starts with backend base, return as is
+    if (imageUrl && imageUrl.startsWith(this.API_BASE_URL)) {
+        return imageUrl;
+    }
+    
+    // If it's a relative path like /uploads/..., prepend backend URL
+    if (imageUrl && imageUrl.startsWith('/uploads')) {
+        return `${this.API_BASE_URL}${imageUrl}`;
+    }
+    
+    // If it's a local asset path, return as is
+    if (imageUrl && imageUrl.startsWith('./assets')) {
+        return imageUrl;
+    }
+    
+    return imageUrl ? `${this.API_BASE_URL}${imageUrl}` : './assets/images/ABout-pic.png';
+}
 
     // Load cart from localStorage
     loadCartFromStorage() {
@@ -200,20 +224,28 @@ class CartManager {
     }
 
     // Change quantity of cart item
-    changeQuantity(index, change) {
-        if (this.cart[index]) {
-            this.cart[index].quantity += change;
+// Change quantity of cart item
+changeQuantity(index, change) {
+    if (this.cart[index]) {
+        this.cart[index].quantity += change;
 
-            if (this.cart[index].quantity <= 0) {
-                this.cart.splice(index, 1);
-            }
+        if (this.cart[index].quantity <= 0) {
+            this.cart.splice(index, 1);
+        }
 
-            this.saveCartToStorage();
-            this.updateCartDisplay();
-            this.updateCartCount();
+        this.saveCartToStorage();
+        this.updateCartDisplay();
+        this.updateCartCount();
+        
+        // Keep cart open after update
+        if (this.cartSection && this.cartSection.classList.contains('active')) {
+            // Cart is open, keep it open
+            setTimeout(() => {
+                this.cartSection.classList.add('active');
+            }, 0);
         }
     }
-
+}
     // Remove specific item from cart
     removeItem(index) {
         if (this.cart[index]) {
@@ -237,54 +269,63 @@ class CartManager {
 
     // Update cart display
     updateCartDisplay() {
-        if (!this.cartContainer) return;
+    if (!this.cartContainer) return;
 
-        console.log('Updating cart display, items:', this.cart.length);
+    console.log('Updating cart display, items:', this.cart.length);
+    
+    // Remember if cart was open before update
+    const wasCartOpen = this.cartSection && this.cartSection.classList.contains('active');
 
-        if (this.cart.length === 0) {
-            if (this.emptyMessage) this.emptyMessage.style.display = 'block';
-            if (this.cartTotals) this.cartTotals.style.display = 'none';
-            this.cartContainer.innerHTML = '';
-            return;
-        }
-
-        if (this.emptyMessage) this.emptyMessage.style.display = 'none';
-        if (this.cartTotals) this.cartTotals.style.display = 'block';
-
-        this.cartContainer.innerHTML = this.cart.map((item, index) => {
-            const displayPrice = item.hasDiscount ? 
-                `<span class="original-price" style="text-decoration: line-through; color: #999; font-size: 0.9em;">PKR: ${item.originalPrice}</span>
-                 <span class="discounted-price" style="color: #e74c3c; font-weight: bold;">PKR: ${item.sizePrice}</span>` :
-                `PKR: ${item.sizePrice}`;
-
-            const totalItemPrice = item.sizePrice * item.boxCount * item.quantity;
-
-            return `
-                <div class="cart-products">
-                    <div class="right-content-ct">
-                        <div class="image-cart-p">
-                            <img src="${item.image}" alt="${item.name}" onerror="this.src='./assets/images/ABout-pic.png'">
-                        </div>
-                        <div class="content-cart-product">
-                            <div class="name-p">${item.name}</div>
-                            <div class="p-size-cart">${item.size ? (item.size.charAt(0).toUpperCase() + item.size.slice(1)) : 'Regular'} - ${item.boxCount} Box${item.boxCount > 1 ? 'es' : ''}</div>
-                            <div class="price-p-container">
-                                <div class="unit-price">${displayPrice}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inc-dec-btn">
-                        <div class="inc" onclick="cartManager.changeQuantity(${index}, 1)">+</div>
-                        <div class="quantity">${item.quantity.toString().padStart(2, '0')}</div>
-                        <div class="dec" onclick="cartManager.changeQuantity(${index}, -1)">-</div>
-                    </div>
-                  
-                </div>
-            `;
-        }).join('');
-
-        this.updateCartTotals();
+    if (this.cart.length === 0) {
+        if (this.emptyMessage) this.emptyMessage.style.display = 'block';
+        if (this.cartTotals) this.cartTotals.style.display = 'none';
+        this.cartContainer.innerHTML = '';
+        return;
     }
+
+    if (this.emptyMessage) this.emptyMessage.style.display = 'none';
+    if (this.cartTotals) this.cartTotals.style.display = 'block';
+
+    this.cartContainer.innerHTML = this.cart.map((item, index) => {
+        const displayPrice = item.hasDiscount ? 
+            `<span class="original-price" style="text-decoration: line-through; color: #999; font-size: 0.9em;">PKR: ${item.originalPrice}</span>
+             <span class="discounted-price" style="color: #e74c3c; font-weight: bold;">PKR: ${item.sizePrice}</span>` :
+            `PKR: ${item.sizePrice}`;
+
+        const totalItemPrice = item.sizePrice * item.boxCount * item.quantity;
+
+        return `
+            <div class="cart-products">
+                <div class="right-content-ct">
+                    <div class="image-cart-p">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.src='./assets/images/ABout-pic.png'">
+                    </div>
+                    <div class="content-cart-product">
+                        <div class="name-p">${item.name}</div>
+                        <div class="p-size-cart">${item.size ? (item.size.charAt(0).toUpperCase() + item.size.slice(1)) : 'Regular'} - ${item.boxCount} Box${item.boxCount > 1 ? 'es' : ''}</div>
+                        <div class="price-p-container">
+                            <div class="unit-price">${displayPrice}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inc-dec-btn">
+                    <div class="inc" onclick="cartManager.changeQuantity(${index}, 1)">+</div>
+                    <div class="quantity">${item.quantity.toString().padStart(2, '0')}</div>
+                    <div class="dec" onclick="cartManager.changeQuantity(${index}, -1)">-</div>
+                </div>
+              
+            </div>
+        `;
+    }).join('');
+
+    this.updateCartTotals();
+    
+    // Restore cart open state if it was open
+    if (wasCartOpen && this.cartSection) {
+        this.cartSection.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
 
     // Update cart totals
     updateCartTotals() {

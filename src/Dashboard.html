@@ -609,126 +609,135 @@
         }
 
         // FIXED: Save product - Updated to match backend routes
-        async function saveProduct() {
-            const title = document.getElementById('productTitle').value.trim();
-            const description = document.getElementById('productDescription').value.trim();
-            const category = document.getElementById('productCategory').value.trim();
+    
+    // FIXED: Save product - Updated to properly label images with sizeType
+async function saveProduct() {
+    const title = document.getElementById('productTitle').value.trim();
+    const description = document.getElementById('productDescription').value.trim();
+    const category = document.getElementById('productCategory').value.trim();
 
-            if (!title || !description || !category) {
-                showNotification('Please fill in all required fields', 'error');
-                return;
-            }
+    if (!title || !description || !category) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+    }
 
-            const variantElements = document.querySelectorAll('.size-variant-item');
-            const sizeVariants = [];
+    const variantElements = document.querySelectorAll('.size-variant-item');
+    const sizeVariants = [];
 
-            for (let element of variantElements) {
-                const inputs = element.querySelectorAll('input, select');
-                const size = inputs[0].value.trim();
-                const price = parseFloat(inputs[1].value);
-                const discountedPrice = inputs[2].value ? parseFloat(inputs[2].value) : null;
-                const isAvailable = inputs[3].checked;
+    for (let element of variantElements) {
+        const inputs = element.querySelectorAll('input, select');
+        const size = inputs[0].value.trim();
+        const price = parseFloat(inputs[1].value);
+        const discountedPrice = inputs[2].value ? parseFloat(inputs[2].value) : null;
+        const isAvailable = inputs[3].checked;
 
-                if (size && !isNaN(price) && price >= 0) {
-                    const variant = { size, price, isAvailable };
+        if (size && !isNaN(price) && price >= 0) {
+            const variant = { size, price, isAvailable };
 
-                    if (discountedPrice !== null && !isNaN(discountedPrice)) {
-                        if (discountedPrice >= price) {
-                            showNotification(`Discounted price must be less than original price for ${size}`, 'error');
-                            return;
-                        }
-                        variant.discountedPrice = discountedPrice;
-                    }
-
-                    sizeVariants.push(variant);
+            if (discountedPrice !== null && !isNaN(discountedPrice)) {
+                if (discountedPrice >= price) {
+                    showNotification(`Discounted price must be less than original price for ${size}`, 'error');
+                    return;
                 }
+                variant.discountedPrice = discountedPrice;
             }
 
-            if (sizeVariants.length === 0) {
-                showNotification('Please add at least one valid size variant', 'error');
-                return;
-            }
-
-            const sizes = sizeVariants.map(v => v.size);
-            const uniqueSizes = [...new Set(sizes)];
-            if (sizes.length !== uniqueSizes.length) {
-                showNotification('Size variants must have unique sizes', 'error');
-                return;
-            }
-
-            try {
-                showLoadingOverlay(true);
-
-                const formData = new FormData();
-                formData.append('title', title);
-                formData.append('description', description);
-                formData.append('category', category);
-                formData.append('sizeVariants', JSON.stringify(sizeVariants));
-
-                let response;
-                let url;
-
-                if (editingProductId) {
-                    // Update existing product
-                    formData.append('id', editingProductId);
-
-                    // Debug: Log FormData contents
-                    console.log('Updating product with ID:', editingProductId);
-                    console.log('FormData contents:');
-                    for (let [key, value] of formData.entries()) {
-                        console.log(`${key}:`, value);
-                    }
-
-                    url = `${API_BASE_URL}/UpdateProduct`;
-
-                    response = await fetch(url, {
-                        method: 'POST',
-                        body: formData
-                    });
-                } else {
-                    // Create new product with images
-                    url = `${API_BASE_URL}/CreateProduct`;
-
-                    // Add images: Small first (8), then Large (8)
-                    for (let file of smallSizeImages) {
-                        formData.append('images', file);
-                    }
-                    for (let file of largeSizeImages) {
-                        formData.append('images', file);
-                    }
-
-                    // Debug: Log FormData contents
-                    console.log('Creating new product');
-                    console.log('FormData contents:');
-                    for (let [key, value] of formData.entries()) {
-                        console.log(`${key}:`, value);
-                    }
-
-                    response = await fetch(url, {
-                        method: 'POST',
-                        body: formData
-                    });
-                }
-
-                const data = await response.json();
-                console.log('Server response:', data);
-
-                if (data.success) {
-                    showNotification(editingProductId ? 'Product updated successfully' : 'Product created successfully', 'success');
-                    closeModal();
-                    await loadProducts();
-                } else {
-                    showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product: ` + (data.message || 'Unknown error'), 'error');
-                }
-
-            } catch (error) {
-                console.error('Error saving product:', error);
-                showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product. Please try again.`, 'error');
-            } finally {
-                showLoadingOverlay(false);
-            }
+            sizeVariants.push(variant);
         }
-        // FIXED: Edit product - Using correct endpoint
+    }
+
+    if (sizeVariants.length === 0) {
+        showNotification('Please add at least one valid size variant', 'error');
+        return;
+    }
+
+    const sizes = sizeVariants.map(v => v.size);
+    const uniqueSizes = [...new Set(sizes)];
+    if (sizes.length !== uniqueSizes.length) {
+        showNotification('Size variants must have unique sizes', 'error');
+        return;
+    }
+
+    try {
+        showLoadingOverlay(true);
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('category', category);
+        formData.append('sizeVariants', JSON.stringify(sizeVariants));
+
+        let response;
+        let url;
+
+        if (editingProductId) {
+            // Update existing product
+            formData.append('id', editingProductId);
+            url = `${API_BASE_URL}/UpdateProduct`;
+
+            response = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+        } else {
+            // Create new product with images
+            url = `${API_BASE_URL}/CreateProduct`;
+
+            // FIXED: Append images with proper metadata to indicate which size they belong to
+            // Create an array to track image metadata
+            const imageMetadata = [];
+            
+            // Add Small size images
+            for (let i = 0; i < smallSizeImages.length; i++) {
+                formData.append('images', smallSizeImages[i]);
+                imageMetadata.push({
+                    sizeType: 'Small',
+                    isCover: i === 0
+                });
+            }
+            
+            // Add Large size images
+            for (let i = 0; i < largeSizeImages.length; i++) {
+                formData.append('images', largeSizeImages[i]);
+                imageMetadata.push({
+                    sizeType: 'Large',
+                    isCover: i === 0
+                });
+            }
+            
+            // Send metadata as JSON so backend knows which image is which
+            formData.append('imageMetadata', JSON.stringify(imageMetadata));
+
+            // Debug logging
+            console.log('Creating new product');
+            console.log('Small images count:', smallSizeImages.length);
+            console.log('Large images count:', largeSizeImages.length);
+            console.log('Image metadata:', imageMetadata);
+
+            response = await fetch(url, {
+                method: 'POST',
+                body: formData
+            });
+        }
+
+        const data = await response.json();
+        console.log('Server response:', data);
+
+        if (data.success) {
+            showNotification(editingProductId ? 'Product updated successfully' : 'Product created successfully', 'success');
+            closeModal();
+            await loadProducts();
+        } else {
+            showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product: ` + (data.message || 'Unknown error'), 'error');
+        }
+
+    } catch (error) {
+        console.error('Error saving product:', error);
+        showNotification(`Failed to ${editingProductId ? 'update' : 'create'} product. Please try again.`, 'error');
+    } finally {
+        showLoadingOverlay(false);
+    }
+}    // FIXED: Edit product - Using correct endpoint
         async function editProduct(id) {
             try {
                 showLoadingOverlay(true);

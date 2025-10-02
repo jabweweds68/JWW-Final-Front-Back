@@ -49,10 +49,10 @@ closeBtn.addEventListener('click', () => {
 });
 
 
-const arrowTop = document.querySelector(".arrow-top-sect");
-arrowTop.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-});
+// const arrowTop = document.querySelector(".arrow-top-sect");
+// arrowTop.addEventListener("click", () => {
+//   window.scrollTo({
+//     top: 0,
+//     behavior: "smooth"
+//   });
+// });

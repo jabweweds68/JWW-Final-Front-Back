@@ -10,52 +10,92 @@ const CHECKOUT_CONFIG = {
     companyName: 'JWW Chocolates',
     currency: 'PKR',
     deliveryCharge: 0,
+    // apiBaseUrl: 'http://localhost:8000',  // Changed from apiBaseUrlL
     apiBaseUrl: 'https://jww-backend-main-production.up.railway.app',
     
-    // EmailJS Configuration - Replace with your actual credentials
     emailJS: {
         publicKey: '1RkfeMikntWtXPQjS',
         serviceId: 'service_dfpatsi',
         templateId: 'template_implh0e'
     },
-    // Web3Forms Configuration
     web3Forms: {
         accessKey: '4cab73e6-549c-4299-9c10-763bd39490d7',
         apiUrl: 'https://api.web3forms.com/submit'
     }
 };
-
 // ===== CART MANAGEMENT =====
 let checkoutCart = [];
-
 function loadCheckoutCart() {
     try {
         const savedCart = localStorage.getItem('jww_cart');
+        console.log('Loading cart from localStorage:', savedCart);
         checkoutCart = savedCart ? JSON.parse(savedCart) : [];
-        // console.log('Loaded cart for checkout:', checkoutCart);
+        console.log('✅ Loaded cart for checkout:', checkoutCart);
+        console.log('✅ Cart items count:', checkoutCart.length);
+        
+        // Log each item's image URL
+        checkoutCart.forEach((item, index) => {
+            console.log(`Item ${index}:`, item.name, 'Image:', item.image);
+        });
     } catch (error) {
         console.error('Error loading cart:', error);
         checkoutCart = [];
     }
 }
-
 function displayCheckoutCart() {
+    console.log('🔍 displayCheckoutCart called with', checkoutCart.length, 'items');
+    
     const cartContainer = document.getElementById('checkout-cart-items');
     const productsTotal = document.getElementById('checkout-products-total');
     const subtotal = document.getElementById('checkout-subtotal');
 
-    if (checkoutCart.length === 0) {
-        cartContainer.innerHTML = '<div class="empty-cart">Your cart is empty. <a href="./index.html">Continue Shopping</a></div>';
-        productsTotal.textContent = '0';
-        subtotal.textContent = '250';
+    console.log('📦 Cart container element:', cartContainer);
+    console.log('💰 Products total element:', productsTotal);
+    console.log('💰 Subtotal element:', subtotal);
+
+    if (!cartContainer) {
+        console.error('❌ Cart container not found!');
         return;
     }
 
-    cartContainer.innerHTML = checkoutCart.map(item => `
+    if (checkoutCart.length === 0) {
+        console.log('📭 Cart is empty');
+        cartContainer.innerHTML = '<div class="empty-cart">Your cart is empty. <a href="./index.html">Continue Shopping</a></div>';
+        if (productsTotal) productsTotal.textContent = '0';
+        if (subtotal) subtotal.textContent = '0';
+        return;
+    }
+
+    console.log('✅ Rendering', checkoutCart.length, 'items');
+
+    cartContainer.innerHTML = checkoutCart.map(item => {
+        // Handle image URL more carefully
+        let imageUrl = item.image || './assets/images/ABout-pic.png';
+        
+        // If it's already a full URL (contains http), use as is
+        if (imageUrl.includes('http://') || imageUrl.includes('https://')) {
+            // Use as is - already complete
+        }
+        // If it starts with /uploads, prepend backend URL
+        else if (imageUrl.startsWith('/uploads')) {
+            imageUrl = CHECKOUT_CONFIG.apiBaseUrl + imageUrl;
+        }
+        // If it's a local asset, use as is
+        else if (imageUrl.startsWith('./assets')) {
+            // Use as is
+        }
+        // Fallback
+        else {
+            imageUrl = './assets/images/ABout-pic.png';
+        }
+
+        console.log('🖼️ Display cart item:', item.name, 'Image URL:', imageUrl);
+
+        return `
         <div class="cart-products">
             <div class="right-content-ct">
                 <div class="image-cart-p">
-                    <img src="${item.image}" alt="${item.name}" onerror="this.src='./assets/images/ABout-pic.png'">
+                    <img src="${imageUrl}" alt="${item.name}" onerror="this.src='./assets/images/ABout-pic.png'">
                 </div>
                 <div class="content-cart-product">
                     <div class="name-p">${item.name}</div>
@@ -65,13 +105,15 @@ function displayCheckoutCart() {
             </div>
             <div class="quantity-ch-num">${item.quantity}</div>
         </div>
-    `).join('');
+    `}).join('');
 
     const cartTotal = checkoutCart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
     const finalTotal = cartTotal + CHECKOUT_CONFIG.deliveryCharge;
 
-    productsTotal.textContent = cartTotal;
-    subtotal.textContent = finalTotal;
+    if (productsTotal) productsTotal.textContent = cartTotal;
+    if (subtotal) subtotal.textContent = finalTotal;
+    
+    console.log('✅ Cart display updated. Total:', cartTotal);
 }
 
 // ===== FORM VALIDATION =====
@@ -127,7 +169,7 @@ function removeErrorMessage(field) {
 }
 
 function validateForm() {
-    const requiredFields = ['email', 'phone', 'first-name', 'last-name', 'address', 'city', 'postal-code'];
+    const requiredFields = ['email', 'phone', 'first-name', 'last-name', 'address', 'city'];  // Removed 'postal-code'
     let isValid = true;
 
     requiredFields.forEach(fieldId => {
@@ -142,10 +184,6 @@ function validateForm() {
 
 // ===== CORRECTED BACKEND API INTEGRATION =====
 async function saveOrderToBackend(customerData) {
-    // console.log('=== SAVING ORDER WITH CUSTOMER DETAILS TO BACKEND ===');
-    // console.log('API Endpoint:', `${CHECKOUT_CONFIG.apiBaseUrl}/Order`);
-
-    // Transform data to match your controller's expected format exactly
     const backendOrderData = {
         customer: {
             firstName: customerData.firstName,
@@ -159,18 +197,25 @@ async function saveOrderToBackend(customerData) {
             orderUpdates: customerData.orderUpdates || false,
             marketingUpdates: customerData.marketingUpdates || false
         },
-        items: checkoutCart.map(item => ({
-            image: item.image || './assets/images/ABout-pic.png',
-            title: item.name, // Map 'name' to 'title' as expected by controller
-            quantity: item.quantity,
-            size: item.size || 'Regular',
-            price: item.totalPrice // This is the unit price
-        })),
+        items: checkoutCart.map(item => {
+            // Ensure image URL is properly formatted for backend
+            let imageUrl = item.image || './assets/images/ABout-pic.png';
+            if (imageUrl.startsWith(CHECKOUT_CONFIG.apiBaseUrl)) {
+                // Remove base URL if it's already there, backend will add it
+                imageUrl = imageUrl.replace(CHECKOUT_CONFIG.apiBaseUrl, '');
+            }
+            
+            return {
+                image: imageUrl,
+                title: item.name,
+                quantity: item.quantity,
+                size: item.size || 'Regular',
+                price: item.totalPrice
+            };
+        }),
         deliveryCharge: CHECKOUT_CONFIG.deliveryCharge,
-        notes: '' // You can add notes field to your form if needed
+        notes: ''
     };
-
-    // console.log('Backend order data:', backendOrderData);
 
     try {
         const response = await fetch(`${CHECKOUT_CONFIG.apiBaseUrl}/Order`, {
@@ -183,14 +228,12 @@ async function saveOrderToBackend(customerData) {
         });
 
         const result = await response.json();
-        // console.log('Backend response:', result);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${result.message || 'Unknown error'}`);
         }
 
         if (result.success) {
-            // console.log('Order saved successfully:', result.data._id);
             return {
                 success: true,
                 orderId: result.data._id,
@@ -206,7 +249,6 @@ async function saveOrderToBackend(customerData) {
     } catch (error) {
         console.error('Backend API Error:', error);
 
-        // Provide more specific error messages
         let errorMessage = 'Unknown error occurred';
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
             errorMessage = 'Cannot connect to server. Please check if the backend server is running.';
@@ -628,33 +670,40 @@ Please try again or contact support via WhatsApp: ${CHECKOUT_CONFIG.adminWhatsAp
 }
 
 // ===== INITIALIZATION =====
+// ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function () {
-    // console.log('=== INITIALIZING CHECKOUT WITH PROPER BACKEND INTEGRATION ===');
-    // console.log('Config:', CHECKOUT_CONFIG);
+    console.log('=== INITIALIZING CHECKOUT PAGE ===');
+    console.log('Config:', CHECKOUT_CONFIG);
 
     // Initialize EmailJS
     if (typeof emailjs !== 'undefined') {
         emailjs.init(CHECKOUT_CONFIG.emailJS.publicKey);
-        // console.log('✅ EmailJS initialized successfully');
+        console.log('✅ EmailJS initialized successfully');
     } else {
         console.error('❌ EmailJS library not loaded!');
     }
 
     // Check Web3Forms configuration
     if (CHECKOUT_CONFIG.web3Forms.accessKey) {
-        // console.log('✅ Web3Forms configured successfully');
+        console.log('✅ Web3Forms configured successfully');
     } else {
         console.error('❌ Web3Forms access key not configured!');
     }
 
-    // Load cart
+    // ✅ Load and display cart AFTER DOM is ready
+    console.log('📦 Loading cart...');
     loadCheckoutCart();
+    
+    console.log('🎨 Displaying cart...');
     displayCheckoutCart();
 
     // Add event listeners
     const placeOrderBtn = document.getElementById('place-order-btn');
     if (placeOrderBtn) {
         placeOrderBtn.addEventListener('click', handleFormSubmission);
+        console.log('✅ Place order button listener attached');
+    } else {
+        console.error('❌ Place order button not found!');
     }
 
     // Add form validation
@@ -669,15 +718,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
+        console.log('✅ Form validation attached');
     }
 
     // Listen for cart updates
     window.addEventListener('storage', function (e) {
         if (e.key === 'jww_cart') {
+            console.log('🔄 Cart updated in another tab');
             loadCheckoutCart();
             displayCheckoutCart();
         }
     });
 
-    // console.log('✅ Checkout initialization complete');
+    console.log('✅ Checkout initialization complete');
 });
