@@ -131,7 +131,7 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
 </head>
 
 <body>
-  <div class="slide-bar">
+<div class="slide-bar">
     <div class="menu-2">
       <a href="./index.html">HOME</a>
       <a href="./About.html">About</a>
@@ -140,34 +140,35 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
     <div class="close-btn">CLOSE</div>
     <div class="upper-picture-menu">
       <div class="grid-box-container">
-        <div class="box" id="product-page">
+        <div class="box">
           <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
           <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
           <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
           <div class="name-box">DARK DESIRE</div>
           <div class="choco-menu"><img src="./assets/images/Dark Desire Regular.png" alt=""></div>
         </div>
-        <div class="box" id="product-page">
+        <div class="box straw-bg">
           <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
           <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
           <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
           <div class="name-box">STRAWBAE</div>
           <div class="choco-menu"><img src="./assets/images/Strawbae Regular.png" alt=""></div>
         </div>
-        <div class="box" id="product-page">
+        <div class="box">
           <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
           <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
           <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
           <div class="name-box">VANILLALUST</div>
           <div class="choco-menu"><img src="./assets/images/Vanillust Regular.png" alt=""></div>
         </div>
-        <div class="box" id="product-page">
+        <div class="box">
           <div class="elents"><img src="./assets/images/el-3.png" alt=""></div>
           <div class="elents"><img src="./assets/images/marq-1.png" alt=""></div>
           <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
           <div class="name-box">BUNDLE</div>
           <div class="choco-menu bundle-c"><img src="./assets/images/bundle.png" alt=""></div>
         </div>
+
       </div>
     </div>
   </div>
@@ -335,6 +336,161 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
   <!-- Only load the JS module - all logic is there -->
   <script type="module" src="./js/cart-manager.js"></script>
   <script type="module" src="./js/checkout-page.js"></script>
+  <script>
+  const productPageLinks = document.querySelectorAll("#product-page");
+
+  productPageLinks.forEach(element => {
+    element.style.cursor = "pointer";
+    element.addEventListener("click", () => {
+      window.location.href = "./product-page.html";
+    });
+  });
+
+  // Configuration
+  const PRODUCT_MAPPING = {
+    'DARK DESIRE': 'dark-desire',
+    'STRAWBAE': 'strawbae',
+    'VANILLALUST': 'vanillalust',
+    'BUNDLE': 'bundle'
+  };
+
+  // Function to handle menu product clicks
+  function setupMenuProductNavigation() {
+    const staticMenuBoxes = document.querySelectorAll('.slide-bar .box');
+
+    staticMenuBoxes.forEach(box => {
+      const productName = box.querySelector('.name-box')?.textContent;
+
+      if (productName && PRODUCT_MAPPING[productName]) {
+        box.removeAttribute('id');
+        box.classList.add('menu-product-item');
+        box.style.cursor = 'pointer';
+
+        box.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const productSlug = PRODUCT_MAPPING[productName];
+          navigateToProduct(productSlug, productName);
+        });
+      }
+    });
+  }
+
+  function navigateToProduct(productSlug, productName) {
+    const url = `./product-page.html?product=${encodeURIComponent(productSlug)}&name=${encodeURIComponent(productName)}`;
+    window.location.href = url;
+  }
+
+  async function updateMenuWithAPIProducts() {
+    try {
+      const response = await fetch(`${CONFIG.BACKEND_URL}/GetAllProducts`);
+      const data = await response.json();
+
+      if (data.success && data.products) {
+        updateDynamicMenu(data.products);
+      }
+    } catch (error) {
+      console.error('Error fetching products for menu:', error);
+    }
+  }
+
+  function updateDynamicMenu(products) {
+    const menuContainer = document.querySelector('.slide-bar .grid-box-container');
+    if (!menuContainer) return;
+
+    menuContainer.innerHTML = products.map(product => {
+      const categoryClass = getCategoryClass(product.category);
+
+      return `
+            <div class="box ${categoryClass}" data-product-id="${product._id}">
+                <div class="elents"><img src="./assets/images/el-1.png" alt=""></div>
+                <div class="elents"><img src="./assets/images/marq-2.png" alt=""></div>
+                <div class="elents"><img src="./assets/images/el-2.png" alt=""></div>
+                <div class="name-box">${product.title.toUpperCase()}</div>
+                <div class="choco-menu">
+                    <img src="${getImageUrl(product.images[0])}" alt="${product.title}">
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    setupDynamicMenuNavigation(products);
+  }
+
+  function setupDynamicMenuNavigation(products) {
+    const menuBoxes = document.querySelectorAll('.slide-bar .box[data-product-id]');
+
+    menuBoxes.forEach(box => {
+      box.style.cursor = 'pointer';
+      box.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const productId = box.dataset.productId;
+        const product = products.find(p => p._id === productId);
+
+        if (product) {
+          const productSlug = product.title.toLowerCase().replace(/\s+/g, '-');
+          navigateToProductById(productId, product.title, productSlug);
+        }
+      });
+    });
+  }
+
+  function navigateToProductById(productId, productName, productSlug) {
+    const url = `./product-page.html?productId=${encodeURIComponent(productId)}&name=${encodeURIComponent(productName)}&product=${encodeURIComponent(productSlug)}`;
+    window.location.href = url;
+  }
+
+  function getCategoryClass(category) {
+    switch (category?.toLowerCase()) {
+      case 'strawberry flavour':
+        return 'straw-bg';
+      case 'dark desire':
+        return '';
+      case 'vanilla lust':
+        return 'vanilla-bg';
+      default:
+        return '';
+    }
+  }
+
+  
+  // Make sure getImageUrl is properly defined
+function getImageUrl(image) {
+    if (!image) return './assets/images/ABout-pic.png';
+    
+    const imageUrl = typeof image === 'string' ? image : image.url;
+    
+    if (!imageUrl) return './assets/images/ABout-pic.png';
+    
+    // If URL already starts with http, use as-is
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+        return imageUrl;
+    }
+    
+    // If it's a local asset, use as-is
+    if (imageUrl.startsWith('./assets')) {
+        return imageUrl;
+    }
+    
+    // Otherwise, prepend backend URL
+    return `${CONFIG.BACKEND_URL}${imageUrl}`;
+}
+  document.addEventListener('DOMContentLoaded', () => {
+    setupMenuProductNavigation();
+    updateMenuWithAPIProducts();
+
+    const otherProductLinks = document.querySelectorAll("#product-page:not(.slide-bar .box)");
+    otherProductLinks.forEach(element => {
+      element.style.cursor = "pointer";
+      element.addEventListener("click", () => {
+        window.location.href = "./product-page.html";
+      });
+    });
+  });
+</script>
 </body>
 
 </html>
