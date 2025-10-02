@@ -169,9 +169,9 @@ function adjustCartHeight() {
   const products = productsCard.querySelectorAll(".cart-products").length;
 
   if (products === 1) {
-    productsCard.style.height = "68%";
+    productsCard.style.height = "62%";
   } else if (products === 2) {
-    productsCard.style.height = "65%";
+    productsCard.style.height = "62%";
   } else {
     productsCard.style.height = "fit-content";
   }
