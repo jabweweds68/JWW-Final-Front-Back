@@ -171,7 +171,7 @@ function adjustCartHeight() {
   if (products === 1) {
     productsCard.style.height = "68%";
   } else if (products === 2) {
-    productsCard.style.height = "100%";
+    productsCard.style.height = "65%";
   } else {
     productsCard.style.height = "fit-content";
   }
