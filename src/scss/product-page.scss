@@ -1053,10 +1053,21 @@ border: 1px solid #5c2a00;
 border-radius: 100rem;
 padding: 4rem;
 background-color: #3e1b00;
-
-
+@media (max-width: 768px) {
+  scale: 0.5;
+ width: 60px;
+ position: absolute;
+ height: 60px;
+transform: translateY(50%);
  
+        
+    }
+  
 }
+
+
+
+
 
 /* Pagination bullets */
 .swiper-pagination-bullet {
