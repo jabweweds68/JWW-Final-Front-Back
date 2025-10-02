@@ -684,6 +684,15 @@ src="https://www.facebook.com/tr?id=793268460233772&ev=PageView&noscript=1"
         window.location.href = "./checkout.html";
       });
     });
+
+    document.querySelector(".arrow-top-sect").addEventListener("click", function(e) {
+  e.preventDefault(); // prevent unwanted link jumps
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
     </script>
 <script type="module" src="./js/cart-manager.js"></script>
 </html>

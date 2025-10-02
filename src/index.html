@@ -967,9 +967,7 @@
       </div>
 
     </div>
-    <div class="arrow-top-sect">
-      <img src="./assets/images/arrow-to-top.svg" alt="">
-    </div>
+  
     <div class="privacy-policy">
 
     </div>
@@ -1510,6 +1508,13 @@ function getImageUrl(image) {
       window.location.href = "./checkout.html";
     });
   });
+document.querySelector(".arrow-top-sect").addEventListener("click", function(e) {
+  e.preventDefault(); // prevent unwanted link jumps
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
 
 
 

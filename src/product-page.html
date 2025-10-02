@@ -1577,5 +1577,15 @@
   }
 
 </script>
+<script>
+  document.querySelector(".arrow-top-sect").addEventListener("click", function(e) {
+  e.preventDefault(); // prevent unwanted link jumps
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+</script>
 
 </html>
