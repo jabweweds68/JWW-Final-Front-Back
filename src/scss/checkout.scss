@@ -239,6 +239,10 @@ color: #4a2f1c93;
 .outer-scrol{
     height: 70vh;
     overflow-y: scroll;
+    @media (max-width: 768px) {
+      height: 50vh;
+      
+    }
 
 
 &::-webkit-scrollbar {
