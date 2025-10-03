@@ -429,14 +429,14 @@ async function sendEmailConfirmation(orderData) {
         from_name: CHECKOUT_CONFIG.companyName,
 
         payment_method: 'Cash on Delivery',
-        estimated_delivery: '2-3 working days',
+        estimated_delivery: 'Your order will be delivered within 2–5 working days.',
 
         subject: `Order Confirmation - ${orderData.orderId}`,
         greeting: `Dear ${orderData.customer.firstName}`,
         thank_you_message: `Thank you for your order with ${CHECKOUT_CONFIG.companyName}! We’re delighted to confirm that we’ve received your order and it is now being processed. `,
 
         support_whatsapp: CHECKOUT_CONFIG.adminWhatsApp,
-        support_message: 'f you have any questions or face any issues, please message us directly on our official WhatsApp number Our team will be happy to assist you.'
+        support_message: 'if you have any questions or face any issues, please message us directly on our official WhatsApp number Our team will be happy to assist you.'
     };
 
     // console.log('EmailJS template params:', templateParams);
