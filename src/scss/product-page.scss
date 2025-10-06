@@ -903,6 +903,10 @@ text-align: center;
     overflow: hidden;
   &:first-child {
       max-height: 6rem;
+        @media (max-width: 768px) {
+        max-height: 16rem;
+        
+    }
     }
     @media (max-width: 768px) {
         max-height: 9rem;
