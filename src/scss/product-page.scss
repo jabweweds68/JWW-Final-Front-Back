@@ -901,6 +901,9 @@ text-align: center;
      border-bottom: 1px solid #552716d5;
     flex-direction: column;
     overflow: hidden;
+  &:first-child {
+      max-height: 6rem;
+    }
     @media (max-width: 768px) {
         max-height: 9rem;
         
@@ -914,11 +917,14 @@ text-align: center;
         padding-bottom: 0.5rem;
        
         cursor: pointer;
+     
+       
         h1{
             font-size: 2rem;
             font-weight: lighter;
             color: #552716;
             padding-bottom: 1rem;
+  
              @media (max-width: 768px) {
             font-size: 5rem;
             
@@ -953,13 +959,13 @@ text-align: center;
          
           
         }
+           &.active {
+      max-height: 25rem; // adjust based on content
+    }
    }
 }
 
-.faq-product-1.active {
-    max-height: 500px; /* large enough to fit content */
-    
-}
+
 .choco-bg-2{
     background-color: #934919 !important;
 }
@@ -1078,3 +1084,5 @@ background-color: #3e1b00;
   background: #d7362e; /* active bullet */
   opacity: 1;
 }
+
+

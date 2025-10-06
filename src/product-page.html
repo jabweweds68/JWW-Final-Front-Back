@@ -49,11 +49,11 @@
 </head>
 
 <body>
- <div class="splide ">
+   <div class="splide ">
     <div class="splide__track splide__track-2  splide-height-manage ">
       <ul class="splide__list">
         <li class="splide__slide">💦</li>
-        <li class="splide__slide">FREE DELIVERY</li>
+        <li class="splide__slide">DISCRETE DELIVERY</li>
 
         <li class="splide__slide">🔥</li>
         <li class="splide__slide">BOOK YOUR CHOCOLATE NOW</li>
@@ -67,6 +67,8 @@
         <li class="splide__slide">2-5 DAYS FAST DELIVERY</li>
         <li class="splide__slide">🔥</li>
         <li class="splide__slide">BOOK YOUR CHOCOLATE NOW</li>
+          <li class="splide__slide">👅</li>
+            <li class="splide__slide">FOR MARRIED COUPLES ONLY</li>
       </ul>
     </div>
   </div>
@@ -227,11 +229,13 @@
       </div>
       <div class="faqs-product">
         <div class="faq-product-1">
-          <div class="heading-faqs-product">
-            <h1>What special ingredients are in your chocolates?</h1>
+          <div class="heading-faqs-product active-2">
+            <h1>How do I take Jab We Weds chocolate, and what's the ideal way to use it for the best experience?</h1>
             <div class="icon-flip"><img src="./assets/images/x-vector.svg" alt=""></div>
           </div>
-          <p id="para-faq-p">We use natural ingredients like Black Maca Root and Ashwagandha for energy and desire, along with L-Citrulline Malate for blood flow and Mucuna Pruriens to enhance mood.</p>
+          <p id="para-faq-p">Here's the perfect way: Open the box, hubby takes his piece and wifey takes hers, about 30-60 minutes before your time together. Just one piece each per day is perfect.
+
+Now, for the magic - you will feel the difference from the very first time. But the real secret is consistency. Think of it as your special ritual. The more regularly you make it a part of your intimacy, the more the effects build up and intensify. So, while the first time is great, the 10th time will be even crazier!</p>
 
         </div>
         <div class="faq-product-1">
@@ -1504,23 +1508,24 @@
 <script src="./js/product-page.js" type="module"></script>
 <script>
 
-  const faqs = document.querySelectorAll(".faq-product-1");
+ const faqs = document.querySelectorAll(".faq-product-1");
 
-  faqs.forEach(faq => {
-    const heading = faq.querySelector(".heading-faqs-product");
+faqs.forEach(faq => {
+  const heading = faq.querySelector(".heading-faqs-product");
 
-    heading.addEventListener("click", () => {
-      const isActive = faq.classList.contains("active");
+  heading.addEventListener("click", () => {
+    const isActive = faq.classList.contains("active");
 
-      // Close all first
-      faqs.forEach(f => f.classList.remove("active"));
+    // Close all
+    faqs.forEach(f => f.classList.remove("active"));
 
-      // Re-open if clicked was inactive
-      if (!isActive) {
-        faq.classList.add("active");
-      }
-    });
+    // Toggle the clicked one
+    if (!isActive) {
+      faq.classList.add("active");
+    }
   });
+});
+
 
 </script>
 <script>
