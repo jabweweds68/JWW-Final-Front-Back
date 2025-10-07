@@ -965,6 +965,10 @@ text-align: center;
         }
            &.active {
       max-height: 25rem; // adjust based on content
+      @media (max-width: 768px) {
+        max-height: 65rem;
+        
+      }
     }
    }
 }
