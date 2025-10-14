@@ -11,9 +11,8 @@ let animationFrame;
 
 const isMobile = window.innerWidth <= 768; // 📱 change breakpoint if needed
 
-/* -----------------------
-   🖥 DESKTOP (inertia physics)
------------------------ */
+
+
 if (!isMobile) {
   function animate() {
     currentX += velocity;

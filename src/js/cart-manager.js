@@ -332,8 +332,7 @@ changeQuantity(index, change) {
         const productsTotal = this.cart.reduce((sum, item) => {
             return sum + (item.sizePrice * item.boxCount * item.quantity);
         }, 0);
-        
-        const deliveryCharges = 0;
+        const deliveryCharges = 250;
         const subtotal = productsTotal + deliveryCharges;
 
         const productsTotalElement = document.getElementById('products-total');
@@ -469,7 +468,7 @@ changeQuantity(index, change) {
             return;
         }
 
-        const total = this.getCartTotal() + 0; // Including delivery charges
+        const total = this.getCartTotal() + 250; // Including delivery charges
         // alert(`Proceeding to checkout with total: PKR ${total}`);
         
         // Here you would typically redirect to a checkout page or integrate with a payment gateway
