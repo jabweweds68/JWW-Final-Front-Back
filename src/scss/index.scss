@@ -1162,6 +1162,7 @@ ul{
 .review-section-container{
   width: 100vw;
   height: 120vh;
+  display:  none !important;
   display: flex;
  justify-content: flex-start; /* don't center */
   align-items: center;
