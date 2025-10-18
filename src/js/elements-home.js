@@ -8,7 +8,7 @@ import chocoimage from '../assets/images/choco 1.png'
 import chocoimage2 from '../assets/images/vanila-c.png'
 gsap.registerPlugin(ScrollTrigger);
 const wordContainer = document.querySelector('.word-container');
-const words = ["WILDER", "DARKER", "DEEPER", "HOTTER"];
+const words = ["LASTING", "BETTER", "RICHIER"];
 
 let index = 0;
 let currentWord = document.createElement('span');
